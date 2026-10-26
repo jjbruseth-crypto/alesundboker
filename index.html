@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drake Bruseth Bibliotek</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Vårt digitale bibliotek. Bøker om Ålesund som vi har skrevet, og noen andre.">
+<meta name="description" content="Ålesundbøker og andre bøker av John John Bruseth.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: en bokhylle øverst (bøkene er forsiden), så en katalog med søk, og "Om oss" til slutt. */
+/* Layout: bokhylle øverst, så to hovedfaner (Ålesundbøker / Andre bøker) med underfaner, nyhetsbrev nederst. */
 :root {
   --paper: #eef1ed;      /* kald, lys havtåke */
   --paper-2: #e2e8e3;
@@ -45,45 +45,50 @@ img { max-width: 100%; }
 .wrap { max-width: 72rem; margin: 0 auto; }
 a { color: var(--verdigris); }
 :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.mono { font: 500 .78rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
 
 /* Topp */
 .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem 0; }
-.mark { font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--ink); letter-spacing: .01em; }
-.top nav { display: flex; gap: 1.25rem; font-family: var(--mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
+.mark { font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--ink); }
+.top nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
 .top nav a { color: var(--ink-soft); text-decoration: none; }
 .top nav a:hover { color: var(--verdigris); }
 
 /* Hylle */
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 3rem; align-items: end; padding-block: 3.5rem 0; }
-.hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; margin: 0 0 1.25rem; text-wrap: balance; }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1; margin: 0 0 1.25rem; text-wrap: balance; }
 .hero h1 em { color: var(--verdigris); font-style: normal; }
-.hero p { margin: 0; max-width: 34ch; color: var(--ink-soft); }
-.coords { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; color: var(--brass); margin-bottom: 1rem; display: block; }
+.hero p { margin: 0; max-width: 36ch; color: var(--ink-soft); }
+.coords { color: var(--brass); margin-bottom: 1rem; display: block; }
 .shelf { display: flex; align-items: flex-end; gap: 4px; min-height: 15rem; padding: 0 .5rem; border-bottom: 10px solid var(--ink); overflow-x: auto; overflow-y: hidden; }
 .spine {
   flex: 0 0 auto; width: var(--w, 2.6rem); height: var(--h, 12rem);
   background: var(--c); color: #f4f1e8; border: 0; cursor: pointer; padding: .7rem 0;
   writing-mode: vertical-rl; transform: rotate(180deg);
-  font: 400 .95rem/1 var(--display); letter-spacing: .02em; text-align: left;
+  font: 400 .95rem/1 var(--display); text-align: left;
   box-shadow: inset 3px 0 0 rgba(255,255,255,.12), inset -3px 0 0 rgba(0,0,0,.18);
-  transition: transform .2s ease;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: transform .2s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .spine:hover, .spine:focus-visible { transform: rotate(180deg) translateY(.6rem); }
 .spine.lean { transform: rotate(186deg); transform-origin: bottom right; margin-left: .9rem; }
 
-/* Katalog */
+/* Faner */
 .catalog { padding-block: 4.5rem 2rem; }
-.bar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 1.25rem; margin-bottom: 2rem; }
-.bar h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0; }
-.tools { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
-.filters { display: flex; gap: .25rem; }
-.filters button {
-  font: 500 .78rem var(--mono); text-transform: uppercase; letter-spacing: .07em;
-  background: transparent; color: var(--ink-soft); border: 1px solid var(--line); padding: .45rem .8rem; border-radius: 999px; cursor: pointer;
+.tabs { display: flex; gap: 2rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.tabs button {
+  background: none; border: 0; padding: 0 0 .6rem; cursor: pointer; color: var(--ink-soft);
+  font: 400 clamp(1.5rem, 3.5vw, 2.1rem)/1.1 var(--display); border-bottom: 3px solid transparent; margin-bottom: -1px;
 }
-.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--verdigris); }
+.subbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; padding-block: 1.25rem 2rem; }
+.subtabs { display: flex; flex-wrap: wrap; gap: .35rem; }
+.subtabs button {
+  background: transparent; color: var(--ink-soft); border: 1px solid var(--line); padding: .45rem .85rem; border-radius: 999px; cursor: pointer;
+}
+.subtabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.subtabs .n { opacity: .6; margin-left: .3rem; }
 #q { font: inherit; font-size: .95rem; background: var(--paper-2); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: .45rem 1rem; width: 15rem; max-width: 100%; }
+
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 2.5rem 1.75rem; }
 .book { display: flex; flex-direction: column; gap: .8rem; background: none; border: 0; padding: 0; text-align: left; color: inherit; font: inherit; cursor: pointer; }
 .cover {
@@ -93,39 +98,57 @@ a { color: var(--verdigris); }
   transition: transform .2s ease; position: relative; overflow: hidden;
 }
 .cover::after { content: ""; position: absolute; inset: .55rem; border: 1px solid rgba(244,241,232,.35); pointer-events: none; }
+.cover.img::after { display: none; }
 .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .book:hover .cover { transform: translateY(-4px); }
 .cover .ct { font-family: var(--display); font-size: 1.45rem; line-height: 1.05; text-wrap: balance; }
 .cover .ca { font: 400 .72rem var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
 .meta { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
 .meta strong { font-weight: 600; line-height: 1.3; }
-.meta span { color: var(--ink-soft); font-size: .9rem; }
+.meta .row { display: flex; justify-content: space-between; gap: .5rem; color: var(--ink-soft); font-size: .9rem; }
+.price { font: 500 .85rem var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
 .callno { font: 400 .72rem var(--mono); color: var(--brass); letter-spacing: .06em; }
 .tag { font: 500 .66rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--verdigris); border: 1px solid currentColor; padding: .05rem .4rem; border-radius: 3px; margin-left: .35rem; vertical-align: 2px; }
-.empty { color: var(--ink-soft); font-style: italic; }
+.empty { border: 1px dashed var(--line); padding: 2.5rem 1.5rem; text-align: center; color: var(--ink-soft); }
+.empty strong { display: block; font: 400 1.5rem var(--display); color: var(--ink); margin-bottom: .3rem; }
+.empty button { background: none; border: 0; color: var(--verdigris); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
 
-/* Om */
-.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2rem; padding-block: 3rem 4rem; border-top: 1px solid var(--line); }
-.about h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0; }
+/* Om + nyhetsbrev */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2rem; padding-block: 3rem; border-top: 1px solid var(--line); }
+.about h2, .news h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0; line-height: 1.1; }
 .about p { margin: 0 0 1rem; max-width: 62ch; }
-footer { border-top: 1px solid var(--line); padding-block: 1.5rem 2.5rem; font: .78rem var(--mono); color: var(--ink-soft); letter-spacing: .04em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.news { background: var(--ink); color: var(--paper); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); }
+.news .in { max-width: 72rem; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: center;
+  padding-block: 3rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.news p { margin: .5rem 0 0; opacity: .8; max-width: 44ch; }
+.signup { display: flex; gap: .5rem; flex-wrap: wrap; }
+.signup input { flex: 1 1 14rem; min-width: 0; font: inherit; padding: .7rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+.signup .msg { flex-basis: 100%; font-size: .9rem; margin: 0; }
+.btn { font: 500 .8rem var(--mono); text-transform: uppercase; letter-spacing: .07em; text-decoration: none; padding: .7rem 1.2rem; border-radius: 999px; background: var(--verdigris); color: var(--paper); border: 1px solid var(--verdigris); cursor: pointer; display: inline-block; }
+.btn.ghost { background: transparent; color: var(--ink-soft); border-color: var(--line); }
+footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
 
-/* Bokvindu */
+/* Vinduer */
 dialog { border: 0; padding: 0; background: var(--paper); color: var(--ink); width: min(52rem, calc(100% - 32px)); max-height: calc(100% - 32px); box-shadow: 0 30px 80px rgba(0,0,0,.35); }
 dialog::backdrop { background: rgba(10, 25, 30, .6); }
 .dlg { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 2rem; padding: 2rem; }
 .dlg h3 { font-family: var(--display); font-weight: 400; font-size: 2.1rem; line-height: 1.05; margin: .25rem 0 .4rem; text-wrap: balance; }
 .dlg .by { color: var(--ink-soft); margin: 0 0 1.2rem; }
+.teaser { white-space: pre-line; }
 .facts { display: grid; grid-template-columns: auto 1fr; gap: .2rem 1rem; font-size: .88rem; margin: 1.25rem 0; padding: .9rem 0; border-block: 1px solid var(--line); }
 .facts dt { font: 500 .7rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); padding-top: .2rem; }
 .facts dd { margin: 0; font-variant-numeric: tabular-nums; }
-.actions { display: flex; flex-wrap: wrap; gap: .6rem; }
-.btn { font: 500 .8rem var(--mono); text-transform: uppercase; letter-spacing: .07em; text-decoration: none; padding: .65rem 1.1rem; border-radius: 999px; background: var(--verdigris); color: var(--paper); border: 1px solid var(--verdigris); }
-.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.buy { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.buy .big { font: 400 1.8rem var(--display); }
 .close { position: absolute; top: .75rem; right: .75rem; background: var(--paper-2); color: var(--ink); border: 0; width: 2.2rem; height: 2.2rem; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+#welcome { width: min(34rem, calc(100% - 32px)); }
+.wel { padding: 2.25rem 2rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.wel h2 { font-family: var(--display); font-weight: 400; font-size: 2.2rem; line-height: 1.05; margin: 0; text-wrap: balance; }
+.wel p { margin: 0; color: var(--ink-soft); }
+.wel .skip { align-self: flex-start; background: none; border: 0; color: var(--ink-soft); text-decoration: underline; font: inherit; font-size: .9rem; cursor: pointer; padding: 0; }
 
 @media (max-width: 760px) {
-  .hero, .about { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .hero, .about, .news .in { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
   .hero { padding-block: 2rem 0; }
   .shelf { min-height: 12rem; }
   .dlg { grid-template-columns: minmax(0, 1fr); padding: 1.25rem; }
@@ -140,48 +163,72 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
 
 <div class="wrap">
   <header class="top">
-    <a class="mark" href="#">drakebruseth.no</a>
-    <nav><a href="#katalog">Bøkene</a><a href="#om">Om biblioteket</a></nav>
+    <a class="mark" href="#">John John Bruseth</a>
+    <nav class="mono"><a href="#katalog">Bøkene</a><a href="#om">Om</a><a href="#nyhetsbrev">Nyhetsbrev</a></nav>
   </header>
 
   <section class="hero">
     <div>
-      <span class="coords">62°28′N 6°09′Ø · ÅLESUND</span>
-      <h1>Vårt digitale <em>bibliotek</em></h1>
-      <p>Bøker om Ålesund som vi har skrevet selv, og noen andre vi synes hører hjemme på hylla. Trekk ut en bok for å lese mer.</p>
+      <span class="coords mono">62°28′N 6°09′Ø · Ålesund</span>
+      <h1>Bøker fra <em>Ålesund</em> og videre ut</h1>
+      <p>Flanerier, krim, sakprosa og biografier av John John Bruseth. Alle bøkene koster kr&nbsp;149.</p>
     </div>
     <div class="shelf" id="shelf" aria-label="Bokhylle"></div>
   </section>
 
   <section class="catalog" id="katalog">
-    <div class="bar">
-      <h2>Katalogen</h2>
-      <div class="tools">
-        <div class="filters" role="group" aria-label="Filter">
-          <button type="button" data-f="alle" aria-pressed="true">Alle</button>
-          <button type="button" data-f="alesund" aria-pressed="false">Ålesund</button>
-          <button type="button" data-f="andre" aria-pressed="false">Andre</button>
-        </div>
-        <input id="q" type="search" placeholder="Søk tittel eller forfatter" aria-label="Søk">
-      </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="subbar">
+      <div class="subtabs mono" role="tablist" id="subtabs"></div>
+      <input id="q" type="search" placeholder="Søk etter tittel" aria-label="Søk etter tittel">
     </div>
     <div class="grid" id="grid"></div>
-    <p class="empty" id="empty" hidden>Ingen bøker passer søket.</p>
+    <div class="empty" id="empty" hidden></div>
   </section>
 
   <section class="about" id="om">
-    <h2>Om biblioteket</h2>
+    <h2>Om bøkene</h2>
     <div>
-      <p>Her samler vi bøkene vi har skrevet om Ålesund: byen, folket, havet og historien. Etter hvert kommer det også bøker av andre som vi mener fortjener en plass.</p>
-      <p>Noen bøker kan leses rett her på siden. Andre kan du låne på biblioteket eller kjøpe hos bokhandelen.</p>
+      <p>Alle bøkene her er skrevet av John John Bruseth. De fleste handler om Ålesund: byen, folket, havet og historien. Under Andre bøker ligger det som foregår andre steder.</p>
+      <p>Hver bok koster kr 149. Nye bøker legges ut fortløpende. Meld deg på nyhetsbrevet, så får du beskjed.</p>
     </div>
   </section>
+</div>
 
-  <footer>
+<section class="news" id="nyhetsbrev">
+  <div class="in">
+    <div>
+      <h2>Få beskjed om nye bøker</h2>
+      <p>Et kort brev når en ny bok kommer ut. Ingen reklame for noe annet.</p>
+    </div>
+    <form class="signup" data-signup>
+      <input type="email" id="email-bottom" name="email" required placeholder="din@epost.no" aria-label="E-postadresse">
+      <button class="btn" type="submit">Meld meg på</button>
+      <p class="msg" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer class="mono">
     <span>drakebruseth.no</span>
     <span id="count"></span>
   </footer>
 </div>
+
+<dialog id="welcome" aria-labelledby="welTitle">
+  <div class="wel">
+    <span class="coords mono">Velkommen</span>
+    <h2 id="welTitle">Vil du vite når neste bok kommer?</h2>
+    <p>Legg igjen e-postadressen din, så får du nyhetsbrev og beskjed hver gang en ny bok legges ut.</p>
+    <form class="signup" data-signup>
+      <input type="email" id="email-welcome" name="email" required placeholder="din@epost.no" aria-label="E-postadresse">
+      <button class="btn" type="submit">Meld meg på</button>
+      <p class="msg" aria-live="polite"></p>
+    </form>
+    <button class="skip" type="button" id="skip">Nei takk, vis meg bøkene</button>
+  </div>
+</dialog>
 
 <dialog id="dlg" aria-labelledby="dlgTitle">
   <button class="close" type="button" aria-label="Lukk">×</button>
@@ -190,40 +237,53 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
 
 <script>
 /* ============================================================
-   BØKENE. Legg til, endre eller fjern bøker her.
-   kategori: "alesund" eller "andre"
-   farge:    fargen på omslaget hvis det ikke finnes et bilde
-   omslag:   filnavn på bilde i mappen "omslag/" (valgfritt)
-   les:      lenke til PDF eller leseversjon (valgfritt)
-   kjop:     lenke til kjøp eller lån (valgfritt)
-   eksempel: true = plassholder, fjern når ekte bøker legges inn
+   INNSTILLINGER
+   ============================================================ */
+const FORFATTER = "John John Bruseth";
+const PRIS = 149;
+// Adressen påmeldingene sendes til (fra nyhetsbrevtjenesten). Tom = ikke koblet ennå.
+const NYHETSBREV_URL = "";
+
+const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
+const UNDER = { flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER" };
+
+/* ============================================================
+   BØKENE. Ny bok = kopier en blokk og fyll ut.
+   hoved:    "alesund" eller "andre"
+   under:    "flanerier", "krim", "sakprosa", "biografier" eller "serier"
+   omslag:   filnavn i mappen "omslag/"
+   teaser:   baksideteksten
+   kjop:     lenke til betaling (Vipps/Stripe e.l.)
+   farge:    reservefarge hvis omslaget mangler
+   eksempel: true = plassholder, fjernes når ekte bøker legges inn
    ============================================================ */
 const BOKER = [
-  { tittel: "Byen som brant", forfatter: "Forfatternavn", aar: 2020, sider: 240, kategori: "alesund", farge: "#7a2e24", eksempel: true,
-    omtale: "Natten til 23. januar 1904 brant nesten hele Ålesund. Om brannen, flukten ut i vinternatta og hjelpen som kom fra hele Europa." },
-  { tittel: "Jugendbyen", forfatter: "Forfatternavn", aar: 2018, sider: 192, kategori: "alesund", farge: "#2c6b5e", eksempel: true,
-    omtale: "Om gjenoppbyggingen etter brannen, arkitektene som tegnet byen på nytt, og tårnene, ornamentene og fasadene vi går forbi hver dag." },
-  { tittel: "Brosundet", forfatter: "Forfatternavn", aar: 2022, sider: 310, kategori: "alesund", farge: "#1f3f5c", eksempel: true,
-    omtale: "Klippfisk, sjøhus og handelsfolk. Historien om sundet midt i byen og menneskene som levde av havet." },
-  { tittel: "418 trinn", forfatter: "Forfatternavn", aar: 2023, sider: 156, kategori: "alesund", farge: "#8a6a2a", eksempel: true,
-    omtale: "Fra byparken til toppen av Aksla. Fortellinger fra fjellet som alle ålesundere har gått opp, og utsikten som venter der." },
-  { tittel: "Vinter ved havet", forfatter: "Forfatternavn", aar: 2021, sider: 280, kategori: "andre", farge: "#3d4a52", eksempel: true,
-    omtale: "En roman fra kysten. Eksempel på en bok av en annen forfatter som hører hjemme i biblioteket." },
-  { tittel: "Sunnmørsnotater", forfatter: "Forfatternavn", aar: 2019, sider: 204, kategori: "andre", farge: "#5a3f5e", eksempel: true,
-    omtale: "Små tekster om fjord, fjell og folk på Sunnmøre." }
+  { tittel: "Biografi nr. 1", hoved: "alesund", under: "biografier", aar: 2026, farge: "#7a2e24", eksempel: true,
+    teaser: "Her kommer baksideteksten til den første biografien. Omslaget og teksten legges inn så snart de er sendt." },
+  { tittel: "Biografi nr. 2", hoved: "alesund", under: "biografier", aar: 2026, farge: "#2c6b5e", eksempel: true,
+    teaser: "Her kommer baksideteksten til den andre biografien." },
+  { tittel: "Biografi nr. 3", hoved: "alesund", under: "biografier", aar: 2026, farge: "#1f3f5c", eksempel: true,
+    teaser: "Her kommer baksideteksten til den tredje biografien." }
 ];
 </script>
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const callNo = (b, i) => (b.kategori === "alesund" ? "ÅL" : "AN") + " " + String(i + 1).padStart(3, "0");
-let filter = "alle";
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+                set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+let hoved = "alesund", under = "biografier";
+
+BOKER.forEach(b => {
+  const like = BOKER.filter(x => x.hoved === b.hoved && x.under === b.under);
+  b.nr = `${KODE[b.hoved]}·${KODE[b.under]} ${String(like.indexOf(b) + 1).padStart(3, "0")}`;
+});
 
 function coverHTML(b) {
-  return `<div class="cover" style="--c:${esc(b.farge)}">
-    ${b.omslag ? `<img src="omslag/${esc(b.omslag)}" alt="">` : ""}
-    <span class="ca">${esc(b.forfatter)}</span>
-    <span class="ct">${esc(b.tittel)}</span>
+  return `<div class="cover${b.omslag ? " img" : ""}" style="--c:${esc(b.farge || "#2c4a52")}">
+    ${b.omslag ? `<img src="omslag/${esc(b.omslag)}" alt="Omslag: ${esc(b.tittel)}">` : `
+    <span class="ca">${esc(FORFATTER)}</span>
+    <span class="ct">${esc(b.tittel)}</span>`}
   </div>`;
 }
 
@@ -231,26 +291,38 @@ function renderShelf() {
   const heights = [12.5, 13.5, 11.5, 14, 12, 13];
   $("#shelf").innerHTML = BOKER.map((b, i) =>
     `<button class="spine${i === BOKER.length - 1 ? " lean" : ""}" type="button" data-i="${i}"
-      style="--c:${esc(b.farge)};--h:${heights[i % heights.length]}rem;--w:${2.3 + (b.sider || 200) / 400}rem"
+      style="--c:${esc(b.farge || "#2c4a52")};--h:${heights[i % heights.length]}rem;--w:${2.4 + (i % 3) * .4}rem"
       title="${esc(b.tittel)}">${esc(b.tittel)}</button>`).join("");
+}
+
+function renderTabs() {
+  $("#tabs").innerHTML = Object.entries(HOVED).map(([k, v]) =>
+    `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("");
+  $("#subtabs").innerHTML = Object.entries(UNDER).map(([k, v]) => {
+    const n = BOKER.filter(b => b.hoved === hoved && b.under === k).length;
+    return `<button type="button" role="tab" data-u="${k}" aria-selected="${k === under}">${v}<span class="n">${n}</span></button>`;
+  }).join("");
 }
 
 function renderGrid() {
   const q = $("#q").value.trim().toLowerCase();
   const list = BOKER.map((b, i) => [b, i]).filter(([b]) =>
-    (filter === "alle" || b.kategori === filter) &&
-    (!q || (b.tittel + " " + b.forfatter).toLowerCase().includes(q)));
+    q ? b.tittel.toLowerCase().includes(q) : b.hoved === hoved && b.under === under);
   $("#grid").innerHTML = list.map(([b, i]) => `
     <button class="book" type="button" data-i="${i}">
       ${coverHTML(b)}
       <span class="meta">
-        <span class="callno">${callNo(b, i)}</span>
+        <span class="callno">${b.nr}</span>
         <strong>${esc(b.tittel)}${b.eksempel ? '<span class="tag">Eksempel</span>' : ""}</strong>
-        <span>${esc(b.forfatter)} · ${esc(b.aar)}</span>
+        <span class="row"><span>${esc(UNDER[b.under])}</span><span class="price">kr ${PRIS}</span></span>
       </span>
     </button>`).join("");
-  $("#empty").hidden = list.length > 0;
-  $("#count").textContent = `${BOKER.length} bøker i samlingen`;
+  const e = $("#empty");
+  e.hidden = list.length > 0;
+  e.innerHTML = q
+    ? `<strong>Ingen treff</strong>Ingen bøker har «${esc(q)}» i tittelen.`
+    : `<strong>Kommer snart</strong>Det er ingen bøker under ${esc(UNDER[under])} ennå. <button type="button" data-goto="nyhetsbrev">Få beskjed når de kommer.</button>`;
+  $("#count").textContent = `${BOKER.length} bøker · kr ${PRIS} per bok`;
 }
 
 function openBook(i) {
@@ -258,41 +330,67 @@ function openBook(i) {
   $("#dlgBody").innerHTML = `
     <div>${coverHTML(b)}</div>
     <div>
-      <span class="callno">${callNo(b, i)}</span>
+      <span class="callno">${b.nr} · ${esc(HOVED[b.hoved])} / ${esc(UNDER[b.under])}</span>
       <h3 id="dlgTitle">${esc(b.tittel)}</h3>
-      <p class="by">${esc(b.forfatter)}</p>
-      <p>${esc(b.omtale)}</p>
+      <p class="by">${esc(FORFATTER)}</p>
+      <p class="teaser">${esc(b.teaser)}</p>
       <dl class="facts">
-        <dt>Utgitt</dt><dd>${esc(b.aar)}</dd>
-        <dt>Sider</dt><dd>${esc(b.sider)}</dd>
-        <dt>Hylle</dt><dd>${b.kategori === "alesund" ? "Ålesund" : "Andre bøker"}</dd>
+        ${b.aar ? `<dt>Utgitt</dt><dd>${esc(b.aar)}</dd>` : ""}
+        ${b.sider ? `<dt>Sider</dt><dd>${esc(b.sider)}</dd>` : ""}
         ${b.isbn ? `<dt>ISBN</dt><dd>${esc(b.isbn)}</dd>` : ""}
+        ${b.serie ? `<dt>Serie</dt><dd>${esc(b.serie)}</dd>` : ""}
       </dl>
-      <div class="actions">
-        ${b.les ? `<a class="btn" href="${esc(b.les)}" target="_blank" rel="noopener">Les boka</a>` : ""}
-        ${b.kjop ? `<a class="btn ghost" href="${esc(b.kjop)}" target="_blank" rel="noopener">Kjøp eller lån</a>` : ""}
-        ${!b.les && !b.kjop ? `<span class="callno">Lese- og kjøpslenker kommer</span>` : ""}
+      <div class="buy">
+        <span class="big">kr ${PRIS}</span>
+        ${b.kjop ? `<a class="btn" href="${esc(b.kjop)}" target="_blank" rel="noopener">Kjøp boka</a>`
+                 : `<span class="callno">Kjøp åpner snart</span>`}
       </div>
     </div>`;
   $("#dlg").showModal();
 }
 
-document.addEventListener("click", e => {
-  const el = e.target.closest("[data-i]");
-  if (el) openBook(+el.dataset.i);
-  const f = e.target.closest("[data-f]");
-  if (f) {
-    filter = f.dataset.f;
-    document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === f));
-    renderGrid();
+// Nyhetsbrev
+document.querySelectorAll("[data-signup]").forEach(form => form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const msg = form.querySelector(".msg");
+  const email = form.email.value.trim();
+  if (!NYHETSBREV_URL) {
+    msg.textContent = "Påmeldingen er ikke koblet til ennå, så adressen ble ikke lagret.";
+    return;
   }
+  try {
+    await fetch(NYHETSBREV_URL, { method: "POST", mode: "no-cors", body: new URLSearchParams({ email }) });
+    msg.textContent = "Takk! Du får en e-post for å bekrefte påmeldingen.";
+    form.reset();
+    store.set("nyhetsbrev", "pameldt");
+    setTimeout(() => $("#welcome").open && $("#welcome").close(), 2200);
+  } catch {
+    msg.textContent = "Det gikk ikke å sende påmeldingen. Sjekk nettforbindelsen og prøv igjen.";
+  }
+}));
+$("#skip").addEventListener("click", () => { store.set("nyhetsbrev", "nei"); $("#welcome").close(); });
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  const book = t.closest("[data-i]");
+  if (book) return openBook(+book.dataset.i);
+  const h = t.closest("[data-h]");
+  if (h) {
+    hoved = h.dataset.h;
+    const first = Object.keys(UNDER).find(k => BOKER.some(b => b.hoved === hoved && b.under === k));
+    under = first || "flanerier";
+    $("#q").value = ""; renderTabs(); renderGrid();
+  }
+  const u = t.closest("[data-u]");
+  if (u) { under = u.dataset.u; $("#q").value = ""; renderTabs(); renderGrid(); }
+  if (t.closest("[data-goto]")) $("#nyhetsbrev").scrollIntoView({ behavior: "smooth" });
 });
 $(".close").addEventListener("click", () => $("#dlg").close());
 $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").close(); });
 $("#q").addEventListener("input", renderGrid);
 
-renderShelf();
-renderGrid();
+renderShelf(); renderTabs(); renderGrid();
+if (!store.get("nyhetsbrev")) setTimeout(() => $("#welcome").showModal(), 600);
 </script>
 </body>
 </html>
