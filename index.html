@@ -101,6 +101,11 @@ a { color: var(--verdigris); }
 .cover.img::after { display: none; }
 .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .book:hover .cover { transform: translateY(-4px); }
+.cwrap { position: relative; display: block; }
+.peek { position: absolute; left: 50%; bottom: 1.1rem; transform: translate(-50%, .4rem); background: var(--ink); color: var(--paper); padding: .45rem 1rem; border-radius: 999px; font: 500 .72rem var(--mono); text-transform: uppercase; letter-spacing: .08em; opacity: 0; transition: opacity .2s ease, transform .2s ease; pointer-events: none; white-space: nowrap; }
+.book:hover .peek, .book:focus-visible .peek { opacity: 1; transform: translate(-50%, 0); }
+.more { font: 500 .78rem var(--mono); color: var(--verdigris); letter-spacing: .03em; margin-top: .2rem; }
+.book:hover .more { text-decoration: underline; }
 .cover .ct { font-family: var(--display); font-size: 1.45rem; line-height: 1.05; text-wrap: balance; }
 .cover .ca { font: 400 .72rem var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
 .meta { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
@@ -390,12 +395,13 @@ function renderGrid() {
   const list = BOKER.map((b, i) => [b, i]).filter(([b]) =>
     q ? (b.tittel + " " + (b.undertittel || "")).toLowerCase().includes(q) : b.hoved === hoved && b.under === under);
   $("#grid").innerHTML = list.map(([b, i]) => `
-    <button class="book" type="button" data-i="${i}">
-      ${coverHTML(b)}
+    <button class="book" type="button" data-i="${i}" aria-label="Les mer om ${esc(b.tittel)}">
+      <span class="cwrap">${coverHTML(b)}<span class="peek">Les mer</span></span>
       <span class="meta">
         <span class="callno">${b.nr}</span>
         <strong>${esc(b.tittel)}${b.undertittel ? `<span style="font-weight:400;color:var(--ink-soft)"> · ${esc(b.undertittel)}</span>` : ""}${b.eksempel ? '<span class="tag">Eksempel</span>' : ""}</strong>
         <span class="row"><span>${esc(UNDER[b.under])}</span><span class="price">kr ${PRIS}</span></span>
+        <span class="more">Les mer om boka →</span>
       </span>
     </button>`).join("");
   const e = $("#empty");
