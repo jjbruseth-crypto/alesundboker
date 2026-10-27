@@ -263,13 +263,13 @@ const NYHETSBREV_URL = "";
 const PROTOTYPE = true;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier" };
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
    hoved:    "alesund" eller "andre"
-   under:    "flanerier", "krim", "sakprosa", "biografier" eller "serier"
+   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier" eller "serier"
    omslag:   filnavn i mappen "omslag/"
    teaser:   baksideteksten
    kjop:     lenke til betaling (Vipps/Stripe e.l.)
@@ -308,7 +308,15 @@ John John Bruseths far vokste opp med Holm-brødrene på Brunholmen. På leting 
 
 Etterforsker Ingunn Skjong går til fots, skriver med blyant og stoler ikke på skjermer. Hun ser det andre overser: Tyvene tok nettopp de bildene som skulle analyseres uka etter, og et sjette, lite grått maleri er også borte. Kanskje var dette ikke et tyveri. Kanskje ville noen bli kvitt noe.
 
-En rømt tyv gjemmer seg i fjordene, og folk som vet noe begynner å dø i ulykker. Saken blir et kappløp gjennom jugendbyens bakgårder, sjøbuer og styrerom. Ingunn lærer at et bilde ikke er verdt malingen, men historien sin. Og at baksiden aldri lyver.` }
+En rømt tyv gjemmer seg i fjordene, og folk som vet noe begynner å dø i ulykker. Saken blir et kappløp gjennom jugendbyens bakgårder, sjøbuer og styrerom. Ingunn lærer at et bilde ikke er verdt malingen, men historien sin. Og at baksiden aldri lyver.` },
+  { tittel: "Perane", undertittel: "En roman", hoved: "andre", under: "romaner",
+    omslag: "perane.webp", farge: "#f4f2ee", tekstfarge: "#7a2410",
+    sitat: "Per kjente skammen før han kjente sinnet. Det var det verste med skam. Den kom alltid først, som en dårlig trent hund.",
+    teaser: `I bygda kaller de dem Perane. Det er ett navn for to menn. Per går først og snakker. Hans ser alt det andre overser og sier det høyt, gjerne på feil sted.
+
+De kjøper kaffe for to øre, spikker fuglekasser og setter fram to kopper hver morgen. Bygda passer på dem, og bygda ser på dem. Når kjøpmannen påstår at det mangler én øre, er det Hans som finner mynten. Det er Per som kjenner skammen.
+
+«Perane» er en stillferdig og varm roman fra Sunnmøre. Den handler om to mennesker som bærer hverandre litt om gangen, og om en bygd som forandrer seg rundt dem. Den handler også om alt kjærlighet kan være uten at noen sier det. Med tørr humor og stor ømhet skriver John John Bruseth om verdighet, om å stå utenfor og om retten til å ta feil i fred.` }
 ];
 </script>
 <script>
