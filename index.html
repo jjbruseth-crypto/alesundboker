@@ -269,6 +269,9 @@ const PROTOTYPE = true;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
 const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier" };
+// Navn som er annerledes under Andre bøker
+const UNDER_ANDRE = { krim: "Krim" };
+const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
 const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM" };
 
 /* ============================================================
@@ -351,6 +354,21 @@ Det han ser, koster. En ung maur følger etter ham opp og faller. Et regn tar en
 Det vanskeligste er å komme tilbake.
 
 Mauritius er en fabel for voksne om å se lenger enn man får lov til, om å ta feil på vegne av andre, og om at nok er noe som flytter seg. En bok i tradisjonen etter Måken Jonathan – skrevet nedenfra.` },
+  { tittel: "Elva Hotell", undertittel: "En kriminalroman", hoved: "andre", under: "krim",
+    omslag: "elva-hotell.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
+    teaser: `Erlend Våg spiste rabarbracrumble to ganger, ropte en bursdagshilsen til niesa si tvers over restauranten og sa høyt at han skulle ta en liten tur etter dessert. Klokka 23.07 var han i elva.
+
+På Kverven, et designhotell innerst i en våt vestlandsdal, er alle enige om at det var en tragisk ulykke. PR-rådgiveren har allerede formulert den. Hotelleieren har allerede skrevet under. Dalens store mann sier bare at man skal ta det pent.
+
+Men elveredderen Lea Brekke har sett en stropp som ikke er slitt av. Den er kuttet. Og forsikringsetterforsker Rebekka, som egentlig er på hotellet for en ganske annen sak, liker ikke vitneforklaringer som er like ned til et semikolon.
+
+I mellomtiden prøver to flyttefolk fra Loddefjord å få betalt for et innbrudd i feil hytte, en influenser med 103 000 følgere oppdager at hun har gitt bort mer enn hun trodde, og en gjest i badekåpe tilbyr krisestøtte over Teams.
+
+Og regnet slutter ikke.
+
+Fem døgn, én flom og en dal der alle har vært enige i femten år om å gjøre ting mindre enn de er.
+
+ELVA er en krimroman om hva det koster å si fra, og hva det koster å la være.` },
   { tittel: "Barents og jeg", undertittel: "En flaneriroman", hoved: "andre", under: "romaner",
     omslag: "barents-og-jeg.webp", farge: "#f4f2ee", tekstfarge: "#1d3a20",
     sitat: "Hele dagen hadde jeg båret ham. Om natten bar han meg.",
@@ -405,7 +423,8 @@ function renderShelf() {
 function renderTabs() {
   $("#tabs").innerHTML = Object.entries(HOVED).map(([k, v]) =>
     `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("");
-  $("#subtabs").innerHTML = Object.entries(UNDER).map(([k, v]) => {
+  $("#subtabs").innerHTML = Object.keys(UNDER).map(k => {
+    const v = navn(hoved, k);
     const n = BOKER.filter(b => b.hoved === hoved && b.under === k).length;
     return `<button type="button" role="tab" data-u="${k}" aria-selected="${k === under}">${v}<span class="n">${n}</span></button>`;
   }).join("");
@@ -421,7 +440,7 @@ function renderGrid() {
       <span class="meta">
         <span class="callno">${b.nr}</span>
         <strong>${esc(b.tittel)}${b.undertittel ? `<span style="font-weight:400;color:var(--ink-soft)"> · ${esc(b.undertittel)}</span>` : ""}${b.eksempel ? '<span class="tag">Eksempel</span>' : ""}</strong>
-        <span class="row"><span>${esc(UNDER[b.under])}</span><span class="price">kr ${PRIS}</span></span>
+        <span class="row"><span>${esc(navn(b.hoved, b.under))}</span><span class="price">kr ${PRIS}</span></span>
         <span class="more">Les mer om boka →</span>
       </span>
     </button>`).join("");
@@ -429,7 +448,7 @@ function renderGrid() {
   e.hidden = list.length > 0;
   e.innerHTML = q
     ? `<strong>Ingen treff</strong>Ingen bøker har «${esc(q)}» i tittelen.`
-    : `<strong>Kommer snart</strong>Det er ingen bøker under ${esc(UNDER[under])} ennå. <button type="button" data-goto="nyhetsbrev">Få beskjed når de kommer.</button>`;
+    : `<strong>Kommer snart</strong>Det er ingen bøker under ${esc(navn(hoved, under))} ennå. <button type="button" data-goto="nyhetsbrev">Få beskjed når de kommer.</button>`;
   $("#count").textContent = `${BOKER.length} bøker · kr ${PRIS} per bok`;
 }
 
@@ -454,7 +473,7 @@ function openBook(i) {
   $("#dlgBody").innerHTML = `
     <div>${coverHTML(b)}</div>
     <div>
-      <span class="callno">${b.nr} · ${esc(HOVED[b.hoved])} / ${esc(UNDER[b.under])}</span>
+      <span class="callno">${b.nr} · ${esc(HOVED[b.hoved])} / ${esc(navn(b.hoved, b.under))}</span>
       <h3 id="dlgTitle">${esc(b.tittel)}</h3>
       <p class="by">${b.undertittel ? esc(b.undertittel) + " · " : ""}${esc(FORFATTER)}</p>
       ${b.sitat ? `<blockquote class="quote">«${esc(b.sitat)}»</blockquote>` : ""}
