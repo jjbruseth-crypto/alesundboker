@@ -155,7 +155,11 @@ footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; ju
 .reader-end { text-align: center; border-left: 0; }
 .toc { margin: 1rem 0 2rem; padding: 1rem 1.25rem; background: var(--paper-2); }
 .toc strong { font: 500 .75rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
-.toc ol { margin: .5rem 0 0; padding-left: 1.6rem; columns: 2 14rem; column-gap: 2rem; font-size: .95rem; line-height: 1.6; }
+.toc ul { list-style: none; padding-left: 0 !important; }
+.toc li.part { font-weight: 600; margin-top: .4rem; break-after: avoid; }
+.reader h3.part { font: 400 1.1rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--brass); margin: 3rem 0 0; scroll-margin-top: 1rem; }
+.reader h5 { font: 500 .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); margin: 1.5rem 0 .5rem; }
+.toc ol, .toc ul { margin: .5rem 0 0; padding-left: 1.6rem; columns: 2 14rem; column-gap: 2rem; font-size: .95rem; line-height: 1.6; }
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 .reader h4 { scroll-margin-top: 1rem; }
@@ -301,7 +305,7 @@ const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakpr
    ============================================================ */
 const BOKER = [
   { tittel: "Astrid Overaa", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
-    omslag: "astrid-overaa.webp", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
+    omslag: "astrid-overaa.webp", manus: "astrid-overaa.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Første gang jeg så Astrid Overaa, sto hun og slikket på en kjærlighet.",
     teaser: `Høsten 1972 vinner en jente fra Ålesund en kringle i pausen på Teatret Vårt. Senere kommer hun ikke inn på teaterskolen, og slipper dermed å bli «fjerde ku fra venstre». I stedet bygger hun sin egen scene.
 
@@ -309,7 +313,7 @@ Sommeren 1996 åpner Astrid og Arild Teaterfabrikken i en nedlagt tranfabrikk i 
 
 John John Bruseth ble irettesatt av Astrid på Badet fritidsklubb som tenåring. Et halvt liv senere går han byen rundt for å finne ut hvem hun er, og står stadig i veien for sin egen fortelling. Det blir en lun, tørr og plutselig alvorlig bok om en kvinne som laget plass til andre.` },
   { tittel: "Bjarne Haagensen", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
-    omslag: "bjarne-haagensen.webp", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
+    omslag: "bjarne-haagensen.webp", manus: "bjarne-haagensen.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Ballen kom mot meg, og jeg sparket den tilbake. Så mye fikk jeg til.",
     teaser: `På Kråmyra i 1982 sparker klippfiskkongen Bjarne Haagensen en ball til en ung visesanger og sier at sangen hans er fantastisk fin. Visesangeren får aldri takket. Noen år senere står han på den andre siden i striden om Storsenteret og håner mannen i et selskap.
 
@@ -317,7 +321,7 @@ Bjarne Haagensen overtok et forgjeldet klippfiskfirma som 28-åring og bygde Br�
 
 Førti år etter pasningen går John John Bruseth byen rundt for å finne mannen: i Giskegata, opp til Fjellstua med lånte staver og fire lengder i Bybadet. Det er en morsom, ærlig og sår bok om en byggherre og en visesanger, og om rosen vi lar være å gi.` },
   { tittel: "Kjell Holm", undertittel: "Den hvite kofferten", hoved: "alesund", under: "biografier",
-    omslag: "kjell-holm.webp", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
+    omslag: "kjell-holm.webp", manus: "kjell-holm.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "En hvit koffert sto i et bakrom i Ålesund og ventet på at jeg skulle bli gammel nok til å forstå hva den var.",
     teaser: `I bakrommet til en suvenirbutikk står en hvit koffert. Den skal ha tilhørt Sonja Henie og være laget til bagasjerommet i Kjell Holms sportsbil. Ingen kan bevise det, men kofferten setter i gang en leting.
 
@@ -333,7 +337,7 @@ Harald Grytten vokste opp i Kirkegata, med en far i Berset-bua og slekt på øye
 
 I denne flaneribiografien følger John John Bruseth ham langs Brosundet, gjennom jugendgatene og opp mot Aksla. En hanske, en kopp eller en måke blir en dør inn til byen og til mannen. Det er en lun, presis og vemodig bok om en mann som brydde seg om de små tingene i byen, og om en by man må øve seg på før man fortjener retten til å se den.` },
   { tittel: "Proveniens", undertittel: "En Ålesundkrim", hoved: "alesund", under: "krim",
-    omslag: "proveniens.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
+    omslag: "proveniens.webp", manus: "proveniens.html", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
     sitat: "Skjermen sa grønt mens gutten skrapte.",
     teaser: `En mandag morgen i august låser vaktmesteren opp KUBE, kunstmuseet i den gamle Norges Bank-bygningen i Ålesund. Fem malerier er borte, og alarmloggen sier at alt er i orden. Døra til det gamle bankhvelvet står på gløtt. Der inne ligger en ung mann, stengt inne, med skrapemerker på innsiden av ståldøra.
 
@@ -430,7 +434,7 @@ Fem døgn, én flom og en dal der alle har vært enige i femten år om å gjøre
 
 ELVA er en krimroman om hva det koster å si fra, og hva det koster å la være.` },
   { tittel: "Barents og jeg", undertittel: "En flaneriroman", hoved: "andre", under: "romaner",
-    omslag: "barents-og-jeg.webp", farge: "#f4f2ee", tekstfarge: "#1d3a20",
+    omslag: "barents-og-jeg.webp", manus: "barents-og-jeg.html", farge: "#f4f2ee", tekstfarge: "#1d3a20",
     sitat: "Hele dagen hadde jeg båret ham. Om natten bar han meg.",
     teaser: `Han er sekstisju, bor alene i et borettslag og hadde en gang en nummer én-hit. Folk forveksler ham fortsatt med en annen vokalist. Så kjøper han et blått topersoners telt på 2,18 kilo og kaller det Barents.
 
