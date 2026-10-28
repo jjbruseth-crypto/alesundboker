@@ -284,6 +284,8 @@ const PRIS = 149;
 const NYHETSBREV_URL = "";
 // true = prototype: kjøp og påmelding vises som demo, ingenting lagres eller betales.
 const PROTOTYPE = true;
+// true = «Les boka» vises for bøker med manus. Av i fastprisperioden: bøkene selges bare enkeltvis.
+const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
 const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling" };
@@ -555,9 +557,9 @@ function openBook(i) {
           : `<span class="callno">Kjøp åpner snart</span>`}
       </div>
       ${PROTOTYPE && !b.kjop ? checkoutHTML(b) : ""}
-      ${b.manus ? `<button class="btn ghost readbtn" type="button" id="readBtn">Les boka</button>` : ""}
+      ${VIS_MANUS && b.manus ? `<button class="btn ghost readbtn" type="button" id="readBtn">Les boka</button>` : ""}
     </div>
-    ${b.manus ? `<section class="reader" id="reader" hidden aria-label="Boka"></section>` : ""}`;
+    ${VIS_MANUS && b.manus ? `<section class="reader" id="reader" hidden aria-label="Boka"></section>` : ""}`;
   $("#dlg").showModal();
   const read = $("#readBtn");
   if (read) read.addEventListener("click", async () => {
