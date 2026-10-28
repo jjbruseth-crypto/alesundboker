@@ -146,6 +146,14 @@ footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; ju
 .receipt { margin-top: 1.25rem; padding: 1.25rem; background: var(--paper-2); border-left: 3px solid var(--verdigris); }
 .receipt strong { font: 400 1.4rem var(--display); display: block; margin-bottom: .3rem; }
 
+.readbtn { margin-top: 1rem; }
+.reader { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 1.5rem; max-width: 62ch; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; }
+.reader h4 { font: 400 1.8rem var(--display); margin: .4rem 0 1.25rem; }
+.reader p { margin: 0 0 1em; }
+.reader-end { margin-top: 2rem; padding: 1.25rem; background: var(--paper-2); border-left: 3px solid var(--verdigris); }
+.reader-end strong { font: 400 1.4rem var(--display); display: block; }
+.reader-end p { margin: .3rem 0 1rem; }
+
 /* Vinduer */
 dialog { border: 0; padding: 0; background: var(--paper); color: var(--ink); width: min(52rem, calc(100% - 32px)); max-height: calc(100% - 32px); box-shadow: 0 30px 80px rgba(0,0,0,.35); }
 dialog::backdrop { background: rgba(10, 25, 30, .6); }
@@ -280,6 +288,7 @@ const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakpr
    under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier" eller "selvutvikling"
    omslag:   filnavn i mappen "omslag/"
    teaser:   baksideteksten
+   utdrag:   filnavn i mappen "utdrag/" med gratis første kapittel (valgfritt)
    kjop:     lenke til betaling (Vipps/Stripe e.l.)
    farge:    reservefarge hvis omslaget mangler
    eksempel: true = plassholder, fjernes når ekte bøker legges inn
@@ -355,7 +364,7 @@ Det vanskeligste er å komme tilbake.
 
 Mauritius er en fabel for voksne om å se lenger enn man får lov til, om å ta feil på vegne av andre, og om at nok er noe som flytter seg. En bok i tradisjonen etter Måken Jonathan – skrevet nedenfra.` },
   { tittel: "Den indre gartneren", undertittel: "En selvutviklingsroman", hoved: "andre", under: "selvutvikling",
-    omslag: "den-indre-gartneren.webp", farge: "#f4f2ee", tekstfarge: "#5b3a7a",
+    omslag: "den-indre-gartneren.webp", utdrag: "den-indre-gartneren.html", farge: "#f4f2ee", tekstfarge: "#5b3a7a",
     teaser: `Elena er den på kontoret som husker fristene, finner feilen i romnummeret og vet hvor tallerkenene står. Hun er den datteren som kjører moren til skobutikken, den moren som vasker kjøleskapshyllen i datterens nye kollektiv, den som sier ja fra badet før hun har hørt spørsmålet. Så går hun ut av et møte uten å vite hvor hun skal, og blir sittende i et glasshus hvor andres planter overvintrer.
 
 Der finnes Linnea, som har holdt på for lenge og ikke vet om hun orker en vinter til. Der finnes Ruth med sitrontreet hun fikk av en mann som ikke er død, Ragnhild som har mikseren på en barkrakk, Maja som helst vil tegne noe stygt, og Henrik fra jobben som spiller i et band som har sluttet tre ganger. Elena ser straks hva stedet kunne bli. Hun ser ikke like fort hva hun gjør med det.
@@ -536,8 +545,34 @@ function openBook(i) {
           : `<span class="callno">Kjøp åpner snart</span>`}
       </div>
       ${PROTOTYPE && !b.kjop ? checkoutHTML(b) : ""}
-    </div>`;
+      ${b.utdrag ? `<button class="btn ghost readbtn" type="button" id="readBtn">Les første kapittel gratis</button>` : ""}
+    </div>
+    ${b.utdrag ? `<section class="reader" id="reader" hidden aria-label="Smakebit"></section>` : ""}`;
   $("#dlg").showModal();
+  const read = $("#readBtn");
+  if (read) read.addEventListener("click", async () => {
+    const r = $("#reader");
+    read.disabled = true;
+    try {
+      const res = await fetch(`utdrag/${b.utdrag}`);
+      if (!res.ok) throw new Error();
+      r.innerHTML = `<span class="callno">Smakebit · ${esc(b.tittel)}</span>${await res.text()}
+        <div class="reader-end"><strong>Vil du lese videre?</strong>
+        <p>Hele boka koster kr ${PRIS}.</p>
+        <button class="btn" type="button" id="readBuy">Kjøp hele boka</button></div>`;
+      r.hidden = false;
+      read.hidden = true;
+      r.scrollIntoView({ behavior: "smooth", block: "start" });
+      $("#readBuy").addEventListener("click", () => {
+        const bb = $("#buyBtn");
+        $("#dlgBody").scrollIntoView({ behavior: "smooth", block: "start" });
+        if (bb && !bb.hidden) bb.click();
+      });
+    } catch {
+      read.disabled = false;
+      read.textContent = "Kapitlet kunne ikke lastes. Prøv igjen";
+    }
+  });
   const buy = $("#buyBtn"), form = $("#checkout");
   if (buy && form) {
     buy.addEventListener("click", () => { form.hidden = false; buy.hidden = true; $("#buyEmail").focus(); });
