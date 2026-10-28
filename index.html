@@ -268,16 +268,16 @@ const NYHETSBREV_URL = "";
 const PROTOTYPE = true;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
    hoved:    "alesund" eller "andre"
-   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier" eller "serier"
+   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier" eller "selvutvikling"
    omslag:   filnavn i mappen "omslag/"
    teaser:   baksideteksten
    kjop:     lenke til betaling (Vipps/Stripe e.l.)
@@ -354,6 +354,15 @@ Det han ser, koster. En ung maur følger etter ham opp og faller. Et regn tar en
 Det vanskeligste er å komme tilbake.
 
 Mauritius er en fabel for voksne om å se lenger enn man får lov til, om å ta feil på vegne av andre, og om at nok er noe som flytter seg. En bok i tradisjonen etter Måken Jonathan – skrevet nedenfra.` },
+  { tittel: "Den indre gartneren", undertittel: "En selvutviklingsroman", hoved: "andre", under: "selvutvikling",
+    omslag: "den-indre-gartneren.webp", farge: "#f4f2ee", tekstfarge: "#5b3a7a",
+    teaser: `Elena er den på kontoret som husker fristene, finner feilen i romnummeret og vet hvor tallerkenene står. Hun er den datteren som kjører moren til skobutikken, den moren som vasker kjøleskapshyllen i datterens nye kollektiv, den som sier ja fra badet før hun har hørt spørsmålet. Så går hun ut av et møte uten å vite hvor hun skal, og blir sittende i et glasshus hvor andres planter overvintrer.
+
+Der finnes Linnea, som har holdt på for lenge og ikke vet om hun orker en vinter til. Der finnes Ruth med sitrontreet hun fikk av en mann som ikke er død, Ragnhild som har mikseren på en barkrakk, Maja som helst vil tegne noe stygt, og Henrik fra jobben som spiller i et band som har sluttet tre ganger. Elena ser straks hva stedet kunne bli. Hun ser ikke like fort hva hun gjør med det.
+
+Dette er en roman uten store hendelser og med mye liv: en flytting, en konsert, en julaften med to tallerkener for mye, en e-post som sier mer enn den burde. Humoren ligger i det praktiske – kaken som må stå kaldt, telefonholderen som tar hele skjærefjølen, valnøtten som skyves lenger inn under benken. Sorgen ligger like ved, uten å bli forklart.
+
+Den indre gartneren handler om omsorg som både er verdifull og krevende, om å ville to ting samtidig, og om en kvinne som til slutt må lære å stå i døren med et ferdig klargjort ark bak seg og en gjest foran seg – og velge begge.` },
   { tittel: "67", undertittel: "En flanerisamling om alder, undring og kunsten å ikke bli voksen", hoved: "alesund", under: "flanerier",
     omslag: "67.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     teaser: `Det er mye man skal ha lært når man er 67.
