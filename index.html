@@ -288,11 +288,13 @@ const PROTOTYPE = true;
 const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
+// Underfaner som bare finnes under én hovedfane
+const BARE = { univers: "andre" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
@@ -392,6 +394,14 @@ Der finnes Linnea, som har holdt på for lenge og ikke vet om hun orker en vinte
 Dette er en roman uten store hendelser og med mye liv: en flytting, en konsert, en julaften med to tallerkener for mye, en e-post som sier mer enn den burde. Humoren ligger i det praktiske – kaken som må stå kaldt, telefonholderen som tar hele skjærefjølen, valnøtten som skyves lenger inn under benken. Sorgen ligger like ved, uten å bli forklart.
 
 Den indre gartneren handler om omsorg som både er verdifull og krevende, om å ville to ting samtidig, og om en kvinne som til slutt må lære å stå i døren med et ferdig klargjort ark bak seg og en gjest foran seg – og velge begge.` },
+  { tittel: "Opplevelsesknappen", undertittel: "Om å stanse, se etter og rote seg bort i livet", hoved: "andre", under: "univers",
+    omslag: "opplevelsesknappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
+    sitat: "La oss begynne med at jeg ikke kommer frem.",
+    teaser: `Han skulle bare et sted. Så setter han seg på fortauskanten for å se på noen maur, og før han vet ordet av det, sitter han i et forestilt møte om kjøleskap uten håndtak.
+
+Opplevelsesknappen er en knapp inni ham som minner ham på å stanse og se etter. Han trykker på den i køen, i regnet under et takutstikk, på kjøkkenet og i rulletrappa. Han møter en kvinne med appelsiner, en mann på en benk og en jente i rulletrappa. Og hver gang han prøver å være til stede, sporer det av.
+
+«Opplevelsesknappen» er en varm og selvironisk bok i korte tekster om å legge merke til livet mens det skjer, uten at knappen får bli sjefen. Den handler om hvor mange meter ordet «bare» kan romme, og om at man ikke trenger å bli en annen for å gå ut på kjøkkenet.` },
   { tittel: "67", undertittel: "En flanerisamling om alder, undring og kunsten å ikke bli voksen", hoved: "alesund", under: "flanerier",
     omslag: "67.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     teaser: `Det er mye man skal ha lært når man er 67.
@@ -497,7 +507,7 @@ function renderShelf() {
 function renderTabs() {
   $("#tabs").innerHTML = Object.entries(HOVED).map(([k, v]) =>
     `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("");
-  $("#subtabs").innerHTML = Object.keys(UNDER).map(k => {
+  $("#subtabs").innerHTML = Object.keys(UNDER).filter(k => !BARE[k] || BARE[k] === hoved).map(k => {
     const v = navn(hoved, k);
     const n = BOKER.filter(b => b.hoved === hoved && b.under === k).length;
     return `<button type="button" role="tab" data-u="${k}" aria-selected="${k === under}">${v}<span class="n">${n}</span></button>`;
