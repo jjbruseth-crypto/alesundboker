@@ -8,7 +8,7 @@
 <meta name="description" content="Ålesundbøker og andre bøker av John John Bruseth.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Playfair+Display:wght@800&family=EB+Garamond:ital@0;1&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: bokhylle øverst, så to hovedfaner (Ålesundbøker / Andre bøker) med underfaner, nyhetsbrev nederst. */
 :root {
@@ -163,6 +163,20 @@ footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; ju
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 .reader h4 { scroll-margin-top: 1rem; }
+
+/* Omslag: samme papir, skrift og oppsett for alle bøker */
+.cover.cv { container-type: inline-size; padding: 0; color: #1b1b1b; text-align: center;
+  display: grid; grid-template-rows: 1fr auto; justify-items: center;
+  background: linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 3.5%, rgba(255,255,255,.5) 4.5%, rgba(0,0,0,0) 6.5%), #f7f4ee; }
+.cover.cv::after { display: none; }
+.cv-mid { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 5cqi; width: 100%; padding: 6cqi 7cqi 0; }
+.cv-t { font: 800 1em/0.98 "Playfair Display", "Bodoni 72", Didot, Georgia, serif; text-transform: uppercase; color: var(--k);
+  letter-spacing: -.005em; hyphens: manual; overflow-wrap: break-word; text-wrap: balance; max-width: 100%; }
+.cv-d { position: relative; width: 44cqi; height: 3cqi;
+  background: linear-gradient(var(--k), var(--k)) left center / 40% 1px no-repeat, linear-gradient(var(--k), var(--k)) right center / 40% 1px no-repeat; }
+.cv-d::after { content: ""; position: absolute; left: 50%; top: 50%; width: 2.6cqi; height: 2.6cqi; background: var(--k); transform: translate(-50%, -50%) rotate(45deg); }
+.cv-s { font: 400 7cqi/1.15 "EB Garamond", Georgia, serif; text-wrap: balance; }
+.cv-a { font: 400 6cqi/1 "EB Garamond", Georgia, serif; letter-spacing: .1em; padding-block: 0 9cqi; }
 
 /* Vinduer */
 dialog { border: 0; padding: 0; background: var(--paper); color: var(--ink); width: min(52rem, calc(100% - 32px)); max-height: calc(100% - 32px); box-shadow: 0 30px 80px rgba(0,0,0,.35); }
@@ -452,7 +466,7 @@ Snart går skyggene sin egen vei, det er natt i bøtta, og naboen Rune har fått
 Det blir en helg med glass, stoler, en fryser som ikke vil gjennom døra og et gammelt fotoalbum. Samtidig venter et tilbud om fire måneder i Utrecht på svar innen mandag, og en tekst Liv aldri har fått begynt på. JJ er hjemme og ringer innimellom.
 
 «Mens han tenkte på noe annet» er en lavmælt og morsom roman om et vennskap som har vart så lenge at noe aldri er blitt sagt, om alt man rydder ut av et hus, og om hva man tar med seg videre.` },
-  { tittel: "Opplevelsesknappen", undertittel: "Om å stanse, se etter og rote seg bort i livet", hoved: "andre", under: "univers",
+  { tittel: "Opplevelses\u00ADknappen", undertittel: "Om å stanse, se etter og rote seg bort i livet", hoved: "andre", under: "univers",
     omslag: "opplevelsesknappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "La oss begynne med at jeg ikke kommer frem.",
     teaser: `Han skulle bare et sted. Så setter han seg på fortauskanten for å se på noen maur, og før han vet ordet av det, sitter han i et forestilt møte om kjøleskap uten håndtak.
@@ -607,11 +621,28 @@ BOKER.forEach(b => {
   b.nr = `${KODE[b.hoved]}·${KODE[b.under]} ${String(like.indexOf(b) + 1).padStart(3, "0")}`;
 });
 
+// Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
+const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
+  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f" };
+const katfarge = b => KATFARGE[b.under] || "#2c4a52";
+
+function tittelStr(t) {
+  const ord = t.toUpperCase().split(/[\s\u00AD]+/);
+  const lengst = Math.max(...ord.map(o => o.length));
+  let fs = Math.min(16, 80 / (lengst * 0.74));
+  const linjer = Math.ceil(t.length * 0.74 * fs / 80);
+  if (linjer > 4) fs *= 4 / linjer;
+  return fs.toFixed(2);
+}
+
 function coverHTML(b) {
-  return `<div class="cover${b.omslag ? " img" : ""}" style="--c:${esc(b.farge || "#2c4a52")}">
-    ${b.omslag ? `<img src="omslag/${esc(b.omslag)}" alt="Omslag: ${esc(b.tittel)}">` : `
-    <span class="ca">${esc(FORFATTER)}</span>
-    <span class="ct">${esc(b.tittel)}</span>`}
+  return `<div class="cover cv" style="--k:${katfarge(b)}" role="img" aria-label="Omslag: ${esc(b.tittel.replace(/\u00AD/g, ""))}">
+    <div class="cv-mid">
+      <span class="cv-t" style="font-size:${tittelStr(b.tittel)}cqi">${esc(b.tittel)}</span>
+      <span class="cv-d"></span>
+      ${b.undertittel ? `<span class="cv-s">${esc(b.undertittel)}</span>` : ""}
+    </div>
+    <span class="cv-a">${esc(FORFATTER)}</span>
   </div>`;
 }
 
@@ -619,7 +650,7 @@ function renderShelf() {
   const heights = [12.5, 13.5, 11.5, 14, 12, 13];
   $("#shelf").innerHTML = BOKER.map((b, i) =>
     `<button class="spine${i === BOKER.length - 1 ? " lean" : ""}" type="button" data-i="${i}"
-      style="--c:${esc(b.farge || "#2c4a52")};--t:${esc(b.tekstfarge || "#f4f1e8")};--h:${heights[i % heights.length]}rem;--w:${2.4 + (i % 3) * .4}rem"
+      style="--c:#f7f4ee;--t:${katfarge(b)};--h:${heights[i % heights.length]}rem;--w:${2.4 + (i % 3) * .4}rem"
       title="${esc(b.tittel)}">${esc(b.tittel)}</button>`).join("");
 }
 
@@ -636,7 +667,7 @@ function renderTabs() {
 function renderGrid() {
   const q = $("#q").value.trim().toLowerCase();
   const list = BOKER.map((b, i) => [b, i]).filter(([b]) =>
-    q ? (b.tittel + " " + (b.undertittel || "")).toLowerCase().includes(q) : b.hoved === hoved && b.under === under);
+    q ? (b.tittel + " " + (b.undertittel || "")).replace(/\u00AD/g, "").toLowerCase().includes(q) : b.hoved === hoved && b.under === under);
   $("#grid").innerHTML = list.map(([b, i]) => `
     <button class="book" type="button" data-i="${i}" aria-label="Les mer om ${esc(b.tittel)}">
       <span class="cwrap">${coverHTML(b)}<span class="peek">Les mer</span></span>
