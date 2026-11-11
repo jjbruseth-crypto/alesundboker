@@ -313,13 +313,13 @@ const PROTOTYPE = true;
 const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
-const BARE = { univers: "andre" };
+const BARE = { univers: "andre", kin: "alesund" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
@@ -327,6 +327,7 @@ const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakpr
    under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier" eller "selvutvikling"
    omslag:   filnavn i mappen "omslag/"
    omslagssitat: sitatet øverst på omslaget («agnet»)
+   fakta:    kort linje om personen (vises i bokvinduet)
    teaser:   baksideteksten
    manus:    filnavn i mappen "manus/" med hele boka (valgfritt)
    kjop:     lenke til betaling (Vipps/Stripe e.l.)
@@ -736,7 +737,37 @@ Derfra går det slag i slag. I 1551 bor det 147 mennesker i et hus med plass til
 
 Derfra går det slag i slag. Ei geit spiser halve fredstraktaten fra Kiel under et møte om Norges framtid. Tormod ønsker et selvstendig Norge, dersom det kan gjennomføres uten urimelige utgifter. Et helt hotell kommer sjøveien i deler. En trykkfeil setter en enkemadam til salgs, med åtte stoler. Den første telefonsamtalen blir fullstendig vellykket: Ingen fikk svar, og begge ble fornærmet. Natta til 23. januar 1904 brenner byen, og det første Klara får fra Tyskland, er en høyrestøvel.
 
-ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 4, Byen som skulle bli noe, følger Ålesund fra 1801 og fram til i dag, gjennom kjøpstadsrett, storsild, bybrann, jugend og krig, helt fram til cruiseskipene ved Brosundet. Det meste er nesten sant. Resten er fra Ålesund.` }
+ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 4, Byen som skulle bli noe, følger Ålesund fra 1801 og fram til i dag, gjennom kjøpstadsrett, storsild, bybrann, jugend og krig, helt fram til cruiseskipene ved Brosundet. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Kristine Ruiz-Skarbø", undertittel: "Kvinnen som reiste verden rundt for å finne igjen kua", hoved: "alesund", under: "kin",
+    fakta: "Skarbø Gard, Stranda · KIN Awards 2026 · Nominert til Årets talent",
+    omslagssitat: "En gitar kan man legge fra seg. En ku er vanskeligere.",
+    teaser: `Som sekstenåring reiste odelsjenta fra Skarbø Gard ved Storfjorden til Tokyo. Siden ble det Ås, doktorgrad i antropologi i USA og et liv i Medellín sammen med Carlos fra Andalusia. I 2014 var de tilbake på gården, som familien har drevet i åtte generasjoner. Så begynte de å lage ost, som fikk internasjonal bronsemedalje, og sider av epler fra flere tusen nye trær.
+
+En lun miniflaneribiografi om reisen ut i verden og hjem til kua, osten og åtte generasjoners gårdshistorie.` },
+  { tittel: "Maria Espeseth Sævik", undertittel: "Jenta som savnet bråket", hoved: "alesund", under: "kin",
+    fakta: "Fisker og styrmann, Herøy · KIN Awards 2025 og 2026 · Nominert til Årets unge inspirasjon begge år",
+    omslagssitat: "Det var stillheten som ble problemet.",
+    teaser: `Femten år gammel var hun en måned til sjøs med Sæbjørn, der faren og morfaren arbeidet. Hun ble sjøsyk, sto på dekk i Nordsjøen og så nota sprekke med et kjempekast inni. Da hun kom hjem til Herøy, til taco og sjokoladefondant, savnet hun bråket. I dag er hun fisker og styrmann.
+
+En miniflaneribiografi om én måned til sjøs, en sprukket not og stillheten som ble for stor.` },
+  { tittel: "Gry Cecilie Sydhagen", undertittel: "Den røde sportsbilen og andre dårlige familieinvesteringer", hoved: "alesund", under: "kin",
+    fakta: "Gründer og konsernsjef i Metizoft, Herøy · KIN Awards 2026 · Vinner av Årets forbilde",
+    omslagssitat: "Bilen hadde to seter. Den var rød. Og på mange måter fullstendig ubrukelig.",
+    teaser: `På én måned fant hun mannen hun ville dele livet med, kjøpte sportsbil og fikk barn på vei. Fast jobb hadde hun ikke. Så begynte programmereren fra Moltustranda å tenke på hva skipene egentlig inneholder, og bygde Metizoft. Før statsrådbesøket i 2009 ble det støvdugnad på kontoret. Senere gikk internasjonale investorer inn i selskapet.
+
+En miniflaneribiografi om den røde sportsbilen, miljøgifter i skip og en støvdugnad før statsrådbesøket.` },
+  { tittel: "Anja Solevågseide", undertittel: "Oppsigelsen som kom i romjulen", hoved: "alesund", under: "kin",
+    fakta: "Medgründer av Pir, Ålesund · KIN Awards 2024 · Vinner av Årets gründer",
+    omslagssitat: "Romjulen er en av de merkeligste periodene i menneskehetens kalender.",
+    teaser: `Hun var valutamegler i banken. Så begynte hun å spille golf, tok en jobb til halv lønn og ble kjent med mange av næringslivslederne på Sunnmøre. I romjulen 2017 sa hun opp jobben for å være med og bygge Pir, et sted i Ålesund der gründere, investorer og ideer kan møtes. Så kom pandemien.
+
+En miniflaneribiografi om en romjulsoppsigelse, golfens uventede forbindelser og stedet der nye bedrifter kan møtes.` },
+  { tittel: "Hege Longva", undertittel: "Kvinnen som ville vite hvem som egentlig var til stede", hoved: "alesund", under: "kin",
+    fakta: "Gründer og daglig leder i NOA, Ulsteinvik · KIN Awards 2026 · Vinner av Årets talent",
+    omslagssitat: "Det begynte med et ganske alminnelig spørsmål. Hvem er her?",
+    teaser: `Som administrasjonssjef ved Sonans Privatgymnas så hun hvor mye tid som gikk med til lister og opprop. Så laget hun NOA, en app der studentene selv registrerer at de har møtt opp. I dag har løsningene over 60 000 brukere. Og i 2026 møtte hun selv opp på scenen og fikk prisen som Årets talent.
+
+En miniflaneribiografi om oppropets historie, den administrative irritasjonen og teknologien som frigjør tid.` }
 ];
 </script>
 <script>
@@ -753,7 +784,7 @@ BOKER.forEach(b => {
 
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
 const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
-  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f" };
+  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c" };
 const katfarge = b => KATFARGE[b.under] || "#2c4a52";
 
 function tittelStr(t) {
@@ -852,6 +883,7 @@ function openBook(i) {
         ${b.sider ? `<dt>Sider</dt><dd>${esc(b.sider)}</dd>` : ""}
         ${b.isbn ? `<dt>ISBN</dt><dd>${esc(b.isbn)}</dd>` : ""}
         ${b.serie ? `<dt>Serie</dt><dd>${esc(b.serie)}</dd>` : ""}
+        ${b.fakta ? `<dt>Om</dt><dd>${esc(b.fakta)}</dd>` : ""}
       </dl>
       <div class="buy">
         <span class="big">kr ${PRIS}</span>
