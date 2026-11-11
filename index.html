@@ -166,16 +166,27 @@ footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; ju
 
 /* Omslag: samme papir, skrift og oppsett for alle bøker */
 .cover.cv { container-type: inline-size; padding: 0; color: #1b1b1b; text-align: center;
-  display: grid; grid-template-rows: 1fr auto; grid-template-columns: minmax(0, 1fr); justify-items: stretch;
+  display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); justify-items: stretch;
   background: linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 3.5%, rgba(255,255,255,.5) 4.5%, rgba(0,0,0,0) 6.5%), #f7f4ee; }
 .cover.cv::after { display: none; }
 .cv-mid { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 5cqi; width: 100%; padding: 6cqi 7cqi 0; }
-.cv-t { font: 800 1em/0.98 "Playfair Display", "Bodoni 72", Didot, Georgia, serif; text-transform: uppercase; color: var(--k);
+.cv-t { font: 800 calc(var(--fs) * 1cqi)/0.98 "Playfair Display", "Bodoni 72", Didot, Georgia, serif; text-transform: uppercase; color: var(--k);
   hyphens: manual; overflow-wrap: break-word; text-wrap: balance; display: block; width: 100%; text-align: center; }
 .cv-d { position: relative; width: 44cqi; height: 3cqi;
   background: linear-gradient(var(--k), var(--k)) left center / 40% 1px no-repeat, linear-gradient(var(--k), var(--k)) right center / 40% 1px no-repeat; }
 .cv-d::after { content: ""; position: absolute; left: 50%; top: 50%; width: 2.6cqi; height: 2.6cqi; background: var(--k); transform: translate(-50%, -50%) rotate(45deg); }
 .cv-s { font: 400 7cqi/1.15 "EB Garamond", Georgia, serif; text-wrap: balance; }
+.cv-q { grid-row: 1; } .cv-mid { grid-row: 2; } .cv-a { grid-row: 3; }
+.cv-q { display: none; margin: 0; padding: 10cqi 9cqi 0; font: 400 5.4cqi/1.28 "EB Garamond", Georgia, serif; text-wrap: balance; }
+.cv-q span { display: block; margin-top: 2.2cqi; font-style: italic; font-size: 5cqi; }
+@container (min-width: 200px) {
+  .cv-q { display: block; }
+  .cv-mid { padding-top: 2cqi; }
+  .cv-t { font-size: calc(var(--fs) * 0.82cqi); }
+}
+.book { container-type: inline-size; }
+.hook { font-style: italic; font-size: .88rem; line-height: 1.4; color: var(--ink-soft); margin-top: .35rem; }
+@container (min-width: 200px) { .hook { display: none; } }
 .cv-a { font: 400 6cqi/1 "EB Garamond", Georgia, serif; letter-spacing: .1em; padding-block: 0 9cqi; }
 
 /* Vinduer */
@@ -315,6 +326,7 @@ const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakpr
    hoved:    "alesund" eller "andre"
    under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier" eller "selvutvikling"
    omslag:   filnavn i mappen "omslag/"
+   omslagssitat: sitatet øverst på omslaget («agnet»)
    teaser:   baksideteksten
    manus:    filnavn i mappen "manus/" med hele boka (valgfritt)
    kjop:     lenke til betaling (Vipps/Stripe e.l.)
@@ -325,6 +337,7 @@ const BOKER = [
   { tittel: "Astrid Overaa", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
     omslag: "astrid-overaa.webp", manus: "astrid-overaa.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Første gang jeg så Astrid Overaa, sto hun og slikket på en kjærlighet.",
+    omslagssitat: "Hun kom ikke brasende inn i rommet. Hun fikk rommet til å reise seg og rette på ryggen. Det er en egen kunst.",
     teaser: `Høsten 1972 vinner en jente fra Ålesund en kringle i pausen på Teatret Vårt. Senere kommer hun ikke inn på teaterskolen, og slipper dermed å bli «fjerde ku fra venstre». I stedet bygger hun sin egen scene.
 
 Sommeren 1996 åpner Astrid og Arild Teaterfabrikken i en nedlagt tranfabrikk i Molovegen. Publikum sitter på tromler, Arild står i baren i smoking, og en seksåring bærer planker. I 28 år blir fabrikken et hjem for Lilly Valentin og Fru Pigalopp, for salmepub, bingo og sommerfester for dem som er alene.
@@ -333,6 +346,7 @@ John John Bruseth ble irettesatt av Astrid på Badet fritidsklubb som tenåring.
   { tittel: "Bjarne Haagensen", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
     omslag: "bjarne-haagensen.webp", manus: "bjarne-haagensen.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Ballen kom mot meg, og jeg sparket den tilbake. Så mye fikk jeg til.",
+    omslagssitat: "Han gikk sakte gjennom byen, så på menneskene, bygningene og lyset, og tenkte at alt hang sammen.",
     teaser: `På Kråmyra i 1982 sparker klippfiskkongen Bjarne Haagensen en ball til en ung visesanger og sier at sangen hans er fantastisk fin. Visesangeren får aldri takket. Noen år senere står han på den andre siden i striden om Storsenteret og håner mannen i et selskap.
 
 Bjarne Haagensen overtok et forgjeldet klippfiskfirma som 28-åring og bygde Brødrene Jangaard til et konsern. Han satte spor overalt i Ålesund: Parken, Scandinavie, Storsenteret, Bybadet og Color Line Stadion. Han ble ridder av St. Olavs Orden og ble kalt en av «Ålesunds-mafiaen».
@@ -341,6 +355,7 @@ Førti år etter pasningen går John John Bruseth byen rundt for å finne mannen
   { tittel: "Kjell Holm", undertittel: "Den hvite kofferten", hoved: "alesund", under: "biografier",
     omslag: "kjell-holm.webp", manus: "kjell-holm.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "En hvit koffert sto i et bakrom i Ålesund og ventet på at jeg skulle bli gammel nok til å forstå hva den var.",
+    omslagssitat: "Han kom med kofferten først. Resten av livet fulgte etter, litt for sent og med dårlig forklaring.",
     teaser: `I bakrommet til en suvenirbutikk står en hvit koffert. Den skal ha tilhørt Sonja Henie og være laget til bagasjerommet i Kjell Holms sportsbil. Ingen kan bevise det, men kofferten setter i gang en leting.
 
 Kjell Holm (1919–2009) var arving etter tranformuen fra Brunholmen. Han levde i New Yorks Café Society og var forlovet med Sonja Henie, men trakk seg etter en episode i Paris som ingen har forklart. Han mistet far og bror på tre år og ødela nesten alt han selv malte. Til slutt ga han nesten hele formuen til byen han kom fra.
@@ -349,6 +364,7 @@ John John Bruseths far vokste opp med Holm-brødrene på Brunholmen. På leting 
   { tittel: "Harald Grytten", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
     omslag: "harald-grytten.webp", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Ålesundsvær er heller ikke meteorologi. Det er regi.",
+    omslagssitat: "Han bar med seg både landskapet og latteren. Det var som om hvert møte fikk mer luft rundt seg når Harald Grytten kom inn i rommet.",
     teaser: `Det er natt i januar. En mann med hansker leder folk gjennom gatene der byen brant i 1904. «Bybrannen er ikkje berre noko som hende», sier han. «Det er noko byen framleis oppfører seg etter.»
 
 Harald Grytten vokste opp i Kirkegata, med en far i Berset-bua og slekt på øyene rundt byen. Han ble norsklærer, språkmann, museumsmann og byvandrer. Han lærte ålesunderne å se etter, og å forstå at det lokale ikke er lite.
@@ -357,6 +373,7 @@ I denne flaneribiografien følger John John Bruseth ham langs Brosundet, gjennom
   { tittel: "Haaland", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
     omslag: "haaland.webp", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Haaland ble ikke svaret. Han ble måten å se på.",
+    omslagssitat: "Jeg begynte å skrive fordi jeg lurte på hvordan et menneske blir så god til noe at det ser enkelt ut.",
     teaser: `Hvordan blir et menneske så god til noe at det ser enkelt ut?
 
 En mann går gjennom en dag i Ålesund med det spørsmålet i lomma. Han går fra kafeen til fotballbanen, gjennom jugendgatene og ned til Brosundet. Han ser en ball som ligger igjen på en tom bane, en gutt som øver på mottak i regnet, en hanskereparatør, en innbytter som aldri kommer på banen og en bestefar som bøter garn. Overalt ser han det han har sett hos Erling Braut Haaland: timingen, tålmodigheten og evnen til å være på riktig sted ett sekund før alle andre.
@@ -365,6 +382,7 @@ En mann går gjennom en dag i Ålesund med det spørsmålet i lomma. Han går fr
   { tittel: "Proveniens", undertittel: "En Ålesundkrim", hoved: "alesund", under: "krim",
     omslag: "proveniens.webp", manus: "proveniens.html", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
     sitat: "Skjermen sa grønt mens gutten skrapte.",
+    omslagssitat: "Ingen stjal bare et bilde. Noen tok også historien som hang rundt det, og etterlot stillheten som bevis.",
     teaser: `En mandag morgen i august låser vaktmesteren opp KUBE, kunstmuseet i den gamle Norges Bank-bygningen i Ålesund. Fem malerier er borte, og alarmloggen sier at alt er i orden. Døra til det gamle bankhvelvet står på gløtt. Der inne ligger en ung mann, stengt inne, med skrapemerker på innsiden av ståldøra.
 
 Etterforsker Ingunn Skjong går til fots, skriver med blyant og stoler ikke på skjermer. Hun ser det andre overser: Tyvene tok nettopp de bildene som skulle analyseres uka etter, og et sjette, lite grått maleri er også borte. Kanskje var dette ikke et tyveri. Kanskje ville noen bli kvitt noe.
@@ -372,6 +390,7 @@ Etterforsker Ingunn Skjong går til fots, skriver med blyant og stoler ikke på 
 En rømt tyv gjemmer seg i fjordene, og folk som vet noe begynner å dø i ulykker. Saken blir et kappløp gjennom jugendbyens bakgårder, sjøbuer og styrerom. Ingunn lærer at et bilde ikke er verdt malingen, men historien sin. Og at baksiden aldri lyver.` },
   { tittel: "Ni år for sent", undertittel: "Nittini flanerier til Brunholmkaia", hoved: "alesund", under: "romaner",
     omslag: "ni-ar-for-sent.webp", farge: "#f4f2ee", tekstfarge: "#7a2410",
+    omslagssitat: "Et sted mellom Øvre gate og Brunholmgata blir det uklart hvem som egentlig holder hvem i hånden.",
     teaser: `Sommeren 1936 lovte en niåring at han skulle stupe fra Paulsenkaia. Han gjorde det ikke.
 
 Nå er han nittini, tidligere rockemusiker, og han har bestemt seg. Fra Giskegata til kaikanten er det ikke langt for andre. For ham er det en hel dag, seks etapper og et regnskyll, med en niåring på slep som ikke er blitt en dag eldre og har meninger om alt.
@@ -384,6 +403,7 @@ NI ÅR FOR SENT er en varm og vill roman om ett løfte, én dag og nittini år.`
   { tittel: "Perane", undertittel: "En roman", hoved: "andre", under: "romaner",
     omslag: "perane.webp", farge: "#f4f2ee", tekstfarge: "#7a2410",
     sitat: "Per kjente skammen før han kjente sinnet. Det var det verste med skam. Den kom alltid først, som en dårlig trent hund.",
+    omslagssitat: "Noen mennesker får ta feil i fred. Andre får feilene sine registrert som bevis.",
     teaser: `I bygda kaller de dem Perane. Det er ett navn for to menn. Per går først og snakker. Hans ser alt det andre overser og sier det høyt, gjerne på feil sted.
 
 De kjøper kaffe for to øre, spikker fuglekasser og setter fram to kopper hver morgen. Bygda passer på dem, og bygda ser på dem. Når kjøpmannen påstår at det mangler én øre, er det Hans som finner mynten. Det er Per som kjenner skammen.
@@ -392,6 +412,7 @@ De kjøper kaffe for to øre, spikker fuglekasser og setter fram to kopper hver 
   { tittel: "Mauritius Maur", undertittel: "En fabelroman", hoved: "andre", under: "romaner",
     omslag: "mauritius-maur.webp", farge: "#f4f2ee", tekstfarge: "#1f4d2a",
     sitat: "Mauritius hadde ingenting imot blader. Det var mengden han stusset på.",
+    omslagssitat: "Mauritius hadde ingenting imot blader. Det var mengden han stusset på.",
     teaser: `I tua er det lavt under taket. Alle bærer, ingen ser opp, og det finnes ingen regel mot å klatre i strå – bare en stillhet rundt dem som klatrer. Men Mauritius har stått øverst i det lange strået ved nordhellingen og sett verden ligge der: laget som en mørk tråd gjennom gresset, en grå stripe som fortsetter i begge retninger, og den blå høyden som ingen i tua har noe godt ord for.
 
 Det han ser, koster. En ung maur følger etter ham opp og faller. Et regn tar en vegg, og én kommer aldri hjem. Og Mauritius drar – over menneskeveien, forbi sandgropen, eplet og muren – for å finne ut hva som ligger på den andre siden av kartet.
@@ -480,6 +501,7 @@ Hundre år senere leter John John Bruseth etter historien om penger, arbeid og t
 «Fire dager i juni» er 37 flanerier om hundre år med bank i en liten bygd, der et avslag ikke forsvant inn i et nasjonalt system, men tok på seg jakke og gikk over gata.` },
   { tittel: "Den indre gartneren", undertittel: "En selvutviklingsroman", hoved: "andre", under: "selvutvikling",
     omslag: "den-indre-gartneren.webp", manus: "den-indre-gartneren.html", farge: "#f4f2ee", tekstfarge: "#5b3a7a",
+    omslagssitat: "Hun er den som sier ja fra badet før hun har hørt spørsmålet.",
     teaser: `Elena er den på kontoret som husker fristene, finner feilen i romnummeret og vet hvor tallerkenene står. Hun er den datteren som kjører moren til skobutikken, den moren som vasker kjøleskapshyllen i datterens nye kollektiv, den som sier ja fra badet før hun har hørt spørsmålet. Så går hun ut av et møte uten å vite hvor hun skal, og blir sittende i et glasshus hvor andres planter overvintrer.
 
 Der finnes Linnea, som har holdt på for lenge og ikke vet om hun orker en vinter til. Der finnes Ruth med sitrontreet hun fikk av en mann som ikke er død, Ragnhild som har mikseren på en barkrakk, Maja som helst vil tegne noe stygt, og Henrik fra jobben som spiller i et band som har sluttet tre ganger. Elena ser straks hva stedet kunne bli. Hun ser ikke like fort hva hun gjør med det.
@@ -490,6 +512,7 @@ Den indre gartneren handler om omsorg som både er verdifull og krevende, om å 
   { tittel: "Jeg hadde tenkt å ta det rolig", hoved: "andre", under: "univers",
     omslag: "jeg-hadde-tenkt-a-ta-det-rolig.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Før jeg kjøpte klokken, hadde jeg hatt noen ganske gode dager uten å vite at de var dårlige.",
+    omslagssitat: "Jeg hadde reist til Portugal for å ta det rolig.",
     teaser: `«Jeg hadde reist til Portugal for å ta det rolig.»
 
 Det begynner med et egg. Han kommer ti minutter for sent til hotellfrokosten, og derfra tar ferien en annen retning. En nordmann tar ham for en som heter Arne, menn på stiger snur seg i det øyeblikket han søler, og verdensrommet gjør ham mindre enn han hadde trengt. I et gitarverksted møter han Rui, Sara og Miguel. Hjemme venter Liv på svar om et oppdrag hun håper å få.
@@ -498,6 +521,7 @@ Det begynner med et egg. Han kommer ti minutter for sent til hotellfrokosten, og
   { tittel: "Jeg tror de andre koser seg", hoved: "andre", under: "univers",
     omslag: "jeg-tror-de-andre-koser-seg.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Jeg hadde lært at det var mulig å være svært glad i mennesker og likevel ønske at alle kunne spise en løk.",
+    omslagssitat: "‘Ta med noe’ er, så vidt jeg kan bedømme, den farligste setningen i det engelske språket.",
     teaser: `Han er i London i to uker fordi Liv har arbeid der. Nora fra trappen inviterer ham til torsdagsmiddag i fellesrommet i kjelleren og sier: «Ta med noe.» Hjemme betyr det vafler. Her kunne det bety hva som helst. Han går innom tre butikker og ender med en ost til fjorten pund.
 
 Snart er han med i gruppen «Nede». Der er Irene, som er enke og tørrvittig, Malik, som kjører buss om natten, og Bea, som monterer dører og trekker om møbler. Det er suppe, brød og et fellesrom der ingenting står så trygt som det som er ødelagt. Han vil gjerne hjelpe, og han vil gjerne ha oversikt. Fellesskapet klarer seg ganske godt uten.
@@ -506,6 +530,7 @@ Snart er han med i gruppen «Nede». Der er Irene, som er enke og tørrvittig, M
   { tittel: "Det var hyggeligere inni hodet mitt", hoved: "andre", under: "univers",
     omslag: "det-var-hyggeligere-inni-hodet-mitt.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Avstand er en dårlig organisert ordning.",
+    omslagssitat: "Det luktet tre, kaffe og noe varmt som ikke var mat.",
     teaser: `Han har leid et rom over et pianoverksted i København i tre uker. Der skal han lage et lydstykke på tolv minutter til en utstilling i Oslo. Nede i verkstedet lukter det tre, kaffe og noe varmt som ikke er mat. I døra står Ada, som reparerer pianoer.
 
 Da hun spør om han har bodd lenge alene, svarer han: «Jeg reiser en del.» Hjemme planlegger Liv en togreise for dem to til våren.
@@ -516,6 +541,7 @@ Det blir tirsdager i en kjeller med Vera og Henrik, en sofa som ikke vil gå inn
   { tittel: "Jeg skulle bare ha én ting", hoved: "andre", under: "univers",
     omslag: "jeg-skulle-bare-ha-en-ting.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Alle tingene var villige til å flytte, men ingen ville forlate stedet.",
+    omslagssitat: "Historien kjenner ingen mann som har kommet for å hente én ting og gått med én ting.",
     teaser: `Birger og Signe skal flytte til leilighet, og huset skal overtas om tre uker. Birger sender et bilde av en gammel spolebåndopptaker, og han svarer ja før han har forstørret bildet. Han skulle bare ha én ting.
 
 Så følger spolene, mikrofonen og en kasse med bånd fra bandet de hadde i ungdommen. Så kommer et bord, en hylle og flere bokser. Lene i nabolagshuset vil ha et innslag om ting folk har tatt vare på, og fredag skal han spille det gamle opptaket. Liv har fått tilbud om et år til i jobben og må tenke. Og på båndet ligger det mer enn musikk.
@@ -524,6 +550,7 @@ Så følger spolene, mikrofonen og en kasse med bånd fra bandet de hadde i ungd
   { tittel: "Jeg var ikke ferdig", hoved: "andre", under: "univers",
     omslag: "jeg-var-ikke-ferdig.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Det er en grense mellom å være glad i noen og å drive nattlig tilsyn.",
+    omslagssitat: "Et ansikt som spør om det er bra nå, er ikke et portrett. Det er en søknad.",
     teaser: `Han skal til Trieste for å arbeide alene i fire uker, med pianorom, bading, boravind og sammenhengende tid. Så forteller sønnen at han flytter til Montreal i et halvt år for å jobbe med film.
 
 I Trieste møter han Marta, som lager keramikk og leier ut rommet, Dario, som arbeider om natten på den andre siden av veggen, og Tereza med fuglehatten. Liv, kona, er med de første tolv nettene. Hjemme lager sønnen filmen sin. Og spørsmålet blir hvor han egentlig bør være.
@@ -532,6 +559,7 @@ I Trieste møter han Marta, som lager keramikk og leier ut rommet, Dario, som ar
   { tittel: "Det var ikke jeg som bestilte universet", hoved: "andre", under: "univers",
     omslag: "det-var-ikke-jeg-som-bestilte-universet.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "Pakken pustet mens jeg signerte.",
+    omslagssitat: "En svart lampe er en mann som ville ha lys og ikke snakke mer om det.",
     teaser: `Han bestilte en svart arbeidslampe på nett. Det som kommer, er et midlertidig univers: en lunken kule, et hefte som skriver seg selv og en sammenleggbar innside i papp. Lys er forhåndsinstallert. Mørke velges separat.
 
 Snart går skyggene sin egen vei, det er natt i bøtta, og naboen Rune har fått en liten måne over bilen. Middagsgjestene lurer på om de skal ta med noe. Og jo lenger universet blir i huset, jo nærmere kommer det ting han helst ikke vil tenke på, som det han en gang sa til Egil, den gamle musikkpartneren sin.
@@ -540,6 +568,7 @@ Snart går skyggene sin egen vei, det er natt i bøtta, og naboen Rune har fått
   { tittel: "Mens han tenkte på noe annet", hoved: "andre", under: "univers",
     omslag: "mens-han-tenkte-pa-noe-annet.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "I tjue år hadde hun spist sylteagurk for Hanne.",
+    omslagssitat: "Hanne åpnet døren i en brudekjole som ikke lot henne løfte armene.",
     teaser: `Hanne åpner døren i en brudekjole som ikke lar henne løfte armene. Barndomshjemmet er solgt, og alt skal være ute mandag klokka tolv. Liv har tatt toget for å hjelpe venninnen hun har kjent siden de var nitten.
 
 Det blir en helg med glass, stoler, en fryser som ikke vil gjennom døra og et gammelt fotoalbum. Samtidig venter et tilbud om fire måneder i Utrecht på svar innen mandag, og en tekst Liv aldri har fått begynt på. JJ er hjemme og ringer innimellom.
@@ -548,6 +577,7 @@ Det blir en helg med glass, stoler, en fryser som ikke vil gjennom døra og et g
   { tittel: "Opplevelses\u00ADknappen", undertittel: "Om å stanse, se etter og rote seg bort i livet", hoved: "andre", under: "univers",
     omslag: "opplevelsesknappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "La oss begynne med at jeg ikke kommer frem.",
+    omslagssitat: "Nå trykker jeg på Opplevelsesknappen.",
     teaser: `Han skulle bare et sted. Så setter han seg på fortauskanten for å se på noen maur, og før han vet ordet av det, sitter han i et forestilt møte om kjøleskap uten håndtak.
 
 Opplevelsesknappen er en knapp inni ham som minner ham på å stanse og se etter. Han trykker på den i køen, i regnet under et takutstikk, på kjøkkenet og i rulletrappa. Han møter en kvinne med appelsiner, en mann på en benk og en jente i rulletrappa. Og hver gang han prøver å være til stede, sporer det av.
@@ -556,6 +586,7 @@ Opplevelsesknappen er en knapp inni ham som minner ham på å stanse og se etter
   { tittel: "Kommentatoren", undertittel: "Om livet sett fra beste sete", hoved: "andre", under: "univers",
     omslag: "kommentatoren.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
     sitat: "Det er alltid bedre å ha en tale man ikke holder, enn å holde en tale man ikke har.",
+    omslagssitat: "Jeg har sendt direkte fra dette livet siden konfirmasjonen.",
     teaser: `«Jeg har sendt direkte fra dette livet siden konfirmasjonen.»
 
 Inni hodet hans sitter en sportskommentator. Han kommenterer kaffen, kollegaen Tormod, generalforsamlingen i borettslaget og kvinnen i den lyseblå kjolen. Kjære seere. Opptak fra arkivet. Han har bodd i samme blokk i elleve år, og snart fyller han sekstisju.
@@ -566,6 +597,7 @@ Så begynner han å bruke en knapp som skaper stillhet. I stillheten blir naboen
   { tittel: "Knappen", undertittel: "24 timer fra et lite sted", hoved: "andre", under: "univers",
     omslag: "knappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
     sitat: "De holder ting i hendene hele dagen og vet ikke hvem som har holdt dem før.",
+    omslagssitat: "Jeg vet ikke hvorfor jeg blir stående og se på en knapp. Jeg har et helt sted å dekke.",
     teaser: `I femti år har kommentatoren bare dekket én mann. Så våkner den på årets lengste dag og har fått et helt sted som sendeområde. Den kan ikke snakke med noen. Den kan bare se.
 
 Klokka fem om morgenen mister nattevakten Kåre den øverste knappen på den brune jakken sin utenfor bakeriet. Gjennom døgnet går knappen fra hånd til hånd i det lille stedet ved fjorden. Underveis møter vi en baker som hører sin døde mors stemme, en bussjåfør som sier «Speil. Speil. Blinklys.», en skredder, en hund som heter Bamse og en oppvasker fra Chișinău.
@@ -573,6 +605,7 @@ Klokka fem om morgenen mister nattevakten Kåre den øverste knappen på den bru
 «Knappen» er tiende bok i JJ's Univers. Den er fortalt time for time, fra fem om morgenen til fem neste morgen. Det er en lun og vemodig bok om alle menneskene vi går forbi, og om de små tingene som binder dem sammen.` },
   { tittel: "67", undertittel: "En flanerisamling om alder, undring og kunsten å ikke bli voksen", hoved: "alesund", under: "flanerier",
     omslag: "67.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
+    omslagssitat: "Men livet lar seg heldigvis ikke regne ut.",
     teaser: `Det er mye man skal ha lært når man er 67.
 
 Man skal vite bedre. Ta det med ro. Oppføre seg fornuftig. Og helst ha sluttet å finne på ting som kan ende med at noen spør: «Hva i all verden tenkte du på?»
@@ -590,6 +623,7 @@ For alderen kan nok telles i år.
 Men livet lar seg heldigvis ikke regne ut.` },
   { tittel: "68", undertittel: "En flanerisamling om omveier, mennesker og kunsten å fortsette", hoved: "alesund", under: "flanerier",
     omslag: "68.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
+    omslagssitat: "Men det betyr ikke at man må bli ferdig.",
     teaser: `Han er blitt 68.
 
 Det burde kanskje bety at han har funnet roen. At han vet hvor han skal, hva han mener, og når det er klokest å holde munn.
@@ -610,6 +644,7 @@ Men det betyr ikke at man må bli ferdig.` },
   { tittel: "Fiskekakene som hadde ben å gå på", undertittel: "Ålesundsflanerier 1965–1975", hoved: "alesund", under: "flanerier",
     omslag: "fiskekakene.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     sitat: "På Hellebroa kunne man avtale å møte et menneske og likevel ende med å treffe hele Ålesund før vedkommende dukket opp.",
+    omslagssitat: "Jeg ble en gang sendt til Søstrene Anda for å kjøpe åtte fiskekaker og kom hjem med fire.",
     teaser: `«Jeg ble en gang sendt til Søstrene Anda for å kjøpe åtte fiskekaker og kom hjem med fire.» Det skyldtes kvalitetskontrollen, måkene og Per. Fiskekakene hadde ben å gå på.
 
 Dette er Ålesund mellom 1965 og 1975, sett med øynene til en gutt som vokser opp mellom Brunholmen, Hellebroa og Aksla. Det er spøkebutikken Skøyer'n og den røde løsnesen som spretter ut av lærerens hender midt i et foredrag om selvdisiplin. Det er softismaskinen på Stuen som ikke vil slutte å pumpe, revyen på Arbeider'n der onkel Arne mister buksene, byens første pol, Tarzan-plakaten på Løvenvold kino og telefonkiosken i regnet. Og det er Tippe-Hans på trehjulsmopeden og Jefta med den store stemmen.
@@ -618,6 +653,7 @@ Dette er Ålesund mellom 1965 og 1975, sett med øynene til en gutt som vokser o
   { tittel: "Jeg skal bare snu", undertittel: "27 Ålesundsflanerier", hoved: "alesund", under: "flanerier",
     omslag: "jeg-skal-bare-snu.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     sitat: "Kjøpte plommer er frukt. Stjålne plommer er en hendelse.",
+    omslagssitat: "Mannen sto på trappen med en kaffekopp og ventet på at jeg skulle slutte å bo i innkjørselen hans.",
     teaser: `«Mannen sto på trappen med en kaffekopp og ventet på at jeg skulle slutte å bo i innkjørselen hans.» Han hadde bare kjørt inn for å snu.
 
 Han er sekstisju, men sjuåringen inni ham er ikke ferdig. Han går tilbake til frisøren for å få rettet tre hår gratis og kommer ut med en overpriset sjampo. Han kommer seg ikke opp av en prøvestol med hjul i en skobutikk. Han spurter til kasse to, vinner atten sekunder og går inn igjen for tre kroner feil på kvitteringen. Han havner på feil klassefest og dikter opp et felles minne om en sau. Og han spør etter bussen til Moa og ender på cruiseutflukt til Dalsnibba.
@@ -634,6 +670,7 @@ I nesten to uker går han rundt i byen han kom fra. Han leter etter misunnelsesk
 «Bypatrioten» er femten flanerier om Ålesund. De handler om vestavinden, jugendbyen og parkeringsdebatten, om et gammelt vennskap, og om en by der folk har kjent deg så lenge at de ikke ser noen grunn til å være høflige.` },
   { tittel: "Elva Hotell", undertittel: "En kriminalroman", hoved: "andre", under: "krim",
     omslag: "elva-hotell.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
+    omslagssitat: "Klokka 23.07 var han i elva.",
     teaser: `Erlend Våg spiste rabarbracrumble to ganger, ropte en bursdagshilsen til niesa si tvers over restauranten og sa høyt at han skulle ta en liten tur etter dessert. Klokka 23.07 var han i elva.
 
 På Kverven, et designhotell innerst i en våt vestlandsdal, er alle enige om at det var en tragisk ulykke. PR-rådgiveren har allerede formulert den. Hotelleieren har allerede skrevet under. Dalens store mann sier bare at man skal ta det pent.
@@ -650,6 +687,7 @@ ELVA er en krimroman om hva det koster å si fra, og hva det koster å la være.
   { tittel: "Barents og jeg", undertittel: "En flaneriroman", hoved: "andre", under: "romaner",
     omslag: "barents-og-jeg.webp", manus: "barents-og-jeg.html", farge: "#f4f2ee", tekstfarge: "#1d3a20",
     sitat: "Hele dagen hadde jeg båret ham. Om natten bar han meg.",
+    omslagssitat: "Kapasitet: 2 personer. Tillatt avvik: inntil 5 prosent.",
     teaser: `Han er sekstisju, bor alene i et borettslag og hadde en gang en nummer én-hit. Folk forveksler ham fortsatt med en annen vokalist. Så kjøper han et blått topersoners telt på 2,18 kilo og kaller det Barents.
 
 Før første tur har han allerede utløst brannalarmen i hele borettslaget. Så går ferden til Femundsmarka, over Dovrefjell og ut mot kysten. Underveis venter skrå teltplasser, en mus klokka 03.17, en storm som nesten tar teltet, en lånt hund og en mann med kart som går seg bort. Barents står. Det er mer enn man kan si om befolkningen.
@@ -661,6 +699,7 @@ Hjemme står to like kopper. Den ene har han satt bort. Og det er ikke bare plas
     serie: "Ålesunds nye historie, bind 1 av 4",
     omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det første mennesket som slo seg ned i Ålesund, gjorde det etter all sannsynlighet fordi han ikke kunne fordra at en annen hadde fått større fisk.",
+    omslagssitat: "Det første mennesket som slo seg ned i Ålesund, gjorde det etter all sannsynlighet fordi han ikke kunne fordra at en annen hadde fått større fisk.",
     teaser: `Året er 1026. Asbjørn og Nørv kommer roende inn mellom øyene med tre dager fiske og tre dager krangel bak seg. Asbjørn har den største torsken. Nørvs båt er nesten like god som Asbjørns, og nesten er det farligste ordet på Sunnmøre. Det er Ragna som finner sundet, og det er Ragna og Yrsa som bestemmer hvor de skal bo, mens mennene står og peker.
 
 Derfra går det slag i slag. Olav den hellige dør fire ganger før nyheten når Sunnmøre. Et tak emigrerer en torsdag. En måke blir hellig. En grensestein blir flyttet sju ganger og er borte den åttende. En gutt reiser til Bergen med en torsk til kong Sverre og kommer ikke hjem på sytten år. Og i et hus ved sjøen risser Signe Stuen den første prislisten på en fjøl, fordi folk har god tid til å fortelle hva andre burde gjøre, men ikke til å betale. Navnet hennes skal bli i slekta i nesten tusen år.
@@ -672,6 +711,7 @@ Konger kommer og går, borgerkrigen raser et annet sted, og ved sundet sladres d
     serie: "Ålesunds nye historie, bind 2 av 4",
     omslag: "alesunds-nye-historie-2.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det begynte med en fisk som ikke fantes.",
+    omslagssitat: "Det begynte med en fisk som ikke fantes.",
     teaser: `Året er omkring 1228. Asbjørn av Nørv-slekta er så sjøsyk at han er blitt handelsmann, og han selger det samme fiskepartiet til to kjøpere før det er fanget. Ylva Stuen redder ham. Mot betaling.
 
 Derfra går det slag i slag. En handelsmann veier svigermoren på sin nye, ærlige vekt, og loddene flyr utover handelsplassen. En sunnmøring reiser til kroningen i 1247 og ser ingenting av kongen. Olve vil anmelde vinden etter den nye landsloven, og lagrettemannen spør hvor den bor. En mann kjøper en øy som forsvinner ved flo. En sju år gammel dronning krones med en nepe, og en geit spiser halve krona. Svartedauden kommer, de tyske kjøpmennene kommer, og på Stuen holder kvinnene regnskap med alt sammen.
@@ -681,6 +721,7 @@ Derfra går det slag i slag. En handelsmann veier svigermoren på sin nye, ærli
     serie: "Ålesunds nye historie, bind 3 av 4",
     omslag: "alesunds-nye-historie-3.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det som skulle selges, lå under vann.",
+    omslagssitat: "Det som skulle selges, lå under vann.",
     teaser: `Våren 1515 prøver Knut Erlendsson å selge retten til sundet mellom Aspøya og Nørvøya til en kjøpmann fra Bergen. Det som skulle selges, lå under vann. Knut mente det var en fordel. Man slapp å vise det fram.
 
 Derfra går det slag i slag. I 1551 bor det 147 mennesker i et hus med plass til seks, helt til noen nevner fogden. Hjemmevernet på Aspøya skyter neper mot fire halmsvensker. Losen styrer etter konas underbukser, til ei geit stikker av med dem og sjømerket begynner å springe. Det selvutnevnte bystyret lager et byvåpen med en måke med fire bein. Hele stedet venter Tordenskjold, og det kommer en mann med tannverk. Den første skolen står på hjul og ruller mot sjøen.
@@ -690,6 +731,7 @@ Derfra går det slag i slag. I 1551 bor det 147 mennesker i et hus med plass til
     serie: "Ålesunds nye historie, bind 4 av 4",
     omslag: "alesunds-nye-historie-4.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Natta da Ålesund mistet alt. Bortsett fra sunnmøringene.",
+    omslagssitat: "Natta da Ålesund mistet alt. Bortsett fra sunnmøringene.",
     teaser: `Den 1. februar 1801 går klokkeren Mons fra hus til hus med folketellingen. Tormod vil føres opp som «fisker og kjøpmann». Mons skriver «fisker».
 
 Derfra går det slag i slag. Ei geit spiser halve fredstraktaten fra Kiel under et møte om Norges framtid. Tormod ønsker et selvstendig Norge, dersom det kan gjennomføres uten urimelige utgifter. Et helt hotell kommer sjøveien i deler. En trykkfeil setter en enkemadam til salgs, med åtte stoler. Den første telefonsamtalen blir fullstendig vellykket: Ingen fikk svar, og begge ble fornærmet. Natta til 23. januar 1904 brenner byen, og det første Klara får fra Tyskland, er en høyrestøvel.
@@ -723,10 +765,14 @@ function tittelStr(t) {
   return fs.toFixed(2);
 }
 
+// Agnet: sitatet fra omslaget, ellers sitatet fra boka
+const agn = b => b.omslagssitat || b.sitat || "";
+
 function coverHTML(b) {
   return `<div class="cover cv" style="--k:${katfarge(b)}" role="img" aria-label="Omslag: ${esc(b.tittel.replace(/\u00AD/g, ""))}">
+    ${agn(b) ? `<p class="cv-q">«${esc(agn(b))}»<span>— fra boken</span></p>` : ""}
     <div class="cv-mid">
-      <span class="cv-t" style="font-size:${tittelStr(b.tittel)}cqi">${esc(b.tittel)}</span>
+      <span class="cv-t" style="--fs:${tittelStr(b.tittel)}">${esc(b.tittel)}</span>
       <span class="cv-d"></span>
       ${b.undertittel ? `<span class="cv-s">${esc(b.undertittel)}</span>` : ""}
     </div>
@@ -763,6 +809,7 @@ function renderGrid() {
         <span class="callno">${b.nr}</span>
         <strong>${esc(b.tittel)}${b.undertittel ? `<span style="font-weight:400;color:var(--ink-soft)"> · ${esc(b.undertittel)}</span>` : ""}${b.eksempel ? '<span class="tag">Eksempel</span>' : ""}</strong>
         <span class="row"><span>${esc(navn(b.hoved, b.under))}</span><span class="price">kr ${PRIS}</span></span>
+        ${agn(b) ? `<span class="hook">«${esc(agn(b))}»</span>` : ""}
         <span class="more">Les mer om boka →</span>
       </span>
     </button>`).join("");
