@@ -313,11 +313,11 @@ const PROTOTYPE = true;
 const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
-const BARE = { univers: "andre", kin: "alesund" };
+const BARE = { univers: "andre", kin: "alesund", aafk: "alesund" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
 const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN" };
 
@@ -1127,7 +1127,25 @@ En miniflaneribiografi om parkeringsapper, fotballtribuner og forskjellen på å
     omslagssitat: "For ulven er det ikke politikk. Det er liv.",
     teaser: `Johanne Kjerstad skrev masteroppgaven sin om konflikter rundt ulven og leverte den et halvt år før fristen. Senere arbeidet hun med hav og energi ved NTNU og gjorde bærekraftsrapportering forståelig for små bedrifter i Doxacom. Hun ledet også KIN i den tidlige fasen, da det fortsatt var lav terskel og få medlemmer. I 2026 ble hun ESG-leder i torskeoppdretteren Ode. Det handler fortsatt om forholdet mellom mennesker og natur.
 
-En miniflaneribiografi om ulv, torsk og vanskelige spørsmål som fortjener gode svar.` }
+En miniflaneribiografi om ulv, torsk og vanskelige spørsmål som fortjener gode svar.` },
+  { tittel: "Tangotrøyene", undertittel: "Byen som ble et lag – fra Kråmyra til Ullevaal", hoved: "alesund", under: "aafk",
+    manus: "tangotroyene.html",
+    fakta: "Roman om Aalesunds FK · Førsteutkast",
+    omslagssitat: "Det er rart hvor liten en fotball egentlig er når du er nær nok.",
+    teaser: `Hva skjer når en fotballklubb blir mer enn en klubb – når en farge blir en identitet, en pølselukt blir fellesskap, og en tribunestrofe blir et nervesystem? Dette er en fortelling om Ålesund og Aalesund FK, om hvordan et «vi» blir til, og hvorfor det kan gjøre deg både lykkelig og fullstendig urimelig.
+
+Vi følger maurtua fra de første skranglete sparkene på Nørvebana, via Kråmyras skråning som oppdrar folk i regn og stahet, til Color Line ved sjøen og videre mot Ullevaal. Underveis møter vi Vegard med den lille redselen, Linda som tar kommandoen uten å si det, Franken – portvokteren som minner alle på at selv eufori trenger en regel – og sportsjournalist «Pusen» Huseby med den våte notatblokka.
+
+For det finnes seire som ikke bare setter seg i historiebøkene. De setter seg i kroppen.` },
+  { tittel: "Jentene fra Ålesund", undertittel: "AaFK Fortuna – en flanerende klubbfortelling", hoved: "alesund", under: "aafk",
+    manus: "jentene-fra-alesund.html",
+    fakta: "Klubbfortelling om AaFK Fortuna / Aalesund kvinner · Førsteutkast",
+    omslagssitat: "Hvor mange mennesker skal til før et fotballag blir en historie?",
+    teaser: `Det begynte i 1991. Med noen kvinner som ville spille fotball, et nytt klubbnavn og ingen mulighet til å vite hvor langt det skulle bære. Trettifire år senere står AaFK Fortuna i Tromsø med opprykket til Toppserien innen rekkevidde. Året etter er Fortuna-navnet borte – men laget, menneskene og sangen lever videre, helt fram til en fylt Ullevaal og cupfinale mot Brann.
+
+Dette er historien om dem som spilte, trente, kjørte busser, solgte kaffe, vasket drakter og møtte opp igjen neste tirsdag. Midt i den følger vi en ung spiller som må lære noe som er vanskeligere enn å slå en presis pasning: å slutte å gjøre seg liten.
+
+En varm, morsom og litterær fortelling om kvinnefotball, vennskap, mot og tilhørighet.` }
 ];
 </script>
 <script>
@@ -1144,7 +1162,7 @@ BOKER.forEach(b => {
 
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
 const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
-  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c" };
+  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#b04a06" };
 const katfarge = b => KATFARGE[b.under] || "#2c4a52";
 
 function tittelStr(t) {
