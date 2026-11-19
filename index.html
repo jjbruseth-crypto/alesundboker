@@ -224,7 +224,7 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
 </head>
 <body>
 
-<div class="proto mono" id="protoBar" hidden>Prototype · Kjøp og påmelding er bare demo</div>
+<div class="proto mono" id="protoBar">Kjøp åpnes snart</div>
 <div class="wrap">
   <header class="top">
     <a class="mark" href="#">John John Bruseth</a>
@@ -308,7 +308,7 @@ const PRIS = 149;
 // Adressen påmeldingene sendes til (fra nyhetsbrevtjenesten). Tom = ikke koblet ennå.
 const NYHETSBREV_URL = "";
 // true = prototype: kjøp og påmelding vises som demo, ingenting lagres eller betales.
-const PROTOTYPE = true;
+const PROTOTYPE = false;
 // true = «Les boka» vises for bøker med manus. Av i fastprisperioden: bøkene selges bare enkeltvis.
 const VIS_MANUS = false;
 
@@ -1303,7 +1303,7 @@ function openBook(i) {
         <span class="big">kr ${PRIS}</span>
         ${b.kjop ? `<a class="btn" href="${esc(b.kjop)}" target="_blank" rel="noopener">Kjøp boka</a>`
           : PROTOTYPE ? `<button class="btn" type="button" id="buyBtn">Kjøp boka</button>`
-          : `<span class="callno">Kjøp åpner snart</span>`}
+          : `<span class="callno">Kjøp åpnes snart</span>`}
       </div>
       ${PROTOTYPE && !b.kjop ? checkoutHTML(b) : ""}
       ${VIS_MANUS && b.manus ? `<button class="btn ghost readbtn" type="button" id="readBtn">Les boka</button>` : ""}
@@ -1358,7 +1358,7 @@ document.querySelectorAll("[data-signup]").forEach(form => form.addEventListener
   if (!NYHETSBREV_URL) {
     msg.textContent = PROTOTYPE
       ? `Takk! ${email} får beskjed når neste bok kommer. (Prototype: adressen ble ikke lagret.)`
-      : "Påmeldingen er ikke koblet til ennå, så adressen ble ikke lagret.";
+      : "Påmeldingen til nyhetsbrevet åpnes snart. Adressen ble ikke lagret.";
     if (PROTOTYPE) { form.reset(); setTimeout(() => $("#welcome").open && $("#welcome").close(), 2600); }
     return;
   }
@@ -1394,8 +1394,8 @@ $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").
 $("#q").addEventListener("input", renderGrid);
 
 renderShelf(); renderTabs(); renderGrid();
-$("#protoBar").hidden = !PROTOTYPE;
-if (!store.get("nyhetsbrev")) setTimeout(() => $("#welcome").showModal(), 600);
+// Stripa øverst vises alltid: «Kjøp åpnes snart»
+if (NYHETSBREV_URL && !store.get("nyhetsbrev")) setTimeout(() => $("#welcome").showModal(), 600);
 </script>
 </body>
 </html>
