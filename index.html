@@ -313,18 +313,18 @@ const PROTOTYPE = false;
 const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", kvinner: "Kvinnebøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
-const BARE = { univers: "andre", kin: "alesund", aafk: "alesund" };
+const BARE = { univers: "andre", kin: "alesund", aafk: "alesund", kvinner: "andre" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN", aafk: "AFK" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN", aafk: "AFK", kvinner: "KVI" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
    hoved:    "alesund" eller "andre"
-   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier" eller "selvutvikling"
+   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier", "selvutvikling" eller "kvinner" (Kvinnebøker, bare under Andre bøker)
    omslag:   filnavn i mappen "omslag/"
    omslagssitat: sitatet øverst på omslaget («agnet»)
    fakta:    kort linje om personen (vises i bokvinduet)
@@ -443,6 +443,26 @@ Mauritius er en fabel for voksne om å se lenger enn man får lov til, om å ta 
 Så setter Ingrid seg ved siden av ham. Hun var nonne i ni år, forlot klosteret med en munk og stjeler en skrue fra benken før hun har sagt hva hun heter.
 
 «Rockestjernen · Nonnen · Livet» er en tørr, varm og sår roman om to mennesker som møtes sent, om kroppen som sier fra, og om å lære seg å sitte stille lenge nok til at noe skjer.` },
+  { tittel: "Ansiktene", undertittel: "Bind 1 · Fra Lucy til Mary Wollstonecraft", hoved: "andre", under: "kvinner",
+    serie: "Ansiktene, bind 1 av 2",
+    farge: "#f4f2ee", tekstfarge: "#1f4f7a",
+    sitat: "Når ingen lenger ser på deg, kan du endelig begynne å se.",
+    omslagssitat: "Et maleri er et ansikt noen andre har bestemt seg for.",
+    teaser: `En gang hang ansiktet hans i et butikkvindu i Kongens gate i Ålesund, retusjert, uten det lille arret ved øyenbrynet. Nå er han sekstisju og statist, eldre mann på benk, og har bestemt seg for å se ordentlig på kvinnene verden har prøvd å bestemme ansiktet til.
+
+Første bind går fra Lucy, en underkjeve og et kne i Etiopia, til Mary Wollstonecraft i det kalde havet utenfor Tønsberg. Underveis møter vi en farao med løsskjegg, en dronning i en sengetøysekk, en abbedisse som stiller syv diagnoser på én natt, en jente i rustning og en keiserinne som lager sin egen kaffe klokken seks om morgenen.
+
+ANSIKTENE er flanerier om kvinner som sto foran, fortalt av en mann som har lært seg å stå bak og holde frakken.` },
+  { tittel: "Ansiktene", undertittel: "Bind 2 · Fra Marie Antoinette til Malala", hoved: "andre", under: "kvinner",
+    serie: "Ansiktene, bind 2 av 2",
+    farge: "#f4f2ee", tekstfarge: "#1f4f7a",
+    sitat: "Jeg lot en mann male bort fire sting på et kvarter. Hun malte inn hvert eneste hår.",
+    omslagssitat: "Et fotografi er også et ansikt noen andre har bestemt seg for.",
+    teaser: `Andre bind begynner med en dronning i en åpen kjerre gjennom Paris og slutter med en femtenåring på en skolebuss i Pakistan. Imellom står Ada Lovelace og en videospiller som blinker 00:00 i elleve år, Marie Curies radioaktive notatbok, Frida Kahlo i himmelsengen midt på sin egen utstilling og Rosa Parks, som selv bestemte hvilket ansikt hun skulle vise.
+
+Og en gammel fotomodell fra Ålesund som en dag må gå ned i kjelleren og åpne en skoeske han har latt være i trettisju år.
+
+ANSIKTENE er flanerier om kvinner, og om hva som skjer med et ansikt når noen andre bestemmer over det.` },
   { tittel: "Vibeke Holtskog", undertittel: "En flaneribiografi", hoved: "andre", under: "biografier",
     manus: "vibeke-holtskog.html",
     sitat: "Det burde være mulig å levere tilbake et råd.",
@@ -1214,7 +1234,7 @@ BOKER.forEach(b => {
 
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
 const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
-  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#e06f00" };
+  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#e06f00", kvinner: "#1f4f7a" };
 const katfarge = b => KATFARGE[b.under] || "#2c4a52";
 // Ekstra linjefarge for enkelte kategorier (AaFK: oransje tittel, blå linje)
 const KATLINJE = { aafk: "#1f5fae" };
