@@ -163,6 +163,11 @@ footer { padding-block: 1.5rem 2.5rem; color: var(--ink-soft); display: flex; ju
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 .reader h4 { scroll-margin-top: 1rem; }
+.reader .stjerne, .reader .sentrert { text-align: center; }
+.reader .liste p { margin: 0 0 .3em 1.2em; }
+.reader blockquote.dok { margin: 1em 1.5em; font-style: italic; }
+.reader .fnotes { font-size: .85em; border-top: 1px solid currentColor; opacity: .8; margin: 1.5em 0; padding-top: .5em; }
+.reader .rom { height: 3em; }
 
 /* Omslag: samme papir, skrift og oppsett for alle bøker */
 .cover.cv { container-type: inline-size; padding: 0; color: #1b1b1b; text-align: center;
@@ -761,52 +766,96 @@ Før første tur har han allerede utløst brannalarmen i hele borettslaget. Så 
 Hjemme står to like kopper. Den ene har han satt bort. Og det er ikke bare plassen i teltet han måler.
 
 «Barents og jeg» er en tørr, morsom og vemodig flaneriroman om å være gammel nok til å vite bedre, om friheten som veier 17,8 kilo, og om hvor mye plass to mennesker med mye uoppgjort egentlig tar.` },
-  { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Sundet 1026–1226", hoved: "alesund", under: "serier",
-    manus: "alesunds-nye-historie-1.html",
-    serie: "Ålesunds nye historie, bind 1 av 4",
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 1 · Sundet 1026–1090", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-1-del-1.html",
+    serie: "Ålesunds nye historie, bind 1, del 1 av 3",
     omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det første mennesket som slo seg ned i Ålesund, gjorde det etter all sannsynlighet fordi han ikke kunne fordra at en annen hadde fått større fisk.",
     omslagssitat: "Det første mennesket som slo seg ned i Ålesund, gjorde det etter all sannsynlighet fordi han ikke kunne fordra at en annen hadde fått større fisk.",
-    teaser: `Året er 1026. Asbjørn og Nørv kommer roende inn mellom øyene med tre dager fiske og tre dager krangel bak seg. Asbjørn har den største torsken. Nørvs båt er nesten like god som Asbjørns, og nesten er det farligste ordet på Sunnmøre. Det er Ragna som finner sundet, og det er Ragna og Yrsa som bestemmer hvor de skal bo, mens mennene står og peker.
+    teaser: `Året er 1026. Asbjørn og Nørv ror inn mellom øyene med tre dager fiske og tre dager krangel bak seg, og den ene har fått større fisk enn den andre. Det er nok til å grunnlegge en by. Olav den hellige dør fire ganger før nyheten når sundet. Et tak emigrerer en torsdag. En måke blir hellig, og en grensestein flyttes sju ganger og er borte den åttende.
 
-Derfra går det slag i slag. Olav den hellige dør fire ganger før nyheten når Sunnmøre. Et tak emigrerer en torsdag. En måke blir hellig. En grensestein blir flyttet sju ganger og er borte den åttende. En gutt reiser til Bergen med en torsk til kong Sverre og kommer ikke hjem på sytten år. Og i et hus ved sjøen risser Signe Stuen den første prislisten på en fjøl, fordi folk har god tid til å fortelle hva andre burde gjøre, men ikke til å betale. Navnet hennes skal bli i slekta i nesten tusen år.
+Første del av bind 1, Sundet, fra 1026 til 1090. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 2 · Sundet 1093–1184", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-1-del-2.html",
+    serie: "Ålesunds nye historie, bind 1, del 2 av 3",
+    omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "Kongen var femten år. Det kom de stadig tilbake til.",
+    omslagssitat: "Kongen var femten år. Det kom de stadig tilbake til.",
+    teaser: `En mann kommer til sundet med en kongelig nyhet og bare én sko. Det hellige land kommer til Borgund i en sekk, men Jerusalem ble liggende igjen. Kirka får en klokke som ringer feil. En kvinne kommer for sent til sin egen begravelse, kongen er femten år, og den første prislisten risses på en fjøl fordi det koster ingenting å snakke. Det er problemet.
 
-Konger kommer og går, borgerkrigen raser et annet sted, og ved sundet sladres det, krangles det og handles det, gjerne til en pris som er svært urimelig.
+Andre del av bind 1, Sundet, fra 1093 til 1184. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 3 · Sundet 1194–1226", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-1-del-3.html",
+    serie: "Ålesunds nye historie, bind 1, del 3 av 3",
+    omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "Fiskehodet kom ikke gjennom døra. Det var der problemene begynte.",
+    omslagssitat: "Fiskehodet kom ikke gjennom døra. Det var der problemene begynte.",
+    teaser: `En torsk skal gjøre Sunnmøre berømt, men hodet kommer ikke gjennom døra. Gud stenger. Smeden tjener godt på borgerkrigen og snakker lite om det. En konge på fire år kan ikke knyte skoene sine, og Bergen leverer tilbake en sønn etter sytten år, noe faren mener er dårlig service. Den vakreste kvinnen i Borgund har lus. Det har alle de andre også.
 
-ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 1, Sundet, følger de første to hundre årene, fra den første torsken til den første handelen. Det meste er nesten sant. Resten er fra Ålesund.` },
-  { tittel: "Ålesunds nye historie", undertittel: "Bind 2 · Handelsstedet 1228–1520", hoved: "alesund", under: "serier",
-    manus: "alesunds-nye-historie-2.html",
-    serie: "Ålesunds nye historie, bind 2 av 4",
+Tredje siste del av bind 1, Sundet, fra 1194 til 1226. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 2 · Del 1 · Handelsstedet 1228–1274", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-2-del-1.html",
+    serie: "Ålesunds nye historie, bind 2, del 1 av 3",
     omslag: "alesunds-nye-historie-2.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det begynte med en fisk som ikke fantes.",
     omslagssitat: "Det begynte med en fisk som ikke fantes.",
-    teaser: `Året er omkring 1228. Asbjørn av Nørv-slekta er så sjøsyk at han er blitt handelsmann, og han selger det samme fiskepartiet til to kjøpere før det er fanget. Ylva Stuen redder ham. Mot betaling.
+    teaser: `Omkring 1228 selger Asbjørn det samme fiskepartiet to ganger før det er fanget. Tyskerne kommer med ei kiste som inneholder hele Tyskland. En handelsmann veier svigermoren på den nye, ærlige vekta. En sunnmøring betaler urimelig mye for å se kroningen og får bare vann i støvlene. Astrid har fem mulige fedre og trenger bare én, og etter den nye landsloven vil en mann anmelde vinden.
 
-Derfra går det slag i slag. En handelsmann veier svigermoren på sin nye, ærlige vekt, og loddene flyr utover handelsplassen. En sunnmøring reiser til kroningen i 1247 og ser ingenting av kongen. Olve vil anmelde vinden etter den nye landsloven, og lagrettemannen spør hvor den bor. En mann kjøper en øy som forsvinner ved flo. En sju år gammel dronning krones med en nepe, og en geit spiser halve krona. Svartedauden kommer, de tyske kjøpmennene kommer, og på Stuen holder kvinnene regnskap med alt sammen.
+Første del av bind 2, Handelsstedet, fra 1228 til 1274. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 2 · Del 2 · Handelsstedet 1276–1371", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-2-del-2.html",
+    serie: "Ålesunds nye historie, bind 2, del 2 av 3",
+    omslag: "alesunds-nye-historie-2.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "Det manglet tre skåler. To var knust.",
+    omslagssitat: "Det manglet tre skåler. To var knust.",
+    teaser: `Astrid reiser til Bergen for å slå sin egen far med en fisk. Sju menn kjøper en øy med plass til to. Ylva fører sitt siste regnskap. En sju år gammel dronning regjerer Borgund i elleve minutter, sladderen får et kontor, og i 1349 kommer en september da døra ikke lenger skal lukkes. Etterpå må byen kjøpe innbyggere.
 
-ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 2, Handelsstedet, følger Borgund fra 1228 til 1520, fra fisken som ikke fantes til det første ålesundske tollvesenet, som ble nedlagt før det åpnet. Av tollerens egen mor. Det meste er nesten sant. Resten er fra Ålesund.` },
-  { tittel: "Ålesunds nye historie", undertittel: "Bind 3 · Sundet som ville bli by 1515–1800", hoved: "alesund", under: "serier",
-    manus: "alesunds-nye-historie-3.html",
-    serie: "Ålesunds nye historie, bind 3 av 4",
+Andre del av bind 2, Handelsstedet, fra 1276 til 1371. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 2 · Del 3 · Handelsstedet 1387–1520", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-2-del-3.html",
+    serie: "Ålesunds nye historie, bind 2, del 3 av 3",
+    omslag: "alesunds-nye-historie-2.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "Det første som ble solgt, var døra. Det andre var retten til å gå gjennom den.",
+    omslagssitat: "Det første som ble solgt, var døra. Det andre var retten til å gå gjennom den.",
+    teaser: `Tre kongeriker blir ett, og på Borgund heter grisen Sverige. Eiliv kommer hjem fra Bergen med ny hatt og tre tyske ord og oppdager at alle andre snakker feil. Når Bergen brenner, redder han feil dør. Sunnmøringene går til krig mot et naust og prøver å gjøre sjøen dypere med spader. Så legges Borgund ned. Ingen møter opp.
+
+Tredje siste del av bind 2, Handelsstedet, fra 1387 til 1520. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 3 · Del 1 · Sundet som ville bli by 1515–1673", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-3-del-1.html",
+    serie: "Ålesunds nye historie, bind 3, del 1 av 2",
     omslag: "alesunds-nye-historie-3.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
     sitat: "Det som skulle selges, lå under vann.",
     omslagssitat: "Det som skulle selges, lå under vann.",
-    teaser: `Våren 1515 prøver Knut Erlendsson å selge retten til sundet mellom Aspøya og Nørvøya til en kjøpmann fra Bergen. Det som skulle selges, lå under vann. Knut mente det var en fordel. Man slapp å vise det fram.
+    teaser: `Våren 1515 prøver Knut Erlendsson å selge sundet. Det ligger under vann, og det mener han er en fordel. Siden bor 147 mennesker i et hus med plass til seks, Sverige blir beseiret uten at svenskene er til stede, og losen styrer etter et par underbukser. Når Oslo brenner, foreslår Tollef å flytte Ålesund tre alen mot venstre. Eneveldet varer i elleve minutter.
 
-Derfra går det slag i slag. I 1551 bor det 147 mennesker i et hus med plass til seks, helt til noen nevner fogden. Hjemmevernet på Aspøya skyter neper mot fire halmsvensker. Losen styrer etter konas underbukser, til ei geit stikker av med dem og sjømerket begynner å springe. Det selvutnevnte bystyret lager et byvåpen med en måke med fire bein. Hele stedet venter Tordenskjold, og det kommer en mann med tannverk. Den første skolen står på hjul og ruller mot sjøen.
+Første del av bind 3, Sundet som ville bli by, fra 1515 til 1673. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 3 · Del 2 · Sundet som ville bli by 1678–1800", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-3-del-2.html",
+    serie: "Ålesunds nye historie, bind 3, del 2 av 2",
+    omslag: "alesunds-nye-historie-3.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "En mann kan marsjere i to venstrestøvler. Men han går rart.",
+    omslagssitat: "En mann kan marsjere i to venstrestøvler. Men han går rart.",
+    teaser: `Ei geit spiser et forsikringsselskap. En krig stanses av tjuefire venstrestøvler. Hele stedet pynter seg til Tordenskjold, og det kommer en mann med tannverk. Den første skolen har hjul, alle lærer å lese og angrer på det, og når Norge telles, mangler Ålesund én. I 1793 blir stedet ladested, og Bergen får vondt i magen.
 
-ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 3, Sundet som ville bli by, følger stedet fra 1515 til 1800, fra et sund som lå under vann til et ladestedsskilt som falt i sjøen uten sin siste D. Det meste er nesten sant. Resten er fra Ålesund.` },
-  { tittel: "Ålesunds nye historie", undertittel: "Bind 4 · Byen som skulle bli noe 1801–2026", hoved: "alesund", under: "serier",
-    manus: "alesunds-nye-historie-4.html",
-    serie: "Ålesunds nye historie, bind 4 av 4",
+Andre siste del av bind 3, Sundet som ville bli by, fra 1678 til 1800. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 4 · Del 1 · Byen som skulle bli noe 1801–1871", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-4-del-1.html",
+    serie: "Ålesunds nye historie, bind 4, del 1 av 2",
     omslag: "alesunds-nye-historie-4.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
-    sitat: "Natta da Ålesund mistet alt. Bortsett fra sunnmøringene.",
-    omslagssitat: "Natta da Ålesund mistet alt. Bortsett fra sunnmøringene.",
-    teaser: `Den 1. februar 1801 går klokkeren Mons fra hus til hus med folketellingen. Tormod vil føres opp som «fisker og kjøpmann». Mons skriver «fisker».
+    sitat: "Den som eier midten av ei bru, eier ingenting.",
+    omslagssitat: "Den som eier midten av ei bru, eier ingenting.",
+    teaser: `Den 1. februar 1801 kommer folketellingen, og kongen vil ha navnene. Pengene blir verdt en sjettedel, Norge blir gitt bort, og Grunnloven kommer til Ålesund med to forskjellige konger. Staten vil ha sølvet og får en skje med hull i. Hellebroa skal forene byen, og folk begynner straks å krangle om midten. I 1848 blir Ålesund by og må skaffe flere stoler.
 
-Derfra går det slag i slag. Ei geit spiser halve fredstraktaten fra Kiel under et møte om Norges framtid. Tormod ønsker et selvstendig Norge, dersom det kan gjennomføres uten urimelige utgifter. Et helt hotell kommer sjøveien i deler. En trykkfeil setter en enkemadam til salgs, med åtte stoler. Den første telefonsamtalen blir fullstendig vellykket: Ingen fikk svar, og begge ble fornærmet. Natta til 23. januar 1904 brenner byen, og det første Klara får fra Tyskland, er en høyrestøvel.
+Første del av bind 4, Byen som skulle bli noe, fra 1801 til 1871. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
+  { tittel: "Ålesunds nye historie", undertittel: "Bind 4 · Del 2 · Byen som skulle bli noe 1875–2026", hoved: "alesund", under: "serier",
+    manus: "alesunds-nye-historie-4-del-2.html",
+    serie: "Ålesunds nye historie, bind 4, del 2 av 2",
+    omslag: "alesunds-nye-historie-4.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
+    sitat: "Det begynte med at Klara ikke fant den andre støvelen.",
+    omslagssitat: "Det begynte med at Klara ikke fant den andre støvelen.",
+    teaser: `Byen får telefon, og nå kan folk sladre uten å kle på seg. Kvinnene får stemmerett, hvis de tjener nok. Natta til 23. januar 1904 brenner Ålesund, og det første Klara får fra Tyskland, er en høyrestøvel. Byen reises i mur, overlever spanskesyken og krigen, blir rik på sild og må lære seg noe annet når silda forsvinner. Til slutt kommer cruiseskipene, og en mann med kamera spør hvor vikingborgen ligger.
 
-ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser, fortalt i fire bind. Bind 4, Byen som skulle bli noe, følger Ålesund fra 1801 og fram til i dag, gjennom kjøpstadsrett, storsild, bybrann, jugend og krig, helt fram til cruiseskipene ved Brosundet. Det meste er nesten sant. Resten er fra Ålesund.` },
+Andre siste del av bind 4, Byen som skulle bli noe, fra 1875 til 2026. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
   { tittel: "Kristine Ruiz-Skarbø", undertittel: "Kvinnen som reiste verden rundt for å finne igjen kua", hoved: "alesund", under: "kin",
     manus: "kin/01-kristine-ruiz-skarbo.html",
     fakta: "Skarbø Gard, Stranda · KIN Awards 2026 · Nominert til Årets talent",
