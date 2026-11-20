@@ -318,18 +318,18 @@ const PROTOTYPE = false;
 const VIS_MANUS = false;
 
 const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", kvinner: "Kvinnebøker" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", sunnmoringer: "Sunnmøringer", kvinner: "Kvinnebøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
-const BARE = { univers: "andre", kin: "alesund", aafk: "alesund", kvinner: "andre" };
+const BARE = { univers: "andre", kin: "alesund", aafk: "alesund", sunnmoringer: "alesund", kvinner: "andre" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
-const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN", aafk: "AFK", kvinner: "KVI" };
+const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN", aafk: "AFK", sunnmoringer: "SUN", kvinner: "KVI" };
 
 /* ============================================================
    BØKENE. Ny bok = kopier en blokk og fyll ut.
    hoved:    "alesund" eller "andre"
-   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier", "selvutvikling" eller "kvinner" (Kvinnebøker, bare under Andre bøker)
+   under:    "romaner", "flanerier", "krim", "sakprosa", "biografier", "serier", "selvutvikling" "sunnmoringer" (Sunnmøringer, bare under Ålesundbøker) eller "kvinner" (Kvinnebøker, bare under Andre bøker)
    omslag:   filnavn i mappen "omslag/"
    omslagssitat: sitatet øverst på omslaget («agnet»)
    fakta:    kort linje om personen (vises i bokvinduet)
@@ -417,6 +417,16 @@ GUD VET HVA er en morsom, sår og uhøytidelig bok om de største spørsmålene 
 Så går de tilbake sammen. Til fru Korsnes og krittstøvet, Knoffen og maskinen på veggen, gipsen, minneboken til Guri, Fagerlibakken når den er blank, pengesteinen på Aksla og trommene i kjelleren. Til den dagen fru Korsnes lo, og den dagen de nesten forstod døden.
 
 HVITESKOLEN er en roman om barndommen i Ålesund, om gutten som ikke passet i kroppen, og om mannen som fortsatt har ham med seg – og som må bestemme seg for om han skal gå eller løpe.` },
+  { tittel: "Som pepper der du ber om salt", undertittel: "Flanerier fra et lite land mellom Norge og Nordsjøen", hoved: "alesund", under: "sunnmoringer",
+    fakta: "Flanerisamling · 27 flanerier med forord og etterord · Bokmålsutgave",
+    farge: "#f4f2ee", tekstfarge: "#24516b",
+    sitat: "Han er pepper der du ber om salt.",
+    omslagssitat: "For omtrent 13,8 milliarder år siden ble den første sunnmøringen født. Dette er selvsagt ikke sant.",
+    teaser: `En mann sitter i bilen på en parkeringsplass i Ålesund. Det regner sidelengs, og han har elleve minutter igjen på billetten. Han kunne kjørt. Han blir sittende.
+
+Derfra går flaneriet tilbake til Big Bang og så ut over hele Sunnmøre: pingpongspråket og festen, sparsommeligheten og ferja han ikke rakk, fuglefjellet på Runde, AaFK i sidevind, dugnaden, et bryllup med villmink, en fødsel, en gravferd og til slutt toppen av Kolåstind.
+
+SOM PEPPER DER DU BER OM SALT er en morsom og varm bok om et folk som kan bruke tre minutter på å betale for parkering og tre ord på å uttrykke kjærlighet.` },
   { tittel: "Sørgebussen", undertittel: "En roman", hoved: "alesund", under: "romaner",
     fakta: "Roman · Tvillingbok til Forfatterens håndbok",
     farge: "#f4f2ee", tekstfarge: "#1f4f7a",
@@ -1307,7 +1317,7 @@ BOKER.forEach(b => {
 
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
 const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
-  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#e06f00", kvinner: "#1f4f7a" };
+  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#e06f00", sunnmoringer: "#24516b", kvinner: "#1f4f7a" };
 const katfarge = b => KATFARGE[b.under] || "#2c4a52";
 // Ekstra linjefarge for enkelte kategorier (AaFK: oransje tittel, blå linje)
 const KATLINJE = { aafk: "#1f5fae" };
