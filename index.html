@@ -345,7 +345,7 @@ const LANSERING = [
 const KOMMER = { "Vi skulle bare følge laget": "Kommer 15. januar" };
 // Kort tekst over bøkene i en underfane
 const FANENOTAT = { serier: "Bind 2, 3 og 4 av Ålesunds nye historie kommer i løpet av 2027." };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", sunnmoringer: "Sunnmøringer", kvinner: "Kvinnebøker" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Ålesunds nye historie", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", sunnmoringer: "Sunnmøringer", kvinner: "Kvinnebøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
@@ -857,6 +857,7 @@ Hjemme står to like kopper. Den ene har han satt bort. Og det er ikke bare plas
 
 «Barents og jeg» er en tørr, morsom og vemodig flaneriroman om å være gammel nok til å vite bedre, om friheten som veier 17,8 kilo, og om hvor mye plass to mennesker med mye uoppgjort egentlig tar.` },
   { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 1 · Sundet 1026–1090", hoved: "alesund", under: "serier",
+    kfarge: "#0077b6",
     manus: "alesunds-nye-historie-1-del-1.html",
     serie: "Ålesunds nye historie, bind 1, del 1 av 3",
     omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
@@ -866,6 +867,7 @@ Hjemme står to like kopper. Den ene har han satt bort. Og det er ikke bare plas
 
 Første del av bind 1, Sundet, fra 1026 til 1090. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
   { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 2 · Sundet 1093–1184", hoved: "alesund", under: "serier",
+    kfarge: "#00897b",
     manus: "alesunds-nye-historie-1-del-2.html",
     serie: "Ålesunds nye historie, bind 1, del 2 av 3",
     omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
@@ -875,6 +877,7 @@ Første del av bind 1, Sundet, fra 1026 til 1090. ÅLESUNDS NYE HISTORIE er tuse
 
 Andre del av bind 1, Sundet, fra 1093 til 1184. ÅLESUNDS NYE HISTORIE er tusen år med misunnelse, storhet, sladder og andre sunnmørske naturressurser. Det meste er nesten sant. Resten er fra Ålesund.` },
   { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Del 3 · Sundet 1194–1226", hoved: "alesund", under: "serier",
+    kfarge: "#c2185b",
     manus: "alesunds-nye-historie-1-del-3.html",
     serie: "Ålesunds nye historie, bind 1, del 3 av 3",
     omslag: "alesunds-nye-historie-1.webp", farge: "#f4f2ee", tekstfarge: "#7a5418",
@@ -1373,9 +1376,11 @@ BOKER.forEach(b => {
 });
 
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
-const KATFARGE = { biografier: "#9b1c1c", krim: "#123f75", romaner: "#7a2e12", flanerier: "#9a6a00",
-  serier: "#6e4a12", selvutvikling: "#5b3a7a", univers: "#1c5f5a", sakprosa: "#3c5a3f", kin: "#8a1d5c", aafk: "#e06f00", sunnmoringer: "#24516b", kvinner: "#1f4f7a" };
-const katfarge = b => KATFARGE[b.under] || "#2c4a52";
+// Klare, rene farger per kategori (alle har god nok kontrast mot den lyse omslagsbakgrunnen)
+const KATFARGE = { biografier: "#8338ec", krim: "#1d4ed8", romaner: "#d62839", flanerier: "#0f9d58",
+  serier: "#0077b6", selvutvikling: "#9d4edd", univers: "#0a84c6", sakprosa: "#00897b", kin: "#c2185b", aafk: "#e06f00", sunnmoringer: "#0077b6", kvinner: "#c2185b" };
+// Enkeltbøker kan ha egen farge (kfarge), f.eks. hver del av Ålesunds nye historie
+const katfarge = b => b.kfarge || KATFARGE[b.under] || "#2c4a52";
 // Ekstra linjefarge for enkelte kategorier (AaFK: oransje tittel, blå linje)
 const KATLINJE = { aafk: "#1f5fae" };
 
