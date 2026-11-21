@@ -340,6 +340,7 @@ const LANSERING = [
   ["romaner", "Hviteskolen"],
   ["romaner", "Gud vet hva"],
   ["serier", "Ålesunds nye historie", "Bind 1"],
+  ["sunnmoringer", "Som pepper der du ber om salt"],
 ];
 // Bøker som vises, men ikke er klare ennå
 const KOMMER = { "Vi skulle bare følge laget": "Kommer 15. januar" };
@@ -1378,7 +1379,7 @@ BOKER.forEach(b => {
 // Omslaget tegnes likt for alle bøker. Bare fargen følger kategorien.
 // Klare, rene farger per kategori (alle har god nok kontrast mot den lyse omslagsbakgrunnen)
 const KATFARGE = { biografier: "#8338ec", krim: "#1d4ed8", romaner: "#d62839", flanerier: "#0f9d58",
-  serier: "#0077b6", selvutvikling: "#9d4edd", univers: "#0a84c6", sakprosa: "#00897b", kin: "#c2185b", aafk: "#e06f00", sunnmoringer: "#0077b6", kvinner: "#c2185b" };
+  serier: "#0077b6", selvutvikling: "#9d4edd", univers: "#0a84c6", sakprosa: "#00897b", kin: "#c2185b", aafk: "#e06f00", sunnmoringer: "#2a9d8f", kvinner: "#c2185b" };
 // Enkeltbøker kan ha egen farge (kfarge), f.eks. hver del av Ålesunds nye historie
 const katfarge = b => b.kfarge || KATFARGE[b.under] || "#2c4a52";
 // Ekstra linjefarge for enkelte kategorier (AaFK: oransje tittel, blå linje)
