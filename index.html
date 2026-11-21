@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drake Bruseth Bibliotek</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Ålesundbøker og andre bøker av John John Bruseth.">
+<meta name="description" content="Ålesundbøker – bøker om Ålesund og Sunnmøre av John John Bruseth.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Playfair+Display:wght@800&family=EB+Garamond:ital@0;1&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
@@ -80,6 +80,8 @@ a { color: var(--verdigris); }
   font: 400 clamp(1.5rem, 3.5vw, 2.1rem)/1.1 var(--display); border-bottom: 3px solid transparent; margin-bottom: -1px;
 }
 .tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--verdigris); }
+.tabs .fjordlink { margin-left: auto; align-self: center; padding-bottom: .6rem; font: 400 .85rem/1.2 var(--mono); color: var(--verdigris); text-decoration: none; letter-spacing: .04em; }
+.tabs .fjordlink:hover { text-decoration: underline; }
 .subbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; padding-block: 1.25rem 2rem; }
 .subtabs { display: flex; flex-wrap: wrap; gap: .35rem; }
 .subtabs button {
@@ -253,7 +255,7 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
   <section class="about" id="om">
     <h2>Om bøkene</h2>
     <div>
-      <p>Alle bøkene her er skrevet av John John Bruseth. De fleste handler om Ålesund: byen, folket, havet og historien. Under Andre bøker ligger det som foregår andre steder.</p>
+      <p>Alle bøkene her er skrevet av John John Bruseth, og alle handler om Ålesund og Sunnmøre: byen, folket, havet og historien. Bøkene som foregår andre steder, finner du i <a href="https://fjordboker.no">Fjordbøker</a>.</p>
       <p>Hver bok koster kr 149. Nye bøker legges ut fortløpende. Meld deg på nyhetsbrevet, så får du beskjed.</p>
     </div>
   </section>
@@ -312,7 +314,11 @@ const PROTOTYPE = false;
 // true = «Les boka» vises for bøker med manus. Av i fastprisperioden: bøkene selges bare enkeltvis.
 const VIS_MANUS = false;
 
-const HOVED = { alesund: "Ålesundbøker", andre: "Andre bøker" };
+const HOVED = { alesund: "Ålesundbøker" };
+// Bøker som ikke handler om Ålesund eller Sunnmøre ligger på fjordboker.no
+const FJORDBOKER_URL = "https://fjordboker.no";
+// Underfaner som er skjult inntil videre (KIN-portrettene kommer høsten 2027)
+const SKJULT = ["kin"];
 const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Serier", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
@@ -334,7 +340,7 @@ const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakpr
    farge:    reservefarge hvis omslaget mangler
    eksempel: true = plassholder, fjernes når ekte bøker legges inn
    ============================================================ */
-const BOKER = [
+let BOKER = [
   { tittel: "Astrid Overaa", undertittel: "En flaneribiografi", hoved: "alesund", under: "biografier",
     omslag: "astrid-overaa.webp", manus: "astrid-overaa.html", farge: "#f4f2ee", tekstfarge: "#9b0a0a",
     sitat: "Første gang jeg så Astrid Overaa, sto hun og slikket på en kjærlighet.",
@@ -412,7 +418,7 @@ GUD VET HVA er en morsom, sår og uhøytidelig bok om de største spørsmålene 
 Så går de tilbake sammen. Til fru Korsnes og krittstøvet, Knoffen og maskinen på veggen, gipsen, minneboken til Guri, Fagerlibakken når den er blank, pengesteinen på Aksla og trommene i kjelleren. Til den dagen fru Korsnes lo, og den dagen de nesten forstod døden.
 
 HVITESKOLEN er en roman om barndommen i Ålesund, om gutten som ikke passet i kroppen, og om mannen som fortsatt har ham med seg – og som må bestemme seg for om han skal gå eller løpe.` },
-  { tittel: "Perane", undertittel: "En roman", hoved: "andre", under: "romaner",
+  { tittel: "Perane", undertittel: "En roman", hoved: "alesund", under: "romaner",
     manus: "perane.html",
     omslag: "perane.webp", farge: "#f4f2ee", tekstfarge: "#7a2410",
     sitat: "Per kjente skammen før han kjente sinnet. Det var det verste med skam. Den kom alltid først, som en dårlig trent hund.",
@@ -422,98 +428,7 @@ HVITESKOLEN er en roman om barndommen i Ålesund, om gutten som ikke passet i kr
 De kjøper kaffe for to øre, spikker fuglekasser og setter fram to kopper hver morgen. Bygda passer på dem, og bygda ser på dem. Når kjøpmannen påstår at det mangler én øre, er det Hans som finner mynten. Det er Per som kjenner skammen.
 
 «Perane» er en stillferdig og varm roman fra Sunnmøre. Den handler om to mennesker som bærer hverandre litt om gangen, og om en bygd som forandrer seg rundt dem. Den handler også om alt kjærlighet kan være uten at noen sier det. Med tørr humor og stor ømhet skriver John John Bruseth om verdighet, om å stå utenfor og om retten til å ta feil i fred.` },
-  { tittel: "Mauritius Maur", undertittel: "En fabelroman", hoved: "andre", under: "romaner",
-    omslag: "mauritius-maur.webp", farge: "#f4f2ee", tekstfarge: "#1f4d2a",
-    sitat: "Mauritius hadde ingenting imot blader. Det var mengden han stusset på.",
-    omslagssitat: "Mauritius hadde ingenting imot blader. Det var mengden han stusset på.",
-    teaser: `I tua er det lavt under taket. Alle bærer, ingen ser opp, og det finnes ingen regel mot å klatre i strå – bare en stillhet rundt dem som klatrer. Men Mauritius har stått øverst i det lange strået ved nordhellingen og sett verden ligge der: laget som en mørk tråd gjennom gresset, en grå stripe som fortsetter i begge retninger, og den blå høyden som ingen i tua har noe godt ord for.
-
-Det han ser, koster. En ung maur følger etter ham opp og faller. Et regn tar en vegg, og én kommer aldri hjem. Og Mauritius drar – over menneskeveien, forbi sandgropen, eplet og muren – for å finne ut hva som ligger på den andre siden av kartet.
-
-Det vanskeligste er å komme tilbake.
-
-Mauritius er en fabel for voksne om å se lenger enn man får lov til, om å ta feil på vegne av andre, og om at nok er noe som flytter seg. En bok i tradisjonen etter Måken Jonathan – skrevet nedenfra.` },
-  { tittel: "Vibeke Holtskog", undertittel: "En flaneribiografi", hoved: "andre", under: "biografier",
-    manus: "vibeke-holtskog.html",
-    sitat: "Det burde være mulig å levere tilbake et råd.",
-    teaser: `De møttes under flytårnet på gamle Fornebu, der det ikke lenger lander fly. Over dem sto tårnet og hadde fri.
-
-Som ung våget Vibeke Holtskog knapt å åpne munnen foran en forsamling. I dag lærer hun andre å formidle, skriver bøker om det og har gjort Holtskogkonferansen til en veldedighetskonferanse. Selv skriver hun at hun går på trynet gang på gang.
-
-I denne boka tar John John Bruseth utgangspunkt i det Vibeke har skrevet, og lar tankene vandre videre: til en kommunal luke der man kan levere tilbake et råd, til en garderobe for identiteter, et skip av byråkratord som synker, og et vikarbyrå for «øøøh». Han dikter ikke opp Vibeke. Han dikter opp alt rundt henne.
-
-Det er en lun, tørr og varm bok om å tørre å snakke, om å falle og reise seg, og om en formidlingsdronning som også har sett noe fra gulvet.` },
-  { tittel: "Ragnhild Nilsen", undertittel: "En flaneribiografi", hoved: "andre", under: "biografier",
-    manus: "ragnhild-nilsen.html",
-    sitat: "Svar kan man være uenig i. Spørsmål følger deg hjem.",
-    teaser: `«Den tonen finnes ikke.» Han satt bak miksepulten og var sikker. Så sang Ragnhild Nilsen den, og glasset på bordet begynte å dirre.
-
-Ragnhild Nilsen er sanger, forfatter og foredragsholder. Hun drev med coaching før noen visste hva det var, og skrev om forandring. Hun satt i et råd som sendte henne til Thor Heyerdahl i Peru, arbeidet med rettferdig bomull i den egyptiske ørkenen og sang en nordisk sang i Sahara. Hun samlet på områder der hun ennå ikke var ferdig.
-
-John John Bruseth har stått bak miksepulten, kameraet og gitaren i hennes nærhet. I denne flaneribiografien følger han henne fra studioet til Kairo og Arctic Queen, og prøver å forstå et menneske som aldri spurte stemmen om lov.
-
-Det er en tørr, varm og undrende bok om å gå først, om hva det koster, og om spørsmålene som følger deg hjem.` },
-  { tittel: "Rebekka Nøkling", undertittel: "Kvinnen som ble igjen i flytårnet", hoved: "andre", under: "biografier",
-    manus: "rebekka-nokling.html",
-    sitat: "Moses fikk ti bud på et fjell. Vi fikk en podkast i en trapp.",
-    teaser: `Det begynte med at en dame ikke gikk hjem. Etter intervjuet i det gamle flytårnet på Fornebu ble Rebekka Nøkling sittende. I trappa ned ble de enige om en podkast.
-
-Hun fikk brystkreft som nittenåring og overlevde. Siden har hun forsket på genteknologi, solgt medisinske roboter verden over, vist kongen rundt på Vardesenteret og startet LivslystPortalen sammen med venninnen Anbjørg. Da Anbjørg døde, ga Rebekka henne et løfte. Og hun har skrevet bok om hormoner sammen med datteren.
-
-I denne flaneribiografien følger John John Bruseth henne fra flytårnet til Radiumhospitalet og Litteraturhuset, med sidesprang til Ålesund og en mann uten bukser på Klipra. Han nekter å dikte opp hennes indre liv. Han vil finne hennes scene, ikke sin egen.
-
-Det er en lun, alvorlig og varm bok om livslyst, om stoler som står tomme, og om retten til å være vanskelig.` },
-  { tittel: "Anne Grethe Solberg", undertittel: "Den andre køen", hoved: "andre", under: "biografier",
-    manus: "anne-grethe-solberg.html",
-    sitat: "Hun nøyer seg ikke med å spørre hvorfor en dør er stengt. Hun vil vite hvem som har nøkkelen.",
-    teaser: `Den første køen var på Tusenfryd. Den andre var utenfor Det Norske Teatret. Mellom disse to køene skjedde det noe som forandret Anne Grethe Solbergs liv for bestandig.
-
-Som forsker, hodejeger og forfatter var hun med på å gjøre glasstaket kjent, og hun tok doktorgrad i innovasjonsledelse med 917 ledere i utvalget. I 2006 ble hun skutt og mistet venstre arm. Hun bestemte seg for å bli Norges kuleste dame med én arm, løp New York Marathon med sønnen og ble styreleder i Oslo Maraton.
-
-John John Bruseth har kjent henne i mange år. I denne flaneribiografien følger han henne fra Blindern til Breidablikk og New York, til boxeren Elsa og gitaren hun ikke kan spille. Han dikter ingenting. Han ser, lytter og undrer seg.
-
-Det er en varm, ærlig og overraskende morsom bok om tap og styrke, om forskning som tviler på seg selv, og om å gå langsomt, men langt.` },
-  { tittel: "Dream Big, Tone Lise!", undertittel: "En flaneribiografi om Tone Lise Forbergskog", hoved: "andre", under: "biografier",
-    manus: "tone-lise.html",
-    sitat: "Men drømmer har én stor svakhet. De gjennomfører ikke seg selv.",
-    teaser: `Det begynte med en afrikansk kvinne på gata i Oslo. Hun fortalte om en norsk forretningskvinne som i det stille hjalp andre. Sporet førte til en dør i Brugata og et akademi som luktet modellflylim.
-
-Tone Lise Forbergskog holdt tombola i garasjen i Båtsfjord som sjuåring og ga det meste til kirkebøssen og Røde Kors. Ifølge henne selv var hun blant de første kvinnene i Norge med lisens i bryting. Hun dro til Los Angeles som attenåring og kom hjem med en koffert full av amerikanske negler. Hun startet skole i to rosa rom i Karl Johans gate, mens bankmannen klappet henne på hodet. Senere havnet hun på et gammelt tømmerfløteri ved Glomma.
-
-I denne flaneribiografien følger John John Bruseth henne fra Finnmark til Beverly Hills, Zanzibar og Furuholmen, og leter fortsatt etter gipsnissen fra Båtsfjord.
-
-Det er en varm og morsom bok om å drømme stort og gjennomføre, og om at mennesker ikke er regnskaper som går opp.` },
-  { tittel: "Erik Asla", undertittel: "En flaneribiografi", hoved: "andre", under: "biografier",
-    manus: "erik-asla.html",
-    sitat: "Det er begrenset hvor lenge to voksne menn kan stå ved siden av hverandre uten å si noe før forholdet begynner å få religiøse undertoner.",
-    teaser: `To nordmenn står ute i Det indiske hav ved Jambiani på Zanzibar og stirrer mot horisonten. Den ene er en internasjonalt anerkjent fotograf som har brukt store deler av livet på å lære seg å se. Den andre er en sunnmøring med en heller ustabil forbindelse til universet.
-
-Erik Asla dro fra Drammen, avbrøt jusstudiet og la igjen beskjeder hos Herb Ritts mandag etter mandag, til han fikk jobb som tredjeassistent. Siden har han fotografert for motehus og magasiner, stått på kjøkkenet til Madonna med en banan i lomma og stoppet bilen på Times Square fordi lyset traff en trafikkøy. Så vendte han kameraet mot nesten tomme horisonter.
-
-I denne flaneribiografien følger John John Bruseth ham fra Drammenselva til Hollywood og tilbake til sandbanken på Zanzibar. Underveis spør han: Hva ser egentlig to mennesker når de stirrer mot det samme havet?
-
-Det er en lun og undrende bok om ambisjoner og stillhet, og om hvor mye man kan få gjort når man av og til slutter å gjøre noe.` },
-  { tittel: "Anne-Katrine Stabell Hagelund", undertittel: "Born Global", hoved: "andre", under: "biografier",
-    manus: "hagelund.html",
-    sitat: "Det var kompetanse uten stol.",
-    teaser: `I et møterom i Nepal satt mennene ved bordet. Kvinnene sto bak stolene deres. Anne-Katrine Stabell Hagelund stilte et enkelt spørsmål: Hvorfor står de der?
-
-Sammen med Sita Ghimire laget hun et program der 35 kvinnelige ledere ble fulgt over to år. Ideen fikk navnet Born Global og spredte seg til Kenya, Uganda, Bangladesh, Sri Lanka, Laos og Bhutan, med norske fasilitatorer som stilte opp, mange av dem gratis. Kjernen var enkel: å lede i tråd med den man egentlig er.
-
-I denne flaneribiografien følger John John Bruseth henne fra hagen der hun blåser såpebobler, til rommet der kvinnene første dag knapt ville si navnet sitt og tredje dag tok ordet. Han lager ingen helgen av henne. Helgener er ubrukelige i flaneribiografier.
-
-Det er en lun og tankevekkende bok om makt og stillhet, om dører som bare antas å være låst, og om å prøve håndtaket.` },
-  { tittel: "Michel Mateos", undertittel: "Mannen som løftet meg opp", hoved: "andre", under: "biografier",
-    manus: "michel-mateos.html",
-    sitat: "Michel Mateos er redd for høyder. Derfor hopper han ut av fly.",
-    teaser: `«Første gang jeg traff Michel Mateos, ble jeg løftet opp fra gulvet.» Det var backstage på Helt Sentralt. Han satte ham ned igjen og sa: «Lykke til, kompis.»
-
-Michel Mateos har selv fortalt om tretti år i Oslos tunge rusmiljø. I 2011 ble han rusfri. Siden har han grunnlagt Ingenomvei, snakket med ungdom om rus, lest fengselsdikt i en podkast og tatt med seg bullterrieren Gregers på barnehagebesøk. Han er redd for høyder, kaller frykten Jimmy og hopper ut av fly.
-
-I denne flaneribiografien prøver John John Bruseth å forstå mannen som løfter andre, uten å gjøre livet hans til en seierssaga. Han skriver det han vet, og sier fra om det han ennå ikke vet.
-
-Det er en varm, tørr og ærlig bok om at et menneske kan forandre seg, uten at alt det tidligere blir borte.` },
-  { tittel: "Fire dager i juni", undertittel: "Hundre år med penger, arbeid og tillit på Hareidlandet", hoved: "andre", under: "sakprosa",
+  { tittel: "Fire dager i juni", undertittel: "Hundre år med penger, arbeid og tillit på Hareidlandet", hoved: "alesund", under: "sakprosa",
     manus: "fire-dager-i-juni.html",
     sitat: "I en stor bank blir risiko fordelt. I en liten bygd får risiko navn.",
     teaser: `Den 3. juni 1927 ble Ulstein Sparebank stiftet. Fire dager senere, 7. juni, kom Hareid Sparebank. Bak dem lå Rise-banken, fellesbanken fra 1867 som ble satt under administrasjon i 1923, og et Hareidland der folk husket hvem som hadde tapt.
@@ -521,120 +436,6 @@ Det er en varm, tørr og ærlig bok om at et menneske kan forandre seg, uten at 
 Hundre år senere leter John John Bruseth etter historien om penger, arbeid og tillit på Hareidlandet. Han finner låntakeren med nypussede sko, kvinnen som søker lån til en maskin, og fiskeren som ber banken skrive «ustabilt hav». Han finner kirkeklokka som setter seg fast i tårnet, og den første minibanken i Ulsteinvik, der fire tilskuere later som de venter på bussen. Han følger lønningsposen som forsvinner, sparegrisen som knuses med hammer, fusjonsdagen 1. april 1985 og svindleren som sier «Du må ikkje legge på».
 
 «Fire dager i juni» er 37 flanerier om hundre år med bank i en liten bygd, der et avslag ikke forsvant inn i et nasjonalt system, men tok på seg jakke og gikk over gata.` },
-  { tittel: "Den indre gartneren", undertittel: "En selvutviklingsroman", hoved: "andre", under: "selvutvikling",
-    omslag: "den-indre-gartneren.webp", manus: "den-indre-gartneren.html", farge: "#f4f2ee", tekstfarge: "#5b3a7a",
-    omslagssitat: "Hun er den som sier ja fra badet før hun har hørt spørsmålet.",
-    teaser: `Elena er den på kontoret som husker fristene, finner feilen i romnummeret og vet hvor tallerkenene står. Hun er den datteren som kjører moren til skobutikken, den moren som vasker kjøleskapshyllen i datterens nye kollektiv, den som sier ja fra badet før hun har hørt spørsmålet. Så går hun ut av et møte uten å vite hvor hun skal, og blir sittende i et glasshus hvor andres planter overvintrer.
-
-Der finnes Linnea, som har holdt på for lenge og ikke vet om hun orker en vinter til. Der finnes Ruth med sitrontreet hun fikk av en mann som ikke er død, Ragnhild som har mikseren på en barkrakk, Maja som helst vil tegne noe stygt, og Henrik fra jobben som spiller i et band som har sluttet tre ganger. Elena ser straks hva stedet kunne bli. Hun ser ikke like fort hva hun gjør med det.
-
-Dette er en roman uten store hendelser og med mye liv: en flytting, en konsert, en julaften med to tallerkener for mye, en e-post som sier mer enn den burde. Humoren ligger i det praktiske – kaken som må stå kaldt, telefonholderen som tar hele skjærefjølen, valnøtten som skyves lenger inn under benken. Sorgen ligger like ved, uten å bli forklart.
-
-Den indre gartneren handler om omsorg som både er verdifull og krevende, om å ville to ting samtidig, og om en kvinne som til slutt må lære å stå i døren med et ferdig klargjort ark bak seg og en gjest foran seg – og velge begge.` },
-  { tittel: "Jeg hadde tenkt å ta det rolig", hoved: "andre", under: "univers",
-    manus: "univers-01.html",
-    omslag: "jeg-hadde-tenkt-a-ta-det-rolig.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Før jeg kjøpte klokken, hadde jeg hatt noen ganske gode dager uten å vite at de var dårlige.",
-    omslagssitat: "Jeg hadde reist til Portugal for å ta det rolig.",
-    teaser: `«Jeg hadde reist til Portugal for å ta det rolig.»
-
-Det begynner med et egg. Han kommer ti minutter for sent til hotellfrokosten, og derfra tar ferien en annen retning. En nordmann tar ham for en som heter Arne, menn på stiger snur seg i det øyeblikket han søler, og verdensrommet gjør ham mindre enn han hadde trengt. I et gitarverksted møter han Rui, Sara og Miguel. Hjemme venter Liv på svar om et oppdrag hun håper å få.
-
-«Jeg hadde tenkt å ta det rolig» er første bok i JJ's Univers. Det er en tørr og lun roman om hotellfrokoster, ekteskap og stiger, og om hvor vanskelig det er å hvile når man har tatt med seg selv på ferie.` },
-  { tittel: "Jeg tror de andre koser seg", hoved: "andre", under: "univers",
-    manus: "univers-02.html",
-    omslag: "jeg-tror-de-andre-koser-seg.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Jeg hadde lært at det var mulig å være svært glad i mennesker og likevel ønske at alle kunne spise en løk.",
-    omslagssitat: "‘Ta med noe’ er, så vidt jeg kan bedømme, den farligste setningen i det engelske språket.",
-    teaser: `Han er i London i to uker fordi Liv har arbeid der. Nora fra trappen inviterer ham til torsdagsmiddag i fellesrommet i kjelleren og sier: «Ta med noe.» Hjemme betyr det vafler. Her kunne det bety hva som helst. Han går innom tre butikker og ender med en ost til fjorten pund.
-
-Snart er han med i gruppen «Nede». Der er Irene, som er enke og tørrvittig, Malik, som kjører buss om natten, og Bea, som monterer dører og trekker om møbler. Det er suppe, brød og et fellesrom der ingenting står så trygt som det som er ødelagt. Han vil gjerne hjelpe, og han vil gjerne ha oversikt. Fellesskapet klarer seg ganske godt uten.
-
-«Jeg tror de andre koser seg» er andre bok i JJ's Univers. Det er en tørr og lun roman om å ville være til nytte og å bli sett, og om ensomheten som kan sitte i en mann midt i et fullt rom.` },
-  { tittel: "Det var hyggeligere inni hodet mitt", hoved: "andre", under: "univers",
-    manus: "univers-03.html",
-    omslag: "det-var-hyggeligere-inni-hodet-mitt.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Avstand er en dårlig organisert ordning.",
-    omslagssitat: "Det luktet tre, kaffe og noe varmt som ikke var mat.",
-    teaser: `Han har leid et rom over et pianoverksted i København i tre uker. Der skal han lage et lydstykke på tolv minutter til en utstilling i Oslo. Nede i verkstedet lukter det tre, kaffe og noe varmt som ikke er mat. I døra står Ada, som reparerer pianoer.
-
-Da hun spør om han har bodd lenge alene, svarer han: «Jeg reiser en del.» Hjemme planlegger Liv en togreise for dem to til våren.
-
-Det blir tirsdager i en kjeller med Vera og Henrik, en sofa som ikke vil gå inn døra, og et utvalg inni hodet hans som behandler hvert eneste smil. Der inne er alt mye enklere enn utenfor.
-
-«Det var hyggeligere inni hodet mitt» er tredje bok i JJ's Univers. Det er en tørr, selvironisk og vemodig roman om å bli betatt når man ikke burde, og om hva det koster å la være å si noe.` },
-  { tittel: "Jeg skulle bare ha én ting", hoved: "andre", under: "univers",
-    manus: "univers-04.html",
-    omslag: "jeg-skulle-bare-ha-en-ting.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Alle tingene var villige til å flytte, men ingen ville forlate stedet.",
-    omslagssitat: "Historien kjenner ingen mann som har kommet for å hente én ting og gått med én ting.",
-    teaser: `Birger og Signe skal flytte til leilighet, og huset skal overtas om tre uker. Birger sender et bilde av en gammel spolebåndopptaker, og han svarer ja før han har forstørret bildet. Han skulle bare ha én ting.
-
-Så følger spolene, mikrofonen og en kasse med bånd fra bandet de hadde i ungdommen. Så kommer et bord, en hylle og flere bokser. Lene i nabolagshuset vil ha et innslag om ting folk har tatt vare på, og fredag skal han spille det gamle opptaket. Liv har fått tilbud om et år til i jobben og må tenke. Og på båndet ligger det mer enn musikk.
-
-«Jeg skulle bare ha én ting» er fjerde bok i JJ's Univers. Det er en lun og vemodig roman fra Ålesund om ting man ikke klarer å kaste, om vennskap og hukommelse, og om hva man egentlig har plass til.` },
-  { tittel: "Jeg var ikke ferdig", hoved: "andre", under: "univers",
-    manus: "univers-05.html",
-    omslag: "jeg-var-ikke-ferdig.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Det er en grense mellom å være glad i noen og å drive nattlig tilsyn.",
-    omslagssitat: "Et ansikt som spør om det er bra nå, er ikke et portrett. Det er en søknad.",
-    teaser: `Han skal til Trieste for å arbeide alene i fire uker, med pianorom, bading, boravind og sammenhengende tid. Så forteller sønnen at han flytter til Montreal i et halvt år for å jobbe med film.
-
-I Trieste møter han Marta, som lager keramikk og leier ut rommet, Dario, som arbeider om natten på den andre siden av veggen, og Tereza med fuglehatten. Liv, kona, er med de første tolv nettene. Hjemme lager sønnen filmen sin. Og spørsmålet blir hvor han egentlig bør være.
-
-«Jeg var ikke ferdig» er en tørr, selvironisk og vemodig roman om å være far til en voksen sønn, om arbeid som aldri blir helt ferdig, og om hvor lite man får kontrollert når man er glad i noen.` },
-  { tittel: "Det var ikke jeg som bestilte universet", hoved: "andre", under: "univers",
-    manus: "univers-06.html",
-    omslag: "det-var-ikke-jeg-som-bestilte-universet.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "Pakken pustet mens jeg signerte.",
-    omslagssitat: "En svart lampe er en mann som ville ha lys og ikke snakke mer om det.",
-    teaser: `Han bestilte en svart arbeidslampe på nett. Det som kommer, er et midlertidig univers: en lunken kule, et hefte som skriver seg selv og en sammenleggbar innside i papp. Lys er forhåndsinstallert. Mørke velges separat.
-
-Snart går skyggene sin egen vei, det er natt i bøtta, og naboen Rune har fått en liten måne over bilen. Middagsgjestene lurer på om de skal ta med noe. Og jo lenger universet blir i huset, jo nærmere kommer det ting han helst ikke vil tenke på, som det han en gang sa til Egil, den gamle musikkpartneren sin.
-
-«Det var ikke jeg som bestilte universet» er en varm, absurd og vemodig roman om lys og mørke, om det man angrer på, og om hva det koster å få gjøre noe om igjen.` },
-  { tittel: "Mens han tenkte på noe annet", hoved: "andre", under: "univers",
-    manus: "univers-07.html",
-    omslag: "mens-han-tenkte-pa-noe-annet.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "I tjue år hadde hun spist sylteagurk for Hanne.",
-    omslagssitat: "Hanne åpnet døren i en brudekjole som ikke lot henne løfte armene.",
-    teaser: `Hanne åpner døren i en brudekjole som ikke lar henne løfte armene. Barndomshjemmet er solgt, og alt skal være ute mandag klokka tolv. Liv har tatt toget for å hjelpe venninnen hun har kjent siden de var nitten.
-
-Det blir en helg med glass, stoler, en fryser som ikke vil gjennom døra og et gammelt fotoalbum. Samtidig venter et tilbud om fire måneder i Utrecht på svar innen mandag, og en tekst Liv aldri har fått begynt på. JJ er hjemme og ringer innimellom.
-
-«Mens han tenkte på noe annet» er en lavmælt og morsom roman om et vennskap som har vart så lenge at noe aldri er blitt sagt, om alt man rydder ut av et hus, og om hva man tar med seg videre.` },
-  { tittel: "Opplevelses\u00ADknappen", undertittel: "Om å stanse, se etter og rote seg bort i livet", hoved: "andre", under: "univers",
-    manus: "univers-08.html",
-    omslag: "opplevelsesknappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "La oss begynne med at jeg ikke kommer frem.",
-    omslagssitat: "Nå trykker jeg på Opplevelsesknappen.",
-    teaser: `Han skulle bare et sted. Så setter han seg på fortauskanten for å se på noen maur, og før han vet ordet av det, sitter han i et forestilt møte om kjøleskap uten håndtak.
-
-Opplevelsesknappen er en knapp inni ham som minner ham på å stanse og se etter. Han trykker på den i køen, i regnet under et takutstikk, på kjøkkenet og i rulletrappa. Han møter en kvinne med appelsiner, en mann på en benk og en jente i rulletrappa. Og hver gang han prøver å være til stede, sporer det av.
-
-«Opplevelsesknappen» er en varm og selvironisk bok i korte tekster om å legge merke til livet mens det skjer, uten at knappen får bli sjefen. Den handler om hvor mange meter ordet «bare» kan romme, og om at man ikke trenger å bli en annen for å gå ut på kjøkkenet.` },
-  { tittel: "Kommentatoren", undertittel: "Om livet sett fra beste sete", hoved: "andre", under: "univers",
-    manus: "univers-09.html",
-    omslag: "kommentatoren.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
-    sitat: "Det er alltid bedre å ha en tale man ikke holder, enn å holde en tale man ikke har.",
-    omslagssitat: "Jeg har sendt direkte fra dette livet siden konfirmasjonen.",
-    teaser: `«Jeg har sendt direkte fra dette livet siden konfirmasjonen.»
-
-Inni hodet hans sitter en sportskommentator. Han kommenterer kaffen, kollegaen Tormod, generalforsamlingen i borettslaget og kvinnen i den lyseblå kjolen. Kjære seere. Opptak fra arkivet. Han har bodd i samme blokk i elleve år, og snart fyller han sekstisju.
-
-Så begynner han å bruke en knapp som skaper stillhet. I stillheten blir naboene, vennen Atle og Turid plutselig synlige på en ny måte, og det blir vanskeligere å vite hva man skal si.
-
-«Kommentatoren» er en morsom og vemodig roman om ensomhet, vennskap og naboer man aldri har hilst ordentlig på, om latter man ikke var med på, og om livet sett fra beste sete.` },
-  { tittel: "Knappen", undertittel: "24 timer fra et lite sted", hoved: "andre", under: "univers",
-    manus: "univers-10.html",
-    omslag: "knappen.webp", farge: "#f4f2ee", tekstfarge: "#1c5f5a",
-    sitat: "De holder ting i hendene hele dagen og vet ikke hvem som har holdt dem før.",
-    omslagssitat: "Jeg vet ikke hvorfor jeg blir stående og se på en knapp. Jeg har et helt sted å dekke.",
-    teaser: `I femti år har kommentatoren bare dekket én mann. Så våkner den på årets lengste dag og har fått et helt sted som sendeområde. Den kan ikke snakke med noen. Den kan bare se.
-
-Klokka fem om morgenen mister nattevakten Kåre den øverste knappen på den brune jakken sin utenfor bakeriet. Gjennom døgnet går knappen fra hånd til hånd i det lille stedet ved fjorden. Underveis møter vi en baker som hører sin døde mors stemme, en bussjåfør som sier «Speil. Speil. Blinklys.», en skredder, en hund som heter Bamse og en oppvasker fra Chișinău.
-
-«Knappen» er tiende bok i JJ's Univers. Den er fortalt time for time, fra fem om morgenen til fem neste morgen. Det er en lun og vemodig bok om alle menneskene vi går forbi, og om de små tingene som binder dem sammen.` },
   { tittel: "67", undertittel: "En flanerisamling om alder, undring og kunsten å ikke bli voksen", hoved: "alesund", under: "flanerier",
     omslag: "67.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     omslagssitat: "Men livet lar seg heldigvis ikke regne ut.",
@@ -703,34 +504,6 @@ Barndomsvennen Arne er klar på Stuen: Den som har bodd borte i snart førti år
 I nesten to uker går han rundt i byen han kom fra. Han leter etter misunnelseskjertelen, et organ på størrelse med en middels fiskekake. Han møter på folkemøte med et innlegg på elleve sider og tre minutters taletid. Han får Ingeborgs oppskrift på fiskekaker: «Passe fisk.» Og han minnes skokrembarten som skulle lure Kinofladda på Løvenvold.
 
 «Bypatrioten» er femten flanerier om Ålesund. De handler om vestavinden, jugendbyen og parkeringsdebatten, om et gammelt vennskap, og om en by der folk har kjent deg så lenge at de ikke ser noen grunn til å være høflige.` },
-  { tittel: "Elva Hotell", undertittel: "En kriminalroman", hoved: "andre", under: "krim",
-    manus: "elva-hotell.html",
-    omslag: "elva-hotell.webp", farge: "#f4f2ee", tekstfarge: "#0b3d7a",
-    omslagssitat: "Klokka 23.07 var han i elva.",
-    teaser: `Erlend Våg spiste rabarbracrumble to ganger, ropte en bursdagshilsen til niesa si tvers over restauranten og sa høyt at han skulle ta en liten tur etter dessert. Klokka 23.07 var han i elva.
-
-På Kverven, et designhotell innerst i en våt vestlandsdal, er alle enige om at det var en tragisk ulykke. PR-rådgiveren har allerede formulert den. Hotelleieren har allerede skrevet under. Dalens store mann sier bare at man skal ta det pent.
-
-Men elveredderen Lea Brekke har sett en stropp som ikke er slitt av. Den er kuttet. Og forsikringsetterforsker Rebekka, som egentlig er på hotellet for en ganske annen sak, liker ikke vitneforklaringer som er like ned til et semikolon.
-
-I mellomtiden prøver to flyttefolk fra Loddefjord å få betalt for et innbrudd i feil hytte, en influenser med 103 000 følgere oppdager at hun har gitt bort mer enn hun trodde, og en gjest i badekåpe tilbyr krisestøtte over Teams.
-
-Og regnet slutter ikke.
-
-Fem døgn, én flom og en dal der alle har vært enige i femten år om å gjøre ting mindre enn de er.
-
-ELVA er en krimroman om hva det koster å si fra, og hva det koster å la være.` },
-  { tittel: "Barents og jeg", undertittel: "En flaneriroman", hoved: "andre", under: "romaner",
-    omslag: "barents-og-jeg.webp", manus: "barents-og-jeg.html", farge: "#f4f2ee", tekstfarge: "#1d3a20",
-    sitat: "Hele dagen hadde jeg båret ham. Om natten bar han meg.",
-    omslagssitat: "Kapasitet: 2 personer. Tillatt avvik: inntil 5 prosent.",
-    teaser: `Han er sekstisju, bor alene i et borettslag og hadde en gang en nummer én-hit. Folk forveksler ham fortsatt med en annen vokalist. Så kjøper han et blått topersoners telt på 2,18 kilo og kaller det Barents.
-
-Før første tur har han allerede utløst brannalarmen i hele borettslaget. Så går ferden til Femundsmarka, over Dovrefjell og ut mot kysten. Underveis venter skrå teltplasser, en mus klokka 03.17, en storm som nesten tar teltet, en lånt hund og en mann med kart som går seg bort. Barents står. Det er mer enn man kan si om befolkningen.
-
-Hjemme står to like kopper. Den ene har han satt bort. Og det er ikke bare plassen i teltet han måler.
-
-«Barents og jeg» er en tørr, morsom og vemodig flaneriroman om å være gammel nok til å vite bedre, om friheten som veier 17,8 kilo, og om hvor mye plass to mennesker med mye uoppgjort egentlig tar.` },
   { tittel: "Ålesunds nye historie", undertittel: "Bind 1 · Sundet 1026–1226", hoved: "alesund", under: "serier",
     manus: "alesunds-nye-historie-1.html",
     serie: "Ålesunds nye historie, bind 1 av 4",
@@ -1189,6 +962,7 @@ Små historier om de store tingene ved en fotballklubb – og om alle som egentl
 
 For noen ganger skulle man bare følge laget – og kom hjem med noe helt annet.` }
 ];
+BOKER = BOKER.filter(b => !SKJULT.includes(b.under));
 </script>
 <script>
 const $ = s => document.querySelector(s);
@@ -1243,8 +1017,9 @@ function renderShelf() {
 
 function renderTabs() {
   $("#tabs").innerHTML = Object.entries(HOVED).map(([k, v]) =>
-    `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("");
-  $("#subtabs").innerHTML = Object.keys(UNDER).filter(k => !BARE[k] || BARE[k] === hoved).map(k => {
+    `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("")
+    + `<a class="fjordlink" href="${FJORDBOKER_URL}">Flere bøker i Fjordbøker →</a>`;
+  $("#subtabs").innerHTML = Object.keys(UNDER).filter(k => (!BARE[k] || BARE[k] === hoved) && BOKER.some(b => b.hoved === hoved && b.under === k)).map(k => {
     const v = navn(hoved, k);
     const n = BOKER.filter(b => b.hoved === hoved && b.under === k).length;
     return `<button type="button" role="tab" data-u="${k}" aria-selected="${k === under}">${v}<span class="n">${n}</span></button>`;
