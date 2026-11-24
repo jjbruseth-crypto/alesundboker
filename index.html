@@ -333,7 +333,12 @@ const FJORDBOKER_URL = "https://fjordboker.no";
 const LANSERING = [
   ["aafk", "Vi skulle bare på kamp"],
   ["aafk", "Vi skulle bare følge laget"],
-  ["flanerier", "67"],
+  ["aafk", "Supporterne del 1"],
+  ["aafk", "Supporterne del 2"],
+  ["aafk", "Supporterne del 3"],
+  ["flanerier", "67 del 1"],
+  ["flanerier", "67 del 2"],
+  ["flanerier", "Åttitallet i Ålesund"],
   ["flanerier", "Bypatrioten"],
   ["biografier", "Harald Grytten"],
   ["biografier", "Astrid Overaa"],
@@ -342,7 +347,9 @@ const LANSERING = [
   ["romaner", "Gud vet hva"],
   ["romaner", "Rakett"],
   ["serier", "Ålesunds nye historie", "Bind 1"],
-  ["sunnmoringer", "Som pepper der du ber om salt"],
+  ["sunnmoringer", "Som pepper der du ber om salt del 1"],
+  ["sunnmoringer", "Som pepper der du ber om salt del 2"],
+  ["sunnmoringer", "Som pepper der du ber om salt del 3"],
   ["sakprosa", "I et nøtteskall"],
   ["kvinner", "Fra stjernestøv til astronaut"],
 ];
@@ -350,7 +357,7 @@ const LANSERING = [
 const KOMMER = {};
 // Kort tekst over bøkene i en underfane
 const FANENOTAT = { serier: "Bind 2, 3 og 4 av Ålesunds nye historie kommer i løpet av 2027." };
-const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Ålesunds nye historie", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", sunnmoringer: "Sunnmøringer", kvinner: "Kvinnebøker" };
+const UNDER = { romaner: "Romaner", flanerier: "Flanerisamlinger", krim: "Ålesundkrim", sakprosa: "Sakprosa", biografier: "Biografier", serier: "Ålesunds nye historie", selvutvikling: "Selvutvikling", univers: "JJ's Univers", kin: "KIN Kvinner", aafk: "AaFK-bøker", sunnmoringer: "Sunnmøringer", kvinner: "Kvinnebøker" };
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
@@ -477,14 +484,27 @@ Andre del av HVITESKOLEN – en roman om barndommen i Ålesund, og om mannen som
 En kveld banker han på med en flaske han ikke vet hva han skal gjøre med, og ber om én ting: å få en stoppet veggklokke til å gå igjen, så moren kan høre at tiden går.
 
 RAKETT er en stille og sår roman om den som dro og den som ble, og om at ingen kommer helt fri.` },
-  { tittel: "Som pepper der du ber om salt", undertittel: "Flanerier fra et lite land mellom Norge og Nordsjøen", hoved: "alesund", under: "sunnmoringer",
-    fakta: "Flanerisamling · 27 flanerier med forord og etterord · Bokmålsutgave",
-    farge: "#f4f2ee", tekstfarge: "#24516b",
-    sitat: "Han er pepper der du ber om salt.",
+  { tittel: "Som pepper der du ber om salt del 1", undertittel: "Flanerier fra et lite land mellom Norge og Nordsjøen", hoved: "alesund", under: "sunnmoringer",
+    manus: "som-pepper-del-1.html",
+    fakta: "Flanerisamling · Del 1 av 3 · Forord og flaneri I–X",
     omslagssitat: "For omtrent 13,8 milliarder år siden ble den første sunnmøringen født. Dette er selvsagt ikke sant.",
     teaser: `En mann sitter i bilen på en parkeringsplass i Ålesund. Det regner sidelengs, og han har elleve minutter igjen på billetten. Han kunne kjørt. Han blir sittende.
 
-Derfra går flaneriet tilbake til Big Bang og så ut over hele Sunnmøre: pingpongspråket og festen, sparsommeligheten og ferja han ikke rakk, fuglefjellet på Runde, AaFK i sidevind, dugnaden, et bryllup med villmink, en fødsel, en gravferd og til slutt toppen av Kolåstind.
+Derfra går flaneriet tilbake til Big Bang og ut over Sunnmøre: pingpongspråket og festen, sparsommeligheten, Ålesund, Alnes fyr, fuglefjellet på Runde, Hjørundfjorden, ferja han ikke rakk og veien mot Trollstigen.
+
+SOM PEPPER DER DU BER OM SALT er en morsom og varm bok om et folk som kan bruke tre minutter på å betale for parkering og tre ord på å uttrykke kjærlighet.` },
+  { tittel: "Som pepper der du ber om salt del 2", undertittel: "Flanerier fra et lite land mellom Norge og Nordsjøen", hoved: "alesund", under: "sunnmoringer",
+    manus: "som-pepper-del-2.html",
+    fakta: "Flanerisamling · Del 2 av 3 · Flaneri XI–XIX",
+    omslagssitat: "Fjorden har reist mer enn de fleste som bor rundt den.",
+    teaser: `Andre del begynner i Geirangerfjorden, som verden har bestemt seg for å være imponert over. Så går den videre til bedehuset, der for Gud og sunnmøringer alle ting går an, til sunnmøringen i Oslo og sunnmøringen i utlandet, tomflaskene, været og dialekten, AaFK i sidevind og dugnaden.
+
+SOM PEPPER DER DU BER OM SALT er en morsom og varm bok om et folk som kan bruke tre minutter på å betale for parkering og tre ord på å uttrykke kjærlighet.` },
+  { tittel: "Som pepper der du ber om salt del 3", undertittel: "Flanerier fra et lite land mellom Norge og Nordsjøen", hoved: "alesund", under: "sunnmoringer",
+    manus: "som-pepper-del-3.html",
+    fakta: "Flanerisamling · Del 3 av 3 · Flaneri XX–XXVII og etterord",
+    omslagssitat: "Noen har vokst opp med sjøen som utsikt. Andre har vokst opp med sjøen som vilkår.",
+    teaser: `Siste del handler om sjøen og båten, sunnmørsk mat og fisk, Ørsta og Stranda, et bryllup med villmink, en fødsel, en gravferd og til slutt toppen av Kolåstind.
 
 SOM PEPPER DER DU BER OM SALT er en morsom og varm bok om et folk som kan bruke tre minutter på å betale for parkering og tre ord på å uttrykke kjærlighet.` },
   { tittel: "Sørgebussen", undertittel: "En roman", hoved: "alesund", under: "romaner",
@@ -784,24 +804,24 @@ Så begynner han å bruke en knapp som skaper stillhet. I stillheten blir naboen
 Klokka fem om morgenen mister nattevakten Kåre den øverste knappen på den brune jakken sin utenfor bakeriet. Gjennom døgnet går knappen fra hånd til hånd i det lille stedet ved fjorden. Underveis møter vi en baker som hører sin døde mors stemme, en bussjåfør som sier «Speil. Speil. Blinklys.», en skredder, en hund som heter Bamse og en oppvasker fra Chișinău.
 
 «Knappen» er tiende bok i JJ's Univers. Den er fortalt time for time, fra fem om morgenen til fem neste morgen. Det er en lun og vemodig bok om alle menneskene vi går forbi, og om de små tingene som binder dem sammen.` },
-  { tittel: "67", undertittel: "En flanerisamling om alder, undring og kunsten å ikke bli voksen", hoved: "alesund", under: "flanerier",
-    omslag: "67.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
-    omslagssitat: "Men livet lar seg heldigvis ikke regne ut.",
-    teaser: `Det er mye man skal ha lært når man er 67.
+  { tittel: "67 del 1", undertittel: "En flanerisk sakprosaroman om å bli gammel nok til å begynne på nytt", hoved: "alesund", under: "flanerier",
+    manus: "67-del-1.html",
+    fakta: "Flanerisamling · Del 1 av 2 · Prolog og 36 flanerier",
+    omslagssitat: "Det er et merkelig tall, 67. Det ser ikke gammelt ut på papiret.",
+    teaser: `Han fyller 67, og staten har sendt ham et usynlig kort: Takk for innsatsen, du kan nå reise på bussen for halv pris. Men syvåringen inni 67-åringen er slett ikke ferdig.
 
-Man skal vite bedre. Ta det med ro. Oppføre seg fornuftig. Og helst ha sluttet å finne på ting som kan ende med at noen spør: «Hva i all verden tenkte du på?»
+Første del tar ham fra bussrabatten og universets likegyldighet til prostata, Ferrari, hekken som nesten startet tredje verdenskrig og naboen med løvblåseren. Han studerer kyssing som antropolog, går sin første joggetur, danser til Moondance i stua og tar et vinterbad som går rett til dødsangsten.
 
-Men hva om gutten inni deg slett ikke er ferdig med å leke?
+67 er en varm og selvironisk bok om å bli gammel nok til å begynne på nytt.` },
+  { tittel: "67 del 2", undertittel: "En flanerisk sakprosaroman om å bli gammel nok til å begynne på nytt", hoved: "alesund", under: "flanerier",
+    manus: "67-del-2.html",
+    fakta: "Flanerisamling · Del 2 av 2 · 39 flanerier og 9 bonustekster",
+    omslagssitat: "Jeg stoler ikke på QR-koder.",
+    teaser: `Andre del begynner med en mann som ikke stoler på QR-koder. Så går han videre til benken i solen, handlelisten som lå hjemme, døren som var låst, men kanskje ikke låst nok, fastlegen som er yngre enn gitaren hans, skuffen med ledninger til ting som ikke finnes lenger, og hunden som gikk tur med ham. Til slutt er han ikke ferdig, bare dårligere organisert.
 
-I 67 møter vi en mann som har levd lenge nok til å vite at livet sjelden går etter planen – og som likevel ikke har tenkt å slutte å bli overrasket. Med humor, skråblikk og en god porsjon selvironi vandrer han gjennom hverdagens små og store merkverdigheter.
+Bakerst ligger ni bonustekster, om magnesium, kalde dusjer, ører som får eget liv og den indre kommentatoren som aldri holder kjeft.
 
-Her finnes tanker som tar uventede omveier, minner som nekter å holde seg i fortiden, og en indre gutt som fortsatt mener at verden er full av ting det går an å undersøke.
-
-67 er en varm, underfundig og filosofisk flanerisamling om å bli eldre uten å miste nysgjerrigheten. Om alt vi tror vi har forstått, og alt vi fremdeles ikke begriper.
-
-For alderen kan nok telles i år.
-
-Men livet lar seg heldigvis ikke regne ut.` },
+67 er en varm og selvironisk bok om å bli gammel nok til å begynne på nytt.` },
   { tittel: "68", undertittel: "En flanerisamling om omveier, mennesker og kunsten å fortsette", hoved: "alesund", under: "flanerier",
     omslag: "68.webp", farge: "#f4f2ee", tekstfarge: "#b8860b",
     omslagssitat: "Men det betyr ikke at man må bli ferdig.",
@@ -842,7 +862,7 @@ Dette er Ålesund mellom 1965 og 1975, sett med øynene til en gutt som vokser o
 Han er sekstisju, men sjuåringen inni ham er ikke ferdig. Han går tilbake til frisøren for å få rettet tre hår gratis og kommer ut med en overpriset sjampo. Han kommer seg ikke opp av en prøvestol med hjul i en skobutikk. Han spurter til kasse to, vinner atten sekunder og går inn igjen for tre kroner feil på kvitteringen. Han havner på feil klassefest og dikter opp et felles minne om en sau. Og han spør etter bussen til Moa og ender på cruiseutflukt til Dalsnibba.
 
 «Jeg skal bare snu» er 27 lune flanerier fra Ålesund, fra Larsgården og Brosundet til Fjellstua og Byparken. De handler om høflighet, nysgjerrighet og gjerrighet, og om alt som egentlig ikke var nødvendig. For i Ålesund betyr «hvis det ikke regner» enten aldri eller uansett.` },
-  { tittel: "Bypatrioten", undertittel: "En flanør på jakt etter kjærligheten til en by", hoved: "alesund", under: "flanerier",
+  { tittel: "Bypatrioten", undertittel: "Femten flanerier fra Ålesund", hoved: "alesund", under: "flanerier",
     manus: "bypatrioten.html",
     fakta: "Flanerisamling · 15 flanerier",
     sitat: "Det finnes byer som er så vakre at man får lyst til å kysse dem. Ålesund er en av dem. Problemet er at Ålesund sannsynligvis ville ha slått tilbake.",
@@ -1385,7 +1405,7 @@ Små historier om de store tingene ved en fotballklubb – og om alle som egentl
     teaser: `Fjorten nye flanerier fra borteturer, hjemmekamper og alt som skjer rundt dem. En far bretter kartet slik at bortebanen forsvinner, et oransje ansikt blir igjen på hotellputa, en kvadratmeter hjemmebane kommer i et lasagnefat, Odd vinner en fryser på sitt eneste lodd, og tante Ruth ser opp på det eneste bildet av hele gjengen.
 
 For noen ganger skulle man bare følge laget – og kom hjem med noe helt annet.` },
-  { tittel: "I et nøtteskall", undertittel: "Bind 1 · Vi startet opp som stjernestøv", hoved: "alesund", under: "sakprosa",
+  { tittel: "I et nøtteskall", undertittel: "Bind 1 · Vi startet opp med et smell", hoved: "alesund", under: "sakprosa",
     manus: "i-et-notteskall-1.html",
     serie: "I et nøtteskall, bind 1 av 2",
     fakta: "Sakprosa · 40 kapitler",
@@ -1439,7 +1459,29 @@ FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrom
 
 Tredje bind følger kunnskapen inn i profesjonene, fra heksen og jordmoren til legen, skolen og universitetet, og videre til laboratoriet, datamaskinen og raketten. Til slutt ser en astronaut ned på jorden, der historien plutselig ser forbausende liten ut.
 
-FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrommet, i tre bind.` }
+FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrommet, i tre bind.` },
+  { tittel: "Åttitallet i Ålesund", undertittel: "Bind 1 · Hår, skuldre og hvite sokker", hoved: "alesund", under: "flanerier",
+    manus: "attitallet-1.html",
+    serie: "Åttitallet i Ålesund, bind 1 av 2",
+    fakta: "Flanerisamling · Prolog og 15 flanerier",
+    kfarge: "#c2185b",
+    omslagssitat: "Jeg har gjennom livet merket svært mye med det ordet, og det har aldri hjulpet noen, minst av alt meg.",
+    teaser: `Innerst i kjellerboden, bak et par ski ingen har brukt siden OL i Calgary, står en eske merket DIVERSE. Han skulle bare finne en skjøteledning. I stedet finner han åttitallet.
+
+Femten flanerier om hockeysveisen, permanenten og hårsprayen, skulderputene og pastelljakkene, skinnslipset, hvite tennissokker i mokasiner, steinvaskede jeans, boblejakken, stresskofferten med de viktige papirene, lommekalkulatoren som orakel, solariet og askebegeret i bilen.
+
+ÅTTITALLET I ÅLESUND er en morsom og kjærlig bok om et tiår da alt skulle være stort, blankt og litt for mye.` },
+  { tittel: "Åttitallet i Ålesund", undertittel: "Bind 2 · Fremtiden med ledning", hoved: "alesund", under: "flanerier",
+    manus: "attitallet-2.html",
+    serie: "Åttitallet i Ålesund, bind 2 av 2",
+    fakta: "Flanerisamling · 11 flanerier",
+    kfarge: "#0077b6",
+    omslagssitat: "Det var far som bar den inn.",
+    teaser: `Det var far som bar den inn, med armene strukket litt fram og ansiktet til en mann som har betalt mye for noe. Familien hadde fått VHS-spiller.
+
+Andre bind handler om fremtiden med ledning: videobutikken som tempel, kassetten og den lille blyanten, Walkman og det private været, Commodore 64 og den blå skjermen, synthmusikken, mikrobølgeovnen, den svarte skinnsofaen med glassbord og messinglampe, jappen med aksjetipset og vannsenga som smalt.
+
+ÅTTITALLET I ÅLESUND er en morsom og kjærlig bok om et tiår da framtida kom i eske og måtte kobles til.` }
 ];
 BOKER = BOKER.filter(b => b.hoved === "alesund" && LANSERING.some(([u, t, st]) => b.under === u && b.tittel === t && (!st || (b.undertittel || "").startsWith(st))));
 </script>
