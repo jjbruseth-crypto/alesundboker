@@ -343,6 +343,8 @@ const LANSERING = [
   ["romaner", "Rakett"],
   ["serier", "Ålesunds nye historie", "Bind 1"],
   ["sunnmoringer", "Som pepper der du ber om salt"],
+  ["sakprosa", "I et nøtteskall"],
+  ["kvinner", "Fra stjernestøv til astronaut"],
 ];
 // Bøker som vises, men ikke er klare ennå
 const KOMMER = {};
@@ -352,7 +354,7 @@ const UNDER = { romaner: "Romaner", flanerier: "Flanerier", krim: "Ålesundkrim"
 // Navn som er annerledes under Andre bøker
 const UNDER_ANDRE = { krim: "Krim" };
 // Underfaner som bare finnes under én hovedfane
-const BARE = { univers: "andre", kin: "alesund", aafk: "alesund", sunnmoringer: "alesund", kvinner: "andre" };
+const BARE = { univers: "andre", kin: "alesund", aafk: "alesund", sunnmoringer: "alesund", kvinner: "alesund" };
 const navn = (h, k) => (h === "andre" && UNDER_ANDRE[k]) || UNDER[k];
 const KODE = { alesund: "ÅL", andre: "AN", flanerier: "FLA", krim: "KRI", sakprosa: "SAK", biografier: "BIO", serier: "SER", romaner: "ROM", selvutvikling: "SEL", univers: "JJU", kin: "KIN", aafk: "AFK", sunnmoringer: "SUN", kvinner: "KVI" };
 
@@ -1382,7 +1384,62 @@ Små historier om de store tingene ved en fotballklubb – og om alle som egentl
     omslagssitat: "Bortebanen lå i en gate som sluttet å eksistere akkurat der far hadde brettet kartet.",
     teaser: `Fjorten nye flanerier fra borteturer, hjemmekamper og alt som skjer rundt dem. En far bretter kartet slik at bortebanen forsvinner, et oransje ansikt blir igjen på hotellputa, en kvadratmeter hjemmebane kommer i et lasagnefat, Odd vinner en fryser på sitt eneste lodd, og tante Ruth ser opp på det eneste bildet av hele gjengen.
 
-For noen ganger skulle man bare følge laget – og kom hjem med noe helt annet.` }
+For noen ganger skulle man bare følge laget – og kom hjem med noe helt annet.` },
+  { tittel: "I et nøtteskall", undertittel: "Bind 1 · Vi startet opp som stjernestøv", hoved: "alesund", under: "sakprosa",
+    manus: "i-et-notteskall-1.html",
+    serie: "I et nøtteskall, bind 1 av 2",
+    fakta: "Sakprosa · 40 kapitler",
+    kfarge: "#00897b",
+    omslagssitat: "Jeg er sekstisju år og bor i Ålesund. Det gir meg ingen spesielle forutsetninger for å forstå universets begynnelse.",
+    teaser: `Han er sekstisju år og bor i Ålesund, og det gir ham ingen spesielle forutsetninger for å forstå universets begynnelse. Han prøver likevel.
+
+Fra Big Bang, som høres ut som en bombe i et lagerbygg, via de første stjernene, planeten som ikke så lovende ut, øyet som tok fire milliarder år og apen som så ned på hendene sine. Så kommer gudene, pengene og romerne, en mann som går på månen og et lodd som heter Flax. Underveis oppdager han at måsen og han er i slekt.
+
+I ET NØTTESKALL er menneskehetens historie i førti korte kapitler, fortalt av en mann som alltid har hatt problemer med begynnelser.` },
+  { tittel: "I et nøtteskall", undertittel: "Bind 2 · … og endte opp som naboer med løvblåsere", hoved: "alesund", under: "sakprosa",
+    manus: "i-et-notteskall-2.html",
+    serie: "I et nøtteskall, bind 2 av 2",
+    fakta: "Sakprosa · 35 kapitler",
+    kfarge: "#0077b6",
+    omslagssitat: "I dag klager jeg dersom telefonen buler tre millimeter i lommen.",
+    teaser: `Andre bind begynner med en maskin som fikk hukommelse og ender en helt vanlig tirsdag hos fiskehandleren. Imellom får hele verden en adresse, telefonen spiser alt, år 2000 kommer på en lørdag, verden stenger, og maskinen begynner å svare.
+
+Så går han videre, til barnet som kanskje skal se 2120, en kveld på Mars uten måsen, kontinentene som går hver sin vei og den siste solnedgangen.
+
+I ET NØTTESKALL er historien om hvordan vi startet som stjernestøv og endte opp som naboer med løvblåsere. Den er morsom, undrende og overraskende rørende.` },
+  { tittel: "Fra stjernestøv til astronaut", undertittel: "Bind 1 · Fra ilden til melken", hoved: "alesund", under: "kvinner",
+    manus: "fra-stjernestov-til-astronaut-1.html",
+    serie: "Fra stjernestøv til astronaut, bind 1 av 3",
+    fakta: "Kvinnenes historie · Forord, prolog og kapittel 1–9",
+    kfarge: "#c2185b",
+    omslagssitat: "Universet bryr seg ikke om kvinner.",
+    teaser: `Universet bryr seg ikke om kvinner. Det bryr seg heller ikke om menn, spurver eller blåhvaler.
+
+Denne boka forteller sivilisasjonens historie gjennom tingene menneskene bygde den av, og hendene som holdt dem i gang. Kongene og generalene får være i fred. Første bind går fra grunnstoffene som ble smidd inne i stjerner, til ilden noen måtte våkne og mate, hjemmet, redskapet, krukken, kurven, ugresset og melken. Det har ingen liste over de femti viktigste kvinnene. Det har gjenstander, og bak hver av dem sto noen.
+
+FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrommet, i tre bind.` },
+  { tittel: "Fra stjernestøv til astronaut", undertittel: "Bind 2 · Fra landsbyen til tempelet", hoved: "alesund", under: "kvinner",
+    manus: "fra-stjernestov-til-astronaut-2.html",
+    serie: "Fra stjernestøv til astronaut, bind 2 av 3",
+    fakta: "Kvinnenes historie · Kapittel 10–18",
+    kfarge: "#8338ec",
+    omslagssitat: "Dette bindet går fra geita som rømmer, til presten som står i døren.",
+    teaser: `Nå blir det trangere. Dyrene flytter inn, husene rykker sammen, og fordi ingen lenger kan huske alt, må det telles, veies, skrives ned og til slutt voktes av noen med embete.
+
+Andre bind går gjennom landsbyen, lageret, markedet, byen, skriften, loven og tempelet, der kunnskapen for første gang fikk en dør og en dørvakt.
+
+FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrommet, i tre bind.` },
+  { tittel: "Fra stjernestøv til astronaut", undertittel: "Bind 3 · Fra heksen til astronauten", hoved: "alesund", under: "kvinner",
+    manus: "fra-stjernestov-til-astronaut-3.html",
+    serie: "Fra stjernestøv til astronaut, bind 3 av 3",
+    fakta: "Kvinnenes historie · Kapittel 19–27 og epilog",
+    kfarge: "#d62839",
+    omslagssitat: "Kua sluttet å gi melk.",
+    teaser: `Kua sluttet å gi melk, og i går hadde eieren kranglet med naboen. Herfra trenger mennesket svært lite hjelp.
+
+Tredje bind følger kunnskapen inn i profesjonene, fra heksen og jordmoren til legen, skolen og universitetet, og videre til laboratoriet, datamaskinen og raketten. Til slutt ser en astronaut ned på jorden, der historien plutselig ser forbausende liten ut.
+
+FRA STJERNESTØV TIL ASTRONAUT er kvinnenes historie fra Big Bang til verdensrommet, i tre bind.` }
 ];
 BOKER = BOKER.filter(b => b.hoved === "alesund" && LANSERING.some(([u, t, st]) => b.under === u && b.tittel === t && (!st || (b.undertittel || "").startsWith(st))));
 </script>
