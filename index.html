@@ -249,8 +249,8 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
       <h1>Korte bøker fra <em>Ålesund</em> og Sunnmøre</h1>
       <p>Flanerier, humor, krim, sakprosa og biografier. Hver bok koster kr&nbsp;149, eller du kan abonnere og få alle.</p>
       <div class="tilbud">
-        <p class="tilbud-pris"><strong>Abonnement kr&nbsp;288</strong> for hele 2027</p>
-        <p>Du får alle bøkene som ligger i biblioteket nå, og alle nye bøker som kommer ut i løpet av 2027. Blant dem: Ålesunds nye historie bind 2 (1. februar) og bind 3 (15. juni), <em>Tangotrøyene</em> – historien om AaFK (1. mars), flanerisamlingen <em>68</em> (1. juni) og mange flere.</p>
+        <p class="tilbud-pris"><strong>Abonnement kr&nbsp;288</strong> for ett år</p>
+        <p>Du får tilgang til alle bøkene som ligger i biblioteket nå, og nye bøker som kommer ut i løpet av abonnementsåret. Året regnes fra dagen du betaler. Blant bøkene som kommer i 2027: Ålesunds nye historie bind 2 (1. februar) og bind 3 (15. juni), <em>Tangotrøyene</em> – historien om AaFK (1. mars), flanerisamlingen <em>68</em> (1. juni) og mange flere.</p>
         <p class="tilbud-garanti">Pengene tilbake innen 14 dager hvis du ikke er fornøyd.</p>
       </div>
     </div>
@@ -273,7 +273,7 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
     <div>
       <p>Alle bøkene her er skrevet av John John Bruseth, og alle handler om Ålesund og Sunnmøre: byen, folket, havet og historien.</p>
       <p>Det kommer en ny Ålesundbok hver 14. dag gjennom hele 2027. Meld deg på nyhetsbrevet, så får du beskjed hver gang en ny bok kommer ut.</p>
-      <p>Hver bok koster kr&nbsp;149. Et abonnement koster kr&nbsp;288 og gir deg alle bøkene i biblioteket og alle nye bøker gjennom 2027. Er du ikke fornøyd, får du pengene tilbake innen 14 dager.</p>
+      <p>Hver bok koster kr&nbsp;149. Et abonnement koster kr&nbsp;288 for ett år, regnet fra dagen du betaler, og gir deg alle bøkene i biblioteket og nye bøker som kommer ut i løpet av abonnementsåret. Er du ikke fornøyd, får du pengene tilbake innen 14 dager.</p>
     </div>
   </section>
 </div>
@@ -334,6 +334,8 @@ const VIS_MANUS = false;
 const HOVED = { alesund: "Ålesundbøker" };
 // Bøker som ikke handler om Ålesund eller Sunnmøre ligger på fjordboker.no
 const FJORDBOKER_URL = "https://fjordboker.no";
+// Lenken til Fjordbøker settes inn igjen når Fjordbøker-biblioteket er klart
+const VIS_FJORDLENKE = false;
 
 /* ============================================================
    LANSERING: bare disse bøkene vises. Resten ligger i lista under
@@ -1552,7 +1554,7 @@ function renderShelf() {
 function renderTabs() {
   $("#tabs").innerHTML = Object.entries(HOVED).map(([k, v]) =>
     `<button type="button" role="tab" data-h="${k}" aria-selected="${k === hoved}">${v}</button>`).join("")
-    + `<a class="fjordlink" href="${FJORDBOKER_URL}">Flere bøker i Fjordbøker →</a>`;
+    + (VIS_FJORDLENKE ? `<a class="fjordlink" href="${FJORDBOKER_URL}">Flere bøker i Fjordbøker →</a>` : "");
   $("#subtabs").innerHTML = Object.keys(UNDER).filter(k => (!BARE[k] || BARE[k] === hoved) && BOKER.some(b => b.hoved === hoved && b.under === k)).map(k => {
     const v = navn(hoved, k);
     const n = BOKER.filter(b => b.hoved === hoved && b.under === k).length;
