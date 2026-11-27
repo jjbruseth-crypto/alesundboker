@@ -240,7 +240,7 @@ dialog::backdrop { background: rgba(10, 25, 30, .6); }
 <div class="wrap">
   <header class="top">
     <a class="mark" href="#">John John Bruseth</a>
-    <nav class="mono"><a href="#katalog">Bøkene</a><a href="#om">Om</a><a href="#nyhetsbrev">Nyhetsbrev</a></nav>
+    <nav class="mono" id="toppnav"><a href="#katalog">Bøkene</a><a href="#om">Om</a><a href="#nyhetsbrev">Nyhetsbrev</a></nav>
   </header>
 
   <section class="hero">
@@ -328,6 +328,8 @@ const PRIS = 149;
 const NYHETSBREV_URL = "";
 // true = prototype: kjøp og påmelding vises som demo, ingenting lagres eller betales.
 const PROTOTYPE = false;
+// true når siden kjører i den nye løsningen (alesundboker.no) med innlogging og lesing
+const PLATTFORM = document.documentElement.dataset.plattform === "1";
 // true = «Les boka» vises for bøker med manus. Av i fastprisperioden: bøkene selges bare enkeltvis.
 const VIS_MANUS = false;
 
@@ -1629,6 +1631,7 @@ function openBook(i) {
       </div>
       ${PROTOTYPE && !b.kjop ? checkoutHTML(b) : ""}
       ${VIS_MANUS && b.manus ? `<button class="btn ghost readbtn" type="button" id="readBtn">Les boka</button>` : ""}
+      ${PLATTFORM && b.manus && !b.manus.includes("/") ? `<a class="btn ghost readbtn" href="/les/${esc(b.manus.replace(/\.html$/, ""))}">Les gratis utdrag</a>` : ""}
     </div>
     ${VIS_MANUS && b.manus ? `<section class="reader" id="reader" hidden aria-label="Boka"></section>` : ""}`;
   $("#dlg").showModal();
@@ -1715,6 +1718,7 @@ $(".close").addEventListener("click", () => $("#dlg").close());
 $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").close(); });
 $("#q").addEventListener("input", renderGrid);
 
+if (PLATTFORM) $("#toppnav").insertAdjacentHTML("beforeend", `<a href="/min-side">Min side</a>`);
 renderShelf(); renderTabs(); renderGrid();
 // Stripa øverst vises alltid: «Kjøp åpnes snart»
 if (NYHETSBREV_URL && !store.get("nyhetsbrev")) setTimeout(() => $("#welcome").showModal(), 600);
